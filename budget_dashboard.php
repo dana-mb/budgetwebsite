@@ -1,21 +1,21 @@
 
-<?php require_once("includes/init.php"); ?>
+<?php // require_once("includes/init.php"); ?>
     <?php include("website_header_and_nav_bar.php"); ?>
           
         <div id="container">
 
         <?php 
                 
-                $expense = new Expense;
+                // $expense = new Expense;
             
                 
-                $expense->user_id = '1';
-                $expense->amount = '200';
-                $expense->category_name = "Groceries";
-                $expense->date = '2020-01-17';
-                $expense->details = "hi";
+                // $expense->user_id = '1';
+                // $expense->amount = '200';
+                // $expense->category_name = "Groceries";
+                // $expense->date = '2020-01-17';
+                // $expense->details = "hi";
                 
-                $expense->delete();
+                // $expense->delete();
                 
                 
             
