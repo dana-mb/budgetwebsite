@@ -20,7 +20,7 @@ if(isset($_POST['logOff']))
         <div id="topbar">
             <div class="topbar-text">
                 <form method="POST">
-                    <button name="logOff" id="logOff"><img src="pictures/logout_door.png" style="width: 30px; height: 30px"></button>
+                    <button name="logOff" id="logOff"><img src="images/logout_door.png" style="width: 30px; height: 30px"></button>
                 </form>
                 <h1 id="main-headline">The Budget Website</h1>
             </div>

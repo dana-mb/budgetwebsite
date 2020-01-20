@@ -12,9 +12,6 @@
         public $token;
 
         
-        include ("link.php");
-
-
         public function __construct() {
 
             session_start();

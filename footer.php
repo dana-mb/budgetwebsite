@@ -32,6 +32,7 @@
       document.addEventListener('DOMContentLoaded', function() 
       {
         var url = window.location.pathname;
+        //var filename = path.split('/').pop();
         var filename = url.substring(url.lastIndexOf('/')+1);
         var url_nav_name = (filename.substr(7)).replace(/\..+$/, '');
         var navbutton = document.getElementById(url_nav_name);
@@ -97,7 +98,6 @@
             if (data == "ok") {
               console.log(categoryName);
               alert("The category "+categoryName+" has been deleted");
-              //location.reload();
               var categoryNameId = categoryName.split(' ').join('-');
               $("#"+categoryNameId).closest("li").remove();
             }

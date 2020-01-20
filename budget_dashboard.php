@@ -81,9 +81,9 @@
 
                 <?php
 
-                    include("check_user_id.php");
+                    include("ajax/check_user_id.php;");
                             
-                    include("link.php");
+                    include("link.php;");
 
                     echo "The budgets for: ".date('F Y');
 
