@@ -4,7 +4,7 @@
 
 
         public static function find_all() {
-            return static::find_by_query("SELECT * FROM ". static::$abstract_table . " ");
+            return static::find_by_query("SELECT * FROM ". static::$table . " ");
             
             // lesson 48 - in the end he explains everything
             /*global $database;
@@ -15,7 +15,7 @@
 
         public static function find_by_id($id) {
             global $database;
-            $the_result_array = static::find_by_query("SELECT * FROM ". static::$abstract_table . " WHERE id= $id LIMIT 1");
+            $the_result_array = static::find_by_query("SELECT * FROM ". static::$table . " WHERE id= $id LIMIT 1");
             //$database->query("SELECT * FROM users WHERE id= $id LIMIT 1");
             
             return !empty($the_result_array) ? array_shift($the_result_array) : false;
@@ -23,9 +23,9 @@
         }
 
 
-        public static function find_by_query($sql) {
+        public static function find_by_query($sql, $param_k, $param) {
             global $database;
-            $result_set = $database->query($sql);
+            $result_set = $database->query($sql, $param_k, $param);
             //create an empty array to put our objects in there
             $the_object_array = array(); 
             
@@ -89,13 +89,13 @@
         protected function properties() {
 
             $properties = array();
-            foreach (static::$abstract_table_fields as $abstract_field) { 
+            foreach (static::$table_fields as $table_field) { 
                 // check if the property (value- $abstract_field) from the 
                 // array exist in $this- the class. if it does exist it 
                 // will be assign to $property array
-                if(property_exists($this, $abstract_field)) { 
+                if(property_exists($this, $table_field)) { 
                     // because abstract_field is not a property (it's just a name we gave) it gets $.
-                    $properties [$abstract_field] = $this->$abstract_field; 
+                    $properties [$table_field] = $this->$table_field; 
                 }
             }
 
@@ -133,7 +133,7 @@
 
             $properties = $this->clean_properties();
 
-            $sql = "INSERT INTO " .static::$abstract_table. "(" . implode( ",", array_keys($properties) ) . ")";
+            $sql = "INSERT INTO " .static::$table. "(" . implode( ",", array_keys($properties) ) . ")";
             
             //apply all the values to our object: except the auto incremented id:
             
@@ -175,7 +175,7 @@
                 
             }
 
-            $sql = "UPDATE " .static::$abstract_table. " SET ";
+            $sql = "UPDATE " .static::$table. " SET ";
             $sql .= implode( ",", $properties_pairs );
             $sql .= " WHERE id= " . $database->escape_string($this->id); // make sure to have a space before the where, 
                                                                         // without a single quote- not a string, an integer
@@ -192,7 +192,7 @@
             global $database;
             $properties = $this->clean_properties();
 
-            $sql = "DELETE FROM " .static::$abstract_table. " WHERE ";
+            $sql = "DELETE FROM " .static::$table. " WHERE ";
             //apply all the values to our object:
             // $sql .= "id= " . $database->escape_string($this->id)             . "AND "; // without a single quote- not a string, an integer
             $properties_pairs = array();
@@ -224,7 +224,7 @@
 
         //     global $database;
 
-        //     $sql = "DELETE FROM " .static::$abstract_table. " WHERE ";
+        //     $sql = "DELETE FROM " .static::$table. " WHERE ";
         //     //apply all the values to our object:
         //     $sql .= "id= " . $database->escape_string($this->id); // without a single quote- not a string, an integer
         //     $sql .= " LIMIT 1";

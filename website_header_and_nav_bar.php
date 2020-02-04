@@ -1,8 +1,12 @@
 <?php 
 
+require_once("includes/init.php");
+Session::start();
 
-include("check_sessions&cookies.php");
+// include("check_sessions&cookies.php");
 
+session::session_and_cookie_check();
+// $user_id = 1;
 
 if(isset($_POST['logOff'])) 
 {
@@ -34,6 +38,7 @@ if(isset($_POST['logOff']))
                 <a href="#charts" id="charts" class="nav-button">Charts</a>
             </div>  
         </div>
+        
 
         
         

@@ -8,7 +8,7 @@
 
         <?php
         
-            include("check_user_id.php");
+            include("ajax/check_user_id.php");
             
             include("link.php");
         

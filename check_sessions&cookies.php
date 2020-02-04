@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+// session_start();
 
 include ("link.php");
 
@@ -16,7 +16,7 @@ if ( NULL !== $_SESSION['budget_website_session'])
     $stmt->bind_param("s", $unique_id);
     $stmt->execute();
     $user = $stmt->get_result()->fetch_assoc();
-    $user_id = $user['user_id'];
+    // $user_id = $user['user_id'];
 
     if (password_verify($token, $user['token']))    
     {
@@ -41,7 +41,7 @@ else if ( NULL !== $_COOKIE['budget_website_cookie'])
     $stmt->bind_param("s", $unique_id);
     $stmt->execute();
     $user = $stmt->get_result()->fetch_assoc();
-    $user_id = $user['user_id'];
+    // $user_id = $user['user_id'];
     
     if (password_verify($token, $user['token']))
     {
