@@ -2,6 +2,11 @@
 
     class Abstract_class extends Database {
 
+        
+        public static function get_user_id() {
+            return $user_id = user::find_user_id();
+            
+        }
 
         public static function find_all() {
             return static::find_by_query("SELECT * FROM ". static::$table . " ");
@@ -235,7 +240,7 @@
 
         // }
 
-
+        
 
     }
 

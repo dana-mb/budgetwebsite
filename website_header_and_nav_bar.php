@@ -5,7 +5,7 @@ Session::start();
 
 // include("check_sessions&cookies.php");
 
-session::session_and_cookie_check();
+Session::session_and_cookie_check();
 // $user_id = 1;
 
 if(isset($_POST['logOff'])) 

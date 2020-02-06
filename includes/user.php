@@ -7,6 +7,7 @@
         protected static $user_array;
         protected static $user_computer_unique_id;
         protected static $user_computer_token;
+        protected static $user_db_token;
         public $user_id;
         public $email;
         public $unique_id;
@@ -14,6 +15,12 @@
         public $hashed_code;
         public $verified_status;
         public $token;
+        public static $name;
+
+
+        protected static function name() {
+            return $name = "dannyboy";
+        }
 
 
         protected static function find_computer_unique_id_and_token() {
@@ -67,7 +74,7 @@
             
             $user_token = $user_array[0]->token;
             
-            return $user_token;
+            self::$user_db_token = $user_token;
 
         }
         

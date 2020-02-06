@@ -26,20 +26,19 @@
             // //if so and the user is not inside the website get him into the home page
             if ( NULL !== $_SESSION['budget_website_session'] OR NULL !== $_COOKIE['budget_website_cookie'] )
             {
-                $user_db_array = self::find_user_info();
-                $user_db_token = $user_db_array[0]->token;
+                self::find_user_token();
 
-                self::find_computer_unique_id_and_token();
-
-                if (password_verify(self::$user_computer_token, $user_db_token))
+                if (password_verify(self::$user_computer_token, self::$user_db_token))
                 {
-                    if (strpos($url_file_name,'budget') !== false) { //actually it's =0 because it's the first occurance of 'budget' in the string
+                    if (strpos($url_file_name,'budget') == 0) { //actually it's =0 because it's the first occurance of 'budget' in the string
                         //stay in the page
-                        $user_id = $user_db_array[0]->user_id;
                     } else {
                         header ("Location: budget_dashboard.php");
                     }
-                }
+
+                } else {
+                    header ("Location: budget_dashboard.php");
+                }   
             } 
             
             //if the user is already in the website and is logging out the website 
