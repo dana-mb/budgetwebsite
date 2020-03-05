@@ -1,20 +1,10 @@
 <?php
 
+    include("../includes/init.php");
     include("../link.php");
     
     // Table Scheme for expenses table
-        $sql_expenses = "CREATE TABLE IF NOT EXISTS `expenses` (
-            `expense_id` int(11) NOT NULL AUTO_INCREMENT,
-            `user_id` int(11) NOT NULL,
-            `amount` DECIMAL (8, 2) NOT NULL,
-            `category_name` text NOT NULL,
-            `date` date NOT NULL,
-            `details` text,
-            FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`),
-            PRIMARY KEY (`expense_id`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
-
-    $link->query($sql_expenses);
+    Expense::create_table();
 
     session_start();
     if (($_POST['expenseAmount'])) {

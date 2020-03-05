@@ -30,7 +30,7 @@ class Database {
 /////////new
     public function query($sql, $param_k, $param) {
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param($param_k, $param);
+        $stmt->bind_param($param_k, $param); //$param_k: kind of variables(i-integer, d-decimal, s-string), $param: the variables themselves.
         $stmt->execute();
         $result = $stmt->get_result();
         $this->confirm_query($result);
@@ -77,7 +77,10 @@ class Database {
         // return $this->connection->insert_id;
     }
 
-
+    public static function create_table($sql) {
+        $db = new self();
+        $db->connection->query($sql);
+    }
     
 
 }

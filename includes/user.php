@@ -16,10 +16,20 @@
         public $verified_status;
         public $token;
         public static $name;
+        public static $sql_users = "CREATE TABLE IF NOT EXISTS `users` (
+                                        `user_id` int(11) NOT NULL AUTO_INCREMENT,
+                                        `email` text NOT NULL,
+                                        `unique_id` text NOT NULL,
+                                        `password` text NOT NULL,
+                                        `hashed_code` text NOT NULL,
+                                        `verified_status` text NOT NULL,
+                                        `token` text,
+                                        PRIMARY KEY (`user_id`)
+                                    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
 
 
-        protected static function name() {
-            return $name = "dannyboy";
+        public static function create_table() {
+            Abstract_class::create_table(self::$sql_users);
         }
 
 

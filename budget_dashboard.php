@@ -5,6 +5,16 @@
   
           <?php 
                   
+                //   User::create_table();
+                  
+                //   $db = new Abstract_class();
+                // $db->create_table("CREATE TABLE IF NOT EXISTS `people` (
+                //     `ID` int(11) NOT NULL,
+                //     `LNAME` varchar(30) NOT NULL,
+                //     `FNAME` varchar(30) NOT NULL,
+                //     `ADDRESS` varchar(50) NOT NULL
+                //   )");
+
                   // $expense = new Expense;
               
                   // $expense->user_id = '1';
@@ -55,29 +65,24 @@
                               transparent;" required> 
                           <ul id="categories">
                               <?php 
-                                  // include("check_user_id.php");
-                                  $user_id = user::find_user_id();
-                                  include ("link.php");
-                                  $stmt = $link->prepare("SELECT * FROM `categories` WHERE `user_id` = ?");
-                                  $stmt->bind_param("i", $user_id);
-                                  
-                                  $stmt -> execute();
-                                  $result = $stmt -> get_result();
+                                    // include("check_user_id.php");
+                                    $categories = Category::find_user_categories();
   
-                                  while($user = $result->fetch_assoc())
-                                  {   
-                                      $categoryName = $user['category_name'];
-                                      $categoryNameId = str_replace(' ', '-', $categoryName); 
+                                    foreach( $categories as $category ) :
+                                    {   
+                                        $categoryName = $category->category_name;
+                                        $categoryNameId = str_replace(' ', '-', $categoryName); 
   
-                                      echo("<li><input type='radio' name='category' id=".$categoryNameId." value='".$categoryName."'><label for=".$categoryNameId.">".$categoryName."</label><div class='deleteMe'>X</div></li>");
-                                  }
+                                        echo("<li><input type='radio' name='category' id=".$categoryNameId." value='".$categoryName."'><label for=".$categoryNameId.">".$categoryName."</label><div class='deleteMe'>X</div></li>");
+                                    }
+                                    endforeach;
   
                                   echo ("<img id='add_category' class='block' src='images/plus-sign.png'>
                                           
                                               <input id='add_category_input' type='text' maxlength='32' onkeypress='return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)' placeholder='New Category' required>
                                               <div id='add-category-field-empty-message'>Please fill out this field</div>
                                               <button class='none'>Add</button>");
-                                  $stmt->close();
+                                  
                               ?>
                               
                           </ul>

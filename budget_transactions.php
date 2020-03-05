@@ -8,10 +8,9 @@
             <br>
             <?php
                 
-                $stmt = $link->prepare("select * from `expenses` WHERE `user_id` = ?");
-                $stmt->bind_param("i", $user_id);
+                $expenses = Expense::find_user_expenses();
                 
-                if ($stmt -> execute()) {
+                if ($expenses != null) {
 
                     echo "<table id='expenses' border='1'>
                     <thead>
@@ -23,21 +22,24 @@
                     </tr>
                     </tbody>";
                     echo "<tbody>";
-                    $result = $stmt -> get_result();
-                    while($user = $result->fetch_assoc())
+                    
+                    foreach($expenses as $expense) :
                     {
                     echo "<tr>";
-                    echo "<td>" . $user['date'] . "</td>";
-                    echo "<td>" . $user['amount'] . "</td>";
-                    echo "<td>" . $user['category_name'] . "</td>";
-                    echo "<td>" . $user['details'] . "<div class='deleteTransaction'>X</div></td>";
+                    echo "<td>" . $expense->date . "</td>";
+                    echo "<td>" . $expense->amount . "</td>";
+                    echo "<td>" . $expense->category_name . "</td>";
+                    echo "<td>" . $expense->details . "<div class='deleteTransaction'>X</div></td>";
                     echo "</tr>";
                     }
+                    endforeach;
+
                     echo "</tbody>";
                     echo "</table>";
                 }
-                $stmt->close();
+                
             ?>
+            
         </div>
     </div>
         

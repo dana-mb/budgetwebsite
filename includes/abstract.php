@@ -3,6 +3,11 @@
     class Abstract_class extends Database {
 
         
+        public static function create_table($sql) {
+            Database::create_table($sql);
+        }
+
+
         public static function get_user_id() {
             return $user_id = user::find_user_id();
             
