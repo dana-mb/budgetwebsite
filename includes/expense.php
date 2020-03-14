@@ -35,6 +35,25 @@
         }
 
 
+        public static function add_new_expense($amount, $category_name, $date, $details) {
+
+            $expense = new Expense();
+                                
+            // assigned static strings for the object:
+            $expense->user_id = self::get_user_id();
+            $expense->amount = $amount;
+            $expense->category_name = $category_name;
+            $expense->date = $date;
+            $expense->details = $details;
+
+            // use the method:
+            if($expense->create()) {
+                return "true";
+            };
+
+        }
+
+
 
     }
 

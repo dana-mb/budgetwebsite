@@ -31,19 +31,23 @@ class Database {
     public function query($sql, $param_k, $param) {
         $stmt = $this->connection->prepare($sql);
         $stmt->bind_param($param_k, $param); //$param_k: kind of variables(i-integer, d-decimal, s-string), $param: the variables themselves.
-        $stmt->execute();
+        if ($stmt->execute() AND !preg_match('/(SELECT)/', $sql)) { //if its select query it's suppose to return only results, if its something else it's soppose to check if the query has been executed
+            return true;
+        };
         $result = $stmt->get_result();
-        $this->confirm_query($result);
+        // $this->confirm_query($result);
         $stmt->close();
-        return $result;
+        if ($result) {
+            return $result;
+        };
         
 }
 
-    private function confirm_query($result) {
-        if(!$result) {
-            die("Query Failed" . $this->connection->error);
-        }
-    }
+//     private function confirm_query($result) {
+//         if(!$result) {
+//             die("Query Failed" . $this->connection->error);
+//         }
+//     }
 
 ////////
 

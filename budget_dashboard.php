@@ -5,6 +5,20 @@
   
           <?php 
                   
+                // global $database;
+                // $database = new Database();
+                // Abstract_class::find_by_query("INSERT INTO `expenses` (`user_id`, `amount`,`category_name`, `date`, `details`) VALUES (?,?,?,?,?)", "idsss", 1, 122.00, "Groceries", "2019-12-19", "milk"));
+                
+                // $sql= "INSERT INTO `expenses` (`user_id`, `amount`,`category_name`, `date`, `details`) VALUES (?,?,?,?,?)";
+                // $param_k= "idsss"; 
+                // $param= array(1, 122.00, "Groceries", "2019-12-19", "milk");
+                // $expense->user_id = self::get_user_id();
+                // $expense->amount = $amount;
+                // $expense->category_name = $category_name;
+                // $expense->date = $date;
+                // $expense->details = $details;
+                // expense::add_new_expense(12.00, "Groceries", "2019-12-19", "milk");
+
                 //   User::create_table();
                   
                 //   $db = new Abstract_class();
