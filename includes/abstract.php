@@ -171,40 +171,6 @@
         }
 
 
-
-        // public function create() {
-
-        //     global $database;
-
-        //     $properties = $this->clean_properties();
-
-        //     $sql = "INSERT INTO " .static::$table. "(" . implode( ",", array_keys($properties) ) . ")";
-            
-        //     //apply all the values to our object: except the auto incremented id:
-            
-        //     $sql .= " VALUES ('". implode( "','", array_values($properties) ) ."')";
-            
-        //     // $sql .= $database->escape_string($this->username)   . "', '";
-        //     // $sql .= $database->escape_string($this->password)   . "', '";
-        //     // $sql .= $database->escape_string($this->first_name) . "', '";
-        //     // $sql .= $database->escape_string($this->last_name)  . "')";
-
-        //     if($database->query($sql)) {
-        //         // pull the id and also assign it to our object by a method 
-        //         // from database class even though we can do it here 
-        //         // (mysqli_insert_id which returns the id from the last query):
-        //         $this->id = $database->the_insert_id();
-                
-        //         return true;
-
-        //         //estantiate the user class, assigned static strings for the object(username..)
-        //     } else {
-        //         return false;
-        //     }
-            
-        // }
-
-
         public function update() {
 
             global $database;

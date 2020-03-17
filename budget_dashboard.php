@@ -151,6 +151,7 @@
                                                   GROUP BY c.`category_name`) s
                                                   
                                               ON e.category_name = s.category_name
+                                              WHERE s.expenses > 0
                                               GROUP BY s.category_name");
   
                       $stmt->bind_param("ii", $user_id,$user_id);

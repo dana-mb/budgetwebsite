@@ -34,7 +34,7 @@
                 echo "</tbody>";
                 
                 echo "</table><br>";
-
+            }
                 echo "<form id='new-budget-form'>";
                 echo "Create a new budget:<br><br>";
                 echo "<p>For category: ";
@@ -56,7 +56,7 @@
                 onkeypress='return event.charCode >= 48 && event.charCode <= 57' min='10' required></p>";
                 echo "<button id='add-budget-button'>Add Budget</button>";
                 echo "</form>";
-            }
+            
 
         ?>
         

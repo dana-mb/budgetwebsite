@@ -61,12 +61,15 @@
         }
       })
       
+      
       //use the expense button to open a div where the user could insert all the info about the expense 
-      $("#expense-button").click( function() {
+      function toggleExpenseButton() {  
         $('.img-arrow-down').toggleClass('img-arrow-down-transform');
         $('#new-expense-section').toggle(500);
         expense_date_today();
-      });
+      };
+
+      $("#expense-button").click(toggleExpenseButton);
 
       function toggleCategory() {
         $("#categories").slideToggle(200);
@@ -188,6 +191,102 @@
         
       };
 
+
+
+        var calculatePercent = function(value, total) {
+          return (value / total * 100).toFixed(2);
+        };
+
+        var getTotal = function(data) {
+          var sum = 0;
+          for(var i=0; i<data.length; i++) {
+            sum += data[i].value;
+          }
+          return sum;
+        };
+
+        var calculateStart = function(data, index, total) {
+          if(index === 0) {
+            return 0;
+          }
+          return calculateEnd(data, index-1, total);
+        };
+
+        var calculateEndAngle = function(data, index, total) {
+          var angle = data[index].value / total * 360;
+          var inc = ( index === 0 ) ? 0 : calculateEndAngle(data, index-1, total);
+          return ( angle + inc );
+        };
+
+        var calculateEnd = function(data, index, total) {
+          return degreeToRadians(calculateEndAngle(data, index, total));
+        };
+
+        var degreeToRadians = function(angle) {
+          return angle * Math.PI / 180
+        }
+
+      
+        var data = [];
+        var label='';
+        var value='';
+        
+        if ( $('#budget-dashboard tbody tr:eq("0") td:eq("1")').html() != null &&
+              $('#budget-dashboard tbody tr:eq("1") td:eq("1")').html() != null ) {
+
+          for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
+          {
+            data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
+                    , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
+            
+          }
+
+        }
+
+        var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
+      
+        drawPieChart(data, colors);
+      
+
+      // check if canvas element exist...
+      // if(document.getElementById('pie')) {
+        //creating the pie chart
+        function drawPieChart (data, colors) {
+          var canvas = document.getElementById('pie');
+          if(document.getElementById('pie')) {
+            var ctx = canvas.getContext('2d');
+            var x = canvas.width / 1.3;
+                y = canvas.height / 1.3;
+            var color,
+                startAngle,
+                endAngle,
+                total = getTotal(data);
+            
+            for(var i=0; i<data.length; i++) {
+              color = colors[i];
+              startAngle = calculateStart(data, i, total);
+              endAngle = calculateEnd(data, i, total);
+              
+              ctx.beginPath();
+              ctx.fillStyle = color;
+              //the center of a part of the pie
+              ctx.moveTo(x/3.4, y/2);
+              //the center of the whole pie
+              ctx.arc(x/3.4, y/2, y-100, startAngle, endAngle);
+              ctx.fill();
+              ctx.rect(canvas.width - 200, y - i * 30 - 100, 12, 12);
+              ctx.fill();
+              ctx.font = "13px sans-serif";
+              ctx.fillText(data[i].label + " - " + data[i].value + " (" + calculatePercent(data[i].value, total) + "%)", canvas.width - 200 + 20, y - i * 30 + 10 - 100);
+            }
+          }
+        }
+        
+      
+
+          
+      // }
+
       //when the user wants todays date he clicks on the button that calls for the function
       // I don't use parentheses for the function because I want to call the function only after the click
       $("#todays_date_button").click( expense_date_today );
@@ -212,9 +311,10 @@
               console.log(expenseAmount);
               alert("The expense on the amount of "+expenseAmount+" has been added successfully");
               $("[form='new-expense-form']").val('');
-              expense_date_today();
+              toggleExpenseButton();
               $("#categories [type='radio']").prop("checked", false);
-              drawPieChart();
+              // $("#pie").replace().add();
+              drawPieChart(data, colors);
             }
             else {
               alert(data);
@@ -360,94 +460,6 @@
       $('.deleteBudget').click( deleteBudget );
 
       
-      // check if canvas element exist...
-      if(document.getElementById('pie')) {
-        //creating the pie chart
-        function drawPieChart (data, colors) {
-          var canvas = document.getElementById('pie');
-          var ctx = canvas.getContext('2d');
-          var x = canvas.width / 1.3;
-              y = canvas.height / 1.3;
-          var color,
-              startAngle,
-              endAngle,
-              total = getTotal(data);
-          
-          for(var i=0; i<data.length; i++) {
-            color = colors[i];
-            startAngle = calculateStart(data, i, total);
-            endAngle = calculateEnd(data, i, total);
-            
-            ctx.beginPath();
-            ctx.fillStyle = color;
-            //the center of a part of the pie
-            ctx.moveTo(x/3.4, y/2);
-            //the center of the whole pie
-            ctx.arc(x/3.4, y/2, y-100, startAngle, endAngle);
-            ctx.fill();
-            ctx.rect(canvas.width - 200, y - i * 30 - 100, 12, 12);
-            ctx.fill();
-            ctx.font = "13px sans-serif";
-            ctx.fillText(data[i].label + " - " + data[i].value + " (" + calculatePercent(data[i].value, total) + "%)", canvas.width - 200 + 20, y - i * 30 + 10 - 100);
-          }
-        }
-      
-
-        var calculatePercent = function(value, total) {
-          return (value / total * 100).toFixed(2);
-        };
-
-        var getTotal = function(data) {
-          var sum = 0;
-          for(var i=0; i<data.length; i++) {
-            sum += data[i].value;
-          }
-          return sum;
-        };
-
-        var calculateStart = function(data, index, total) {
-          if(index === 0) {
-            return 0;
-          }
-          return calculateEnd(data, index-1, total);
-        };
-
-        var calculateEndAngle = function(data, index, total) {
-          var angle = data[index].value / total * 360;
-          var inc = ( index === 0 ) ? 0 : calculateEndAngle(data, index-1, total);
-          return ( angle + inc );
-        };
-
-        var calculateEnd = function(data, index, total) {
-          return degreeToRadians(calculateEndAngle(data, index, total));
-        };
-
-        var degreeToRadians = function(angle) {
-          return angle * Math.PI / 180
-        }
-
-      /* var data = [
-          { label: 'Food', value: 90 },
-          { label: 'Party', value: 150 },
-          { label: 'Rent', value: 80 },
-          { label: 'Chocolates', value: 120 }
-        ]; */
-      
-        var data = [];
-        var label='';
-        var value='';
-          
-        for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
-        {
-          data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
-                  , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
-          
-        };
-
-        var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
-
-        drawPieChart(data, colors);
-      }
 
     </script>
   </body>

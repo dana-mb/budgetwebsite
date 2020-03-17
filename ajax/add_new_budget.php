@@ -1,4 +1,5 @@
 <?php
+include("../includes/init.php");
 session_start();
     if ($_POST['budgetAmount']) {
         $budgetStartingDate = date('Y-m-d', strtotime( $_POST['budgetStartingDate'] ));
