@@ -1,18 +1,17 @@
 <?php
-    include("check_user_id.php");  
+
+    include("../includes/init.php");
+
+    session_start();
     
     if (($_POST['newCategoryName'])) {
           
-        $stmt = $link->prepare("INSERT INTO `categories` (`user_id`, `category_name`) VALUES (?, ?)");
-        $stmt->bind_param("is", $user_id, $_POST['newCategoryName']);
+        if(Category::add_new_category($_POST['newCategoryName']) == true) {
         
-        if ($stmt -> execute()) {
             echo "ok";
-            $stmt->close();
+
         } else {
             echo "The category has not been added";
-            $stmt->close();
         }
     }
-    $stmt->close();
 ?>

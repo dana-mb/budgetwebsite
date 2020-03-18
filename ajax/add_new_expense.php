@@ -1,7 +1,6 @@
 <?php
 
     include("../includes/init.php");
-    // include("../link.php");
 
     session_start();
     if (($_POST['expenseAmount'])) {

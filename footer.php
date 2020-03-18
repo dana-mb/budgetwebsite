@@ -248,8 +248,7 @@
         drawPieChart(data, colors);
       
 
-      // check if canvas element exist...
-      // if(document.getElementById('pie')) {
+      
         //creating the pie chart
         function drawPieChart (data, colors) {
           var canvas = document.getElementById('pie');
@@ -283,9 +282,6 @@
         }
         
       
-
-          
-      // }
 
       //when the user wants todays date he clicks on the button that calls for the function
       // I don't use parentheses for the function because I want to call the function only after the click
