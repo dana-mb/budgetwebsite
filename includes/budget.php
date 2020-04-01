@@ -30,7 +30,16 @@
 
         public static function find_user_budgets() {
 
-            $budget_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ? ORDER BY `category_name`, `budget_start_date`", "i", Abstract_class::get_user_id());
+            $budget_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ? ORDER BY `category_name`, `budget_start_date`", "i", [Abstract_class::get_user_id()]);
+                
+            return $budget_array;
+
+        }
+
+
+        public static function find_user_budgets_from_x_category_and_date($categoryName, $budgetStartingDate) {
+
+            $budget_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ? AND `category_name` = ? AND `budget_start_date` = ?", "iss", [Abstract_class::get_user_id(), $categoryName, $budgetStartingDate]);
                 
             return $budget_array;
 

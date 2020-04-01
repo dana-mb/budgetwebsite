@@ -61,7 +61,7 @@
 
             self::find_computer_unique_id_and_token();
 
-            $user_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE unique_id = ?", "s", self::$user_computer_unique_id);
+            $user_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE unique_id = ?", "s", [self::$user_computer_unique_id]);
                 
             return $user_array;
             

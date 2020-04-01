@@ -21,16 +21,20 @@ class Database {
 
     }
 
-    // $stmt = $link->prepare("SELECT * FROM users WHERE unique_id = ?");
-    // $stmt->bind_param("s", $unique_id);
-    // $stmt->execute();
-    // $user = $stmt->get_result()->fetch_assoc();
-    // $user_id = $user['user_id'];
 
 /////////new
     public function query($sql, $param_k, $param) {
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param($param_k, $param); //$param_k: kind of variables(i-integer, d-decimal, s-string), $param: the variables themselves.
+        $stmt->bind_param($param_k, ...$param); //$param_k: kind of variables(i-integer, d-decimal, s-string), $param: the variables themselves.
+        //if the ... way is not compatible for most users than use:
+            // $bind_names[] = $param_k;
+            // for ($i=0; $i<count($param);$i++) {
+            //   $bind_name = 'bind' . $i;
+            //   $$bind_name = $param[$i];
+            //   $bind_names[] = &$$bind_name;
+            // }
+            // $return = call_user_func_array(array($stmt,'bind_param'),$bind_names);
+
         if ($stmt->execute() AND !preg_match('/(SELECT)/', $sql)) { //if its select query it's suppose to return only results, if its something else it's soppose to check if the query has been executed
             return true;
         };

@@ -1,19 +1,20 @@
 <?php
 include("../includes/init.php");
-session_start();
+Session::start();
+
     if ($_POST['budgetAmount']) {
         $budgetStartingDate = date('Y-m-d', strtotime( $_POST['budgetStartingDate'] ));
         $dateInShort = DateTime::createFromFormat('Y-m', $_POST['budgetStartingDate'])->format('m-Y');
         include("check_user_id.php");
 
         //check to see if there is already a budget that starts on the same date
-        $stmt = $link->prepare("SELECT * FROM `budgets` WHERE `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?");
-        $stmt->bind_param("iss", $user_id, $_POST['categoryName'], $budgetStartingDate);
-        $stmt->execute();
-        $result = $stmt -> get_result();
+        // $stmt = $link->prepare("SELECT * FROM `budgets` WHERE `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?");
+        // $stmt->bind_param("iss", $user_id, $_POST['categoryName'], $budgetStartingDate);
+        // $stmt->execute();
+        // $result = $stmt -> get_result();
 
-        if($result->num_rows == 0) {
-            $stmt->close();
+        if(empty(Budget::find_user_budgets_from_x_category_and_date($_POST['categoryName'], $budgetStartingDate))) {
+            
             //check to see how many budgets there are already for this category
             $stmt = $link->prepare("SELECT `budget_start_date` FROM `budgets` WHERE `user_id` = ? AND `category_name` = ? ORDER BY `budget_start_date`");
             $stmt->bind_param("is", $user_id, $_POST['categoryName']);

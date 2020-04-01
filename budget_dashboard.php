@@ -5,6 +5,9 @@
   
           <?php 
                   
+                //   echo var_dump(Budget::find_user_budgets_from_x_category("Groceries", "2020-03-01"));
+
+
                 // global $database;
                 // $database = new Database();
                 // Abstract_class::find_by_query("INSERT INTO `expenses` (`user_id`, `amount`,`category_name`, `date`, `details`) VALUES (?,?,?,?,?)", "idsss", 1, 122.00, "Groceries", "2019-12-19", "milk"));

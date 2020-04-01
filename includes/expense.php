@@ -27,7 +27,7 @@
         
         public static function find_user_expenses() {
 
-            $expense_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ?", "i", Abstract_class::get_user_id());
+            $expense_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ?", "i", [Abstract_class::get_user_id()]);
                 
             return $expense_array;
 
