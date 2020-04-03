@@ -29,20 +29,6 @@
             
         }
         
-        public static function add_new_category($category_name) {
-
-            $category = new Category();
-                                
-            // assigned static strings for the object:
-            $category->user_id = self::get_user_id();
-            $category->category_name = $category_name;
-            
-            // use the method:
-            if($category->create()) {
-                return "true";
-            };
-
-        }
 
     }
 

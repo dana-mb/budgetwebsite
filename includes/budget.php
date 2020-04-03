@@ -46,25 +46,6 @@
         }
 
 
-        public static function add_new_budget($amount, $category_name, $date, $details) {
-
-            $budget = new Budget();
-                                
-            // assigned static strings for the object:
-            $budget->category_name = $category_name;
-            $budget->user_id = self::get_user_id();
-            $budget->amount = $amount;
-            $budget->budget_start_date = $budget_start_date;
-            $budget->budget_end_date = $budget_end_date;
-
-            // use the method:
-            if($budget->create()) {
-                return "true";
-            };
-
-        }
-
-
     }
 
 

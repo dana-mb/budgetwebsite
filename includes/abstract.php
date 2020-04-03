@@ -96,43 +96,33 @@
         }
 
 
-        protected function properties() {
+        protected function properties($parameters) {
 
+            $fields = array();
             $properties = array();
             foreach (static::$table_fields as $table_field) { 
                 // check if the property (value- $abstract_field) from the 
                 // array exist in $this- the class. if it does exist it 
-                // will be assign to $property array
+                // will be assign to $properties array
                 if(property_exists($this, $table_field)) { 
                     // because abstract_field is not a property (it's just a name we gave) it gets $.
-                    $properties [$table_field] = $this->$table_field; 
+                    $fields[] = $table_field;
+                    if($table_field = "user_id") {
+                        $userid_key = count($table_field)-1;
+                    }
                 }
             }
-
+            array_splice($parameters, $userid_key, 0, self::get_user_id());
+            $properties = array_combine($fields, $parameters); 
             return $properties;
-
         }
 
 
-        protected function clean_properties() {
-            global $database;
-
-            $clean_properties= array();
-            // take the keys&values from properties() array. 
-            // clean the values and assign them again tp the keys and the new array
-            foreach ($this->properties() as $key => $value) { 
-                $clean_properties[$key] = $database->escape_string($value);
-            }
-
-            return $clean_properties;
-        }
-
-
-        public function create() {
+        public function create($parameters) {
 
             global $database;
 
-            $properties = $this->properties();
+            $properties = $this->properties($parameters);
 
             $sql = "INSERT INTO " .static::$table. "(" . implode( ",", array_keys($properties) ) . ")";
             
@@ -162,19 +152,19 @@
         }
 
 
-        public function save() {
+        // public function save() {
 
-            // check to see if the id is in our database. 
-            // if it is - it will only update it, if it's not - it will create it
-            return isset($this->id) ? $this->update() : $this->create();
+        //     // check to see if the id is in our database. 
+        //     // if it is - it will only update it, if it's not - it will create it
+        //     return isset($this->id) ? $this->update() : $this->create();
 
-        }
+        // }
 
 
-        public function update() {
+        public function update($parameters) {
 
             global $database;
-            $properties = $this->clean_properties();
+            $properties = $this->properties($parameters);
 
             $properties_pairs = array();
 
@@ -198,10 +188,10 @@
         }
 
 
-        public function delete() {
+        public function delete($parameters) {
 
             global $database;
-            $properties = $this->clean_properties();
+            $properties = $this->properties($parameters);
 
             $sql = "DELETE FROM " .static::$table. " WHERE ";
             //apply all the values to our object:
@@ -229,23 +219,6 @@
             return (mysqli_affected_rows($database->connection) == 1) ? true : false;
 
         }
-
-
-        // public function delete() {
-
-        //     global $database;
-
-        //     $sql = "DELETE FROM " .static::$table. " WHERE ";
-        //     //apply all the values to our object:
-        //     $sql .= "id= " . $database->escape_string($this->id); // without a single quote- not a string, an integer
-        //     $sql .= " LIMIT 1";
-            
-        //     $database->query($sql);
-
-        //     return (mysqli_affected_rows($database->connection) == 1) ? true : false;
-
-        // }
-
         
 
     }

@@ -4,8 +4,11 @@
           <div id="container">
   
           <?php 
-                  
-                //   echo var_dump(Budget::find_user_budgets_from_x_category("Groceries", "2020-03-01"));
+                 
+                // $expense = new Expense();
+                // $expense->create([12.00, "Groceries", "2019-12-19", "new"]);
+                
+                  // echo var_dump(Budget::find_user_budgets_from_x_category("Groceries", "2020-03-01"));
 
 
                 // global $database;
@@ -32,15 +35,15 @@
                 //     `ADDRESS` varchar(50) NOT NULL
                 //   )");
 
-                  // $expense = new Expense;
+                //   $expense = new Expense;
               
-                  // $expense->user_id = '1';
-                  // $expense->amount = '200';
-                  // $expense->category_name = "Groceries";
-                  // $expense->date = '2020-01-17';
-                  // $expense->details = "hi";
+                //   $expense->user_id = '1';
+                //   $expense->amount = '200';
+                //   $expense->category_name = "Groceries";
+                //   $expense->date = '2020-01-17';
+                //   $expense->details = "hi";
                   
-                  // $expense->delete();
+                //   $expense->delete();
                   
                   // global $user;
                   // $mike = new User();

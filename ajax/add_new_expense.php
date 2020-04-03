@@ -5,10 +5,12 @@
     session_start();
     if (($_POST['expenseAmount'])) {
         
-        if(Expense::add_new_expense(
+        $expense = new Expense();
+        
+        if($expense->create([
                         $_POST['expenseAmount'], $_POST['categoryName'], 
                         date('Y-m-d', strtotime( $_POST['expenseDate'] )), 
-                        $_POST['expenseDetails']) == true
+                        $_POST['expenseDetails'] ]) == true
         
         ) {
             echo "ok";
