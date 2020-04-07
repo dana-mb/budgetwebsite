@@ -143,7 +143,7 @@
                 // $this->expense_id = $database->the_insert_id();
                 
                 // return $database->the_insert_id();
-                return true;
+                return ($database->connection->affected_rows == -1) ? true : false;
 
                 //estantiate the user class, assigned static strings for the object(username..)
             } else {
@@ -183,7 +183,7 @@
 
             $database->query($sql);
                 
-            return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+            return ($database->connection->affected_rows == -1) ? true : false;
 
         }
 
@@ -216,7 +216,7 @@
             $sql .= " LIMIT 1";
             $database->query($sql);
 
-            return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+            return ($database->connection->affected_rows == -1) ? true : false;
 
         }
         
