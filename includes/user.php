@@ -28,6 +28,15 @@
                                     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
 
 
+        // function __construct($email, $unique_id, $password, $hashed_code, $verified_status, $token) {
+        //     $this->email = $email;
+        //     $this->unique_id = $unique_id;
+        //     $this->password = $password;
+        //     $this->hashed_code = $hashed_code;
+        //     $this->verified_status = $token;
+        // }
+
+
         public static function create_table() {
             Abstract_class::create_table(self::$sql_users);
         }

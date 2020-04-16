@@ -95,34 +95,95 @@
 
         }
 
+        
+        protected function properties() {
 
-        protected function properties($parameters) {
-
-            $fields = array();
             $properties = array();
             foreach (static::$table_fields as $table_field) { 
-                // check if the property (value- $abstract_field) from the 
+                // check if the property (value- $db_field) from the 
                 // array exist in $this- the class. if it does exist it 
-                // will be assign to $properties array
+                // will be assign to $property array
                 if(property_exists($this, $table_field)) { 
-                    // because abstract_field is not a property (it's just a name we gave) it gets $.
-                    $fields[] = $table_field;
-                    if($table_field = "user_id") {
-                        $userid_key = count($table_field)-1;
-                    }
+                    // because db_field is not a property (it's just a name we gave) it gets $.
+                    $properties [$table_field] = $this->$table_field; 
                 }
             }
-            array_splice($parameters, $userid_key, 0, self::get_user_id());
-            $properties = array_combine($fields, $parameters); 
+
+            return $properties;
+        }
+
+        protected function properties_new() {
+
+            // $this->user_id = Abstract_class::get_user_id();
+            // $this->amount = $amount;
+            // $this->category_name = $category_name;
+            // $this->date = $date;
+            // $this->details = $details;
+
+            $properties = array();
+            foreach (static::$table_fields as $table_field) { 
+                // check if the property (value- $db_field) from the 
+                // array exist in $this- the class. if it does exist it 
+                // will be assign to $property array
+                if(property_exists($this, $table_field)) { 
+                    // because db_field is not a property (it's just a name we gave) it gets $.
+                    $properties [$table_field] = $this->$table_field; 
+                }
+            }
+
             return $properties;
         }
 
 
-        public function create($parameters) {
+        public function create_new($param_k) {
+
+            
 
             global $database;
 
-            $properties = $this->properties($parameters);
+            $properties = $this->properties_new();
+
+            // return $param_k;
+
+            // return print_r(array_fill(0, count($properties), '?') );
+
+            // return array_values($properties);
+
+            $sql = "INSERT INTO " .static::$table. "(" . implode( ",", array_keys($properties) ) . ")";
+            
+            //apply all the values to our object: except the auto incremented id:
+            
+            $sql .= " VALUES (".implode( ",", array_fill(0, count($properties), '?') ).") ";
+            // return $sql;
+            // $sql .= $database->escape_string($this->username)   . "', '";
+            // $sql .= $database->escape_string($this->password)   . "', '";
+            // $sql .= $database->escape_string($this->first_name) . "', '";
+            // $sql .= $database->escape_string($this->last_name)  . "')";
+
+            $param = array_values($properties);
+            
+            if($database->query($sql, $param_k, $param) == true) {
+                // pull the id and also assign it to our object by a method 
+                // from database class even though we can do it here 
+                // (mysqli_insert_id which returns the id from the last query):
+                
+                // $this->expense_id = $database->the_insert_id();
+                
+                // return $database->the_insert_id();
+                return ($database->connection->affected_rows == -1) ? true : false;
+
+                //estantiate the user class, assigned static strings for the object(username..)
+            } else {
+                return false;
+            }
+        }
+
+
+        public function create() {
+
+            global $database;
+
+            $properties = $this->properties();
 
             $sql = "INSERT INTO " .static::$table. "(" . implode( ",", array_keys($properties) ) . ")";
             
@@ -168,6 +229,15 @@
 
             $properties_pairs = array();
 
+            // UPDATE `budgets` SET `budget_end_date` = ? WHERE `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?");
+            // $stmt->bind_param("siss", $olderBudgetEndDate, $user_id, $_POST['categoryName'], $olderBudget);
+            
+            // *****update
+                // we dont need the instance we're just calling the method:
+                // $user = User::find_by_id(11);
+                // $user->password = "333";
+
+                // $user->update();
             foreach ($properties as $key => $value) {
                 // make the $key => $value look like (apply all the values to our object):
                 // "username= '" . $database->escape_string($this->username) . "', ";
@@ -178,7 +248,7 @@
 
             $sql = "UPDATE " .static::$table. " SET ";
             $sql .= implode( ",", $properties_pairs );
-            $sql .= " WHERE id= " . $database->escape_string($this->id); // make sure to have a space before the where, 
+            $sql .= " WHERE id= " . get_user_id(); // make sure to have a space before the where, 
                                                                         // without a single quote- not a string, an integer
 
             $database->query($sql);

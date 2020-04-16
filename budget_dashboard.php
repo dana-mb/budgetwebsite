@@ -5,10 +5,19 @@
   
           <?php 
                  
-                // $expense = new Expense();
+                //  $expense = new Expense(12.00, "Groceries", "2019-12-19", "blabla");
+                //  print_r($expense->create_new("idsss"));
+                
+                 // $expense = new Expense();
                 // $expense->create([12.00, "Groceries", "2019-12-19", "new"]);
                 
                   // echo var_dump(Budget::find_user_budgets_from_x_category("Groceries", "2020-03-01"));
+                //   $expense = new Expense(3, $_POST['categoryName'], 
+                //   date('Y-m-d', strtotime( $_POST['expenseDate'] )), 
+                //   $_POST['expenseDetails']);
+
+                // //   $_POST['expenseAmount'] = 3;
+                //   echo $expense->amount;
 
 
                 // global $database;
@@ -86,6 +95,7 @@
                           <ul id="categories">
                               <?php 
                                     // include("check_user_id.php");
+                                    // $categories = new Category();
                                     $categories = Category::find_user_categories();
   
                                     foreach( $categories as $category ) :

@@ -20,6 +20,16 @@
                             PRIMARY KEY (`expense_id`)
                         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
 
+
+        // function __construct($amount, $category_name, $date, $details) {
+        //     $this->user_id = Abstract_class::get_user_id();
+        //     $this->amount = $amount;
+        //     $this->category_name = $category_name;
+        //     $this->date = $date;
+        //     $this->details = $details;
+        // } 
+
+
         public static function create_table() {
             Abstract_class::create_table(self::$sql_expenses);
         }

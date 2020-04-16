@@ -2,17 +2,18 @@
 
     include("../includes/init.php");
 
-    session_start();
+    Session::start();
     if (($_POST['expenseAmount'])) {
         
-        $expense = new Expense();
+        $expense = new Expense($_POST['expenseAmount'], $_POST['categoryName'], 
+                         date('Y-m-d', strtotime( $_POST['expenseDate'] )), 
+                         $_POST['expenseDetails']);
         
-        if($expense->create([
-                        $_POST['expenseAmount'], $_POST['categoryName'], 
-                        date('Y-m-d', strtotime( $_POST['expenseDate'] )), 
-                        $_POST['expenseDetails'] ]) == true
-        
-        ) {
+        // if($expense->create([
+        //                 $_POST['expenseAmount'], $_POST['categoryName'], 
+        //                 date('Y-m-d', strtotime( $_POST['expenseDate'] )), 
+        //                 $_POST['expenseDetails'] ]) == true) {
+        if($expense->create() == true) {
             echo "ok";
             exit;
         } else {

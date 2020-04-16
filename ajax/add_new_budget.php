@@ -12,7 +12,7 @@ Session::start();
         // $stmt->bind_param("iss", $user_id, $_POST['categoryName'], $budgetStartingDate);
         // $stmt->execute();
         // $result = $stmt -> get_result();
-
+        $budget = new Budget();
         if(empty(Budget::find_user_budgets_from_x_category_and_date($_POST['categoryName'], $budgetStartingDate))) {
             
             //check to see how many budgets there are already for this category
@@ -46,10 +46,11 @@ Session::start();
                 if ( $newerBudget != null )
                 {
                     $budgetEndingDate = date("Y-m-d",strtotime($newerBudget." -1 day"));
-                    $stmt = $link->prepare("INSERT INTO `budgets` (`category_name`, `user_id`, `amount`, `budget_start_date`, `budget_end_date`) VALUES (?, ?, ?, ?, ?)");
-                    $stmt->bind_param("siiss", $_POST['categoryName'], $user_id, $_POST['budgetAmount'], $budgetStartingDate, $budgetEndingDate);
+                    // $stmt = $link->prepare("INSERT INTO `budgets` (`category_name`, `user_id`, `amount`, `budget_start_date`, `budget_end_date`) VALUES (?, ?, ?, ?, ?)");
+                    // $stmt->bind_param("siiss", $_POST['categoryName'], $user_id, $_POST['budgetAmount'], $budgetStartingDate, $budgetEndingDate);
                 
-                    if ($stmt->execute()) {
+                    // if ($stmt->execute()) {
+                    if ($budget->create([ $_POST['categoryName'], $user_id, $_POST['budgetAmount'], $budgetStartingDate, $budgetEndingDate ]) == 'true') {
                         $output = "ok";
                     } else {
                         echo "The budget has not been added".$budgetEndingDate;
@@ -74,10 +75,10 @@ Session::start();
                 if ( $olderBudget != null )
                 {
                     $olderBudgetEndDate = date("Y-m-d",strtotime($budgetStartingDate." -1 day"));
-                    $stmt = $link->prepare("UPDATE `budgets` SET `budget_end_date` = ? WHERE `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?");
-                    $stmt->bind_param("siss", $olderBudgetEndDate, $user_id, $_POST['categoryName'], $olderBudget);
+                    // $stmt = $link->prepare("UPDATE `budgets` SET `budget_end_date` = ? WHERE `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?");
+                    // $stmt->bind_param("siss", $olderBudgetEndDate, $user_id, $_POST['categoryName'], $olderBudget);
                     
-                    if ($stmt->execute()) {
+                    if ($budget->update([ $olderBudgetEndDate, $user_id, $_POST['categoryName'], $olderBudget ]) == 'true') {
                         $output = "ok";
                     } else {
                         echo "The budget has not been added";

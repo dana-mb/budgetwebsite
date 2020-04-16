@@ -2,10 +2,6 @@
 
     class Session extends User {
 
-        
-
-
-        
         public static function start() {
 
             session_start();

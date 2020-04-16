@@ -2,11 +2,13 @@
 
     include("../includes/init.php");
 
-    session_start();
+    Session::start();
     
-    if (($_POST['newCategoryName'])) {
+    if ($_POST['newCategoryName']) {
           
-        if(Category::add_new_category($_POST['newCategoryName']) == true) {
+        $category = new Category($_POST['newCategoryName']);
+        
+        if($category->create() == true) {
         
             echo "ok";
 

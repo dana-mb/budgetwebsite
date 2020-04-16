@@ -23,6 +23,15 @@
                                     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
 
         
+        // function __construct($category_name, $amount, $budget_start_date, $budget_end_date) {
+        //     $this->amount = $category_name;
+        //     $this->user_id = Abstract_class::get_user_id();
+        //     $this->amount = $amount;
+        //     $this->budget_start_date = $budget_start_date;
+        //     $this->budget_end_date = $budget_end_date;
+        // }
+        
+
         public static function create_table() {
             Abstract_class::create_table(self::$sql_users);
         }
