@@ -1,0 +1,1 @@
+        // protected function properties() {
