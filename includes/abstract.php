@@ -104,29 +104,7 @@
         }
 
         
-        protected function properties() {
-
-            $properties = array();
-            foreach (static::$table_fields as $table_field) { 
-                // check if the property (value- $db_field) from the 
-                // array exist in $this- the class. if it does exist it 
-                // will be assign to $property array
-                if(property_exists($this, $table_field)) { 
-                    // because db_field is not a property (it's just a name we gave) it gets $.
-                    $properties [$table_field] = $this->$table_field; 
-                }
-            }
-
-            return $properties;
-        }
-
         // protected function properties() {
-
-        //     // $this->user_id = Abstract_class::get_user_id();
-        //     // $this->amount = $amount;
-        //     // $this->category_name = $category_name;
-        //     // $this->date = $date;
-        //     // $this->details = $details;
 
         //     $properties = array();
         //     foreach (static::$table_fields as $table_field) { 
@@ -141,6 +119,28 @@
 
         //     return $properties;
         // }
+
+        protected function properties() {
+
+            // $this->user_id = Abstract_class::get_user_id();
+            // $this->amount = $amount;
+            // $this->category_name = $category_name;
+            // $this->date = $date;
+            // $this->details = $details;
+
+            $properties = array();
+            foreach (static::$table_fields as $table_field) { 
+                // check if the property (value- $db_field) from the 
+                // array exist in $this- the class. if it does exist it 
+                // will be assign to $property array
+                if(property_exists($this, $table_field)) { 
+                    // because db_field is not a property (it's just a name we gave) it gets $.
+                    $properties [$table_field] = $this->$table_field; 
+                }
+            }
+
+            return $properties;
+        }
 
 
         public function create($param_k) {
@@ -298,3 +298,6 @@
         
 
     }
+
+
+?>
