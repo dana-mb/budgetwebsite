@@ -8,7 +8,8 @@
             <br>
             <?php
                 
-                $expenses = Expense::find_user_expenses();
+                $expenses = new Expense();
+                $expenses = $expenses->find_user_expenses($userid);
                 
                 if ($expenses != null) {
 

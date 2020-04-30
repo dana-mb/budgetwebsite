@@ -2,10 +2,19 @@
 
 require_once("includes/init.php");
 Session::start();
+// $user = new User();
+// $user->find_computer_unique_id_and_token();
+// echo $user->user_computer_token;
 
 // include("check_sessions&cookies.php");
-
-Session::session_and_cookie_check();
+$session = new Session();
+$session->session_and_cookie_check();
+// $abstract = new abstract_class();
+// echo $abstract->userid;
+$userid = $session->userid;
+// $user = new User();
+// $user->find_user_info();
+// echo $user->userid;
 // $user_id = 1;
 
 if(isset($_POST['logOff'])) 

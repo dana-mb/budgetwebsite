@@ -13,9 +13,10 @@ Session::start();
         // $stmt->execute();
         // $result = $stmt -> get_result();
         $budget = new Budget();
-        if(empty(Budget::find_user_budgets_from_x_category_and_date($_POST['categoryName'], $budgetStartingDate))) {
+        if($budget->find_user_budgets_from_x_category_and_date($_POST['categoryName'], $budgetStartingDate) == null) {
             
             //check to see how many budgets there are already for this category
+            // $budgetDates = $budget->find_budgets_start_date_from_x_category_order_by_date($_POST['categoryName']);
             $stmt = $link->prepare("SELECT `budget_start_date` FROM `budgets` WHERE `user_id` = ? AND `category_name` = ? ORDER BY `budget_start_date`");
             $stmt->bind_param("is", $user_id, $_POST['categoryName']);
             $stmt->execute();
@@ -28,7 +29,7 @@ Session::start();
             $stmt->close();
             
             if (count($budgetDates) > 0) {
-                //to find the budget that's newer than the new one
+                //to find the budget that's newer than the one we are creating
                 $i = 0;
                 while($i < count($budgetDates))
                 {
@@ -50,14 +51,15 @@ Session::start();
                     // $stmt->bind_param("siiss", $_POST['categoryName'], $user_id, $_POST['budgetAmount'], $budgetStartingDate, $budgetEndingDate);
                 
                     // if ($stmt->execute()) {
-                    if ($budget->create([ $_POST['categoryName'], $user_id, $_POST['budgetAmount'], $budgetStartingDate, $budgetEndingDate ]) == 'true') {
+                    $budget = new Budget($_POST['categoryName'], $_POST['budgetAmount'], $budgetStartingDate, $budgetEndingDate);
+                    if ($budget->create('siiss') == 'true') {
                         $output = "ok";
                     } else {
                         echo "The budget has not been added".$budgetEndingDate;
                         exit;
                     }
                 }
-                //to find the budget that's older than the new one
+                //to find the budget that's older than the one we are creating
                 $i = count($budgetDates)-1;
                 while($i >= 0)
                 {
@@ -72,21 +74,21 @@ Session::start();
                     }
                 }
 
-                if ( $olderBudget != null )
-                {
-                    $olderBudgetEndDate = date("Y-m-d",strtotime($budgetStartingDate." -1 day"));
-                    // $stmt = $link->prepare("UPDATE `budgets` SET `budget_end_date` = ? WHERE `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?");
-                    // $stmt->bind_param("siss", $olderBudgetEndDate, $user_id, $_POST['categoryName'], $olderBudget);
+                // if ( $olderBudget != null )
+                // {
+                //     $olderBudgetEndDate = date("Y-m-d",strtotime($budgetStartingDate." -1 day"));
+                //     // $stmt = $link->prepare("UPDATE `budgets` SET `budget_end_date` = ? WHERE `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?");
+                //     // $stmt->bind_param("siss", $olderBudgetEndDate, $user_id, $_POST['categoryName'], $olderBudget);
                     
-                    if ($budget->update([ $olderBudgetEndDate, $user_id, $_POST['categoryName'], $olderBudget ]) == 'true') {
-                        $output = "ok";
-                    } else {
-                        echo "The budget has not been added";
-                        exit;
-                    }
-                }
+                //     if ($budget->update([ $olderBudgetEndDate, $user_id, $_POST['categoryName'], $olderBudget ]) == 'true') {
+                //         $output = "ok";
+                //     } else {
+                //         echo "The budget has not been added";
+                //         exit;
+                //     }
+                // }
             }
-            //add the budget with no ending date when there is no newer budget for this category, because if there is the budget was already inserted with an ending date
+            // add the budget with no ending date when there is no newer budget for this category, because if there is the budget was already inserted with an ending date
             if ($newerBudget == null)
             {
                 $stmt = $link->prepare("INSERT INTO `budgets` (`category_name`, `user_id`, `amount`, `budget_start_date`) VALUES (?, ?, ?, ?)");

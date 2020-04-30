@@ -4,10 +4,10 @@
 
         protected static $table = 'users';
         protected static $table_fields = array('email','unique_id','password','hashed_code','verified_status','token');
-        protected static $user_array;
-        protected static $user_computer_unique_id;
-        protected static $user_computer_token;
-        protected static $user_db_token;
+        protected $user_db_token;
+        protected $user_computer_unique_id;
+        protected $user_computer_token;
+        // public $userid;
         public $user_id;
         public $email;
         public $unique_id;
@@ -15,7 +15,6 @@
         public $hashed_code;
         public $verified_status;
         public $token;
-        public static $name;
         public static $sql_users = "CREATE TABLE IF NOT EXISTS `users` (
                                         `user_id` int(11) NOT NULL AUTO_INCREMENT,
                                         `email` text NOT NULL,
@@ -42,7 +41,7 @@
         }
 
 
-        protected static function find_computer_unique_id_and_token() {
+        public function find_computer_unique_id_and_token() {
 
             if ( NULL !== $_SESSION['budget_website_session'] ) 
             {
@@ -57,45 +56,47 @@
                 echo "could'nt find user";
             }
 
-            self::$user_computer_unique_id = $user_computer_unique_id;
-            self::$user_computer_token = $user_computer_token; 
-
-        }
-
-        protected static function find_user_info() {
-            
-            Session::start();
-
-            global $database;
-
-            self::find_computer_unique_id_and_token();
-
-            $user_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE unique_id = ?", "s", [self::$user_computer_unique_id]);
-                
-            return $user_array;
-            
+            $this->user_computer_unique_id = $user_computer_unique_id;
+            $this->user_computer_token = $user_computer_token; 
 
         }
         
-        public static function find_user_id() {
 
-            $user_array = self::find_user_info();
-            
-            $user_id = $user_array[0]->user_id;
-            
-            return $user_id;
+        public function find_user_info() {
 
-        }
+            global $database;
 
-        protected static function find_user_token() {
+            $this->find_computer_unique_id_and_token();
 
-            $user_array = self::find_user_info();
-            
-            $user_token = $user_array[0]->token;
-            
-            self::$user_db_token = $user_token;
+            $user_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE unique_id = ?", "s", [$this->user_computer_unique_id]);
+
+            $this->userid = $user_array[0]->user_id;
+
+            $this->user_db_token = $user_array[0]->token;
+
+            // return $user_array;
 
         }
+        
+        // public function find_user_id() {
+
+        //     $user_array = self::find_user_info();
+            
+        //     $this->$user_id = $user_array[0]->user_id;
+            
+        //     // return $user_id;
+
+        // }
+
+        // protected static function find_user_token() {
+
+        //     $user_array = self::find_user_info();
+            
+        //     $user_token = $user_array[0]->token;
+            
+        //     self::$user_db_token = $user_token;
+
+        // }
         
 
 

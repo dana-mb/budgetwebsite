@@ -5,7 +5,18 @@
   
           <?php 
                  
-                //  $expense = new Expense(12.00, "Groceries", "2019-12-19", "blabla");
+                // $budget = new Budget("Vacation", 188, "2020-02-01", "2020-02-28");
+                // $budget->create("siiss");
+                
+                
+                // $session = new Session();
+                // echo $session->session_and_cookie_check();
+                
+                // $user = new User();
+                // $user = find_user_info();
+                // echo $user->user_computer_token;
+
+                //  $expense = new Expense(12.00, "Groceries", "2020-12-19", "blabla");
                 //  print_r($expense->create_new("idsss"));
                 
                  // $expense = new Expense();
@@ -94,10 +105,9 @@
                               transparent;" required> 
                           <ul id="categories">
                               <?php 
-                                    // include("check_user_id.php");
-                                    // $categories = new Category();
-                                    $categories = Category::find_user_categories();
-  
+                                    $category = new Category();
+                                    $categories = $category->find_user_categories($userid);
+                            
                                     foreach( $categories as $category ) :
                                     {   
                                         $categoryName = $category->category_name;

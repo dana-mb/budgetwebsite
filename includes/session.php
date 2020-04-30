@@ -2,29 +2,31 @@
 
     class Session extends User {
 
+        
+        
+
         public static function start() {
 
             session_start();
 
         }
 
-        
-        public static function session_and_cookie_check() {
-            // self::start();
 
-            // global $database;
+        
+
+        
+        public function session_and_cookie_check() {
 
             $url_file_name = basename($_SERVER['SCRIPT_NAME']);
-
-            
 
             // //when there is a session or a cookie for the website- check if it is good-
             // //if so and the user is not inside the website get him into the home page
             if ( NULL !== $_SESSION['budget_website_session'] OR NULL !== $_COOKIE['budget_website_cookie'] )
             {
-                self::find_user_token();
-
-                if (password_verify(self::$user_computer_token, self::$user_db_token))
+                // $this = new User();
+                $this->find_user_info();
+                
+                if (password_verify($this->user_computer_token, $this->user_db_token))
                 {
                     if (strpos($url_file_name,'budget') == 0) { //actually it's =0 because it's the first occurance of 'budget' in the string
                         //stay in the page
@@ -37,8 +39,8 @@
                 }   
             } 
             
-            //if the user is already in the website and is logging out the website 
-            //(the cookies and the session has been erased)- the user is moved to the logging-in page
+            // if the user is already in the website and is logging out the website 
+            // (the cookies and the session has been erased)- the user is moved to the logging-in page
             else if ( $url_file_name !== "index.php" && 
                     empty($index_message) && 
                     NULL == $_SESSION['budget_website_session'] && 

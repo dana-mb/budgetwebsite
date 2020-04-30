@@ -23,13 +23,15 @@
                                     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
 
         
-        // function __construct($category_name, $amount, $budget_start_date, $budget_end_date) {
-        //     $this->amount = $category_name;
-        //     $this->user_id = Abstract_class::get_user_id();
-        //     $this->amount = $amount;
-        //     $this->budget_start_date = $budget_start_date;
-        //     $this->budget_end_date = $budget_end_date;
-        // }
+        function __construct($category_name=null, $amount=null, $budget_start_date=null, $budget_end_date=null) {
+            if($category_name!=null && $amount!=null && $budget_start_date!=null) {    
+                $this->category_name = $category_name;
+                $this->user_id = $this->get_user_id();
+                $this->amount = $amount;
+                $this->budget_start_date = $budget_start_date;
+                ($budget_end_date)? $this->budget_end_date=$budget_end_date: null;
+            }
+        }
         
 
         public static function create_table() {
@@ -37,18 +39,27 @@
         }
         
 
-        public static function find_user_budgets() {
+        public function find_user_budgets($userid = null) {
 
-            $budget_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ? ORDER BY `category_name`, `budget_start_date`", "i", [Abstract_class::get_user_id()]);
+            $budget_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ? ORDER BY `category_name`, `budget_start_date`", "i", [($userid == null)? $this->get_user_id():$userid]);
                 
             return $budget_array;
 
         }
 
 
-        public static function find_user_budgets_from_x_category_and_date($categoryName, $budgetStartingDate) {
+        public function find_user_budgets_from_x_category_and_date($categoryName, $budgetStartingDate, $userid = null) {
 
-            $budget_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ? AND `category_name` = ? AND `budget_start_date` = ?", "iss", [Abstract_class::get_user_id(), $categoryName, $budgetStartingDate]);
+            $budget_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ? AND `category_name` = ? AND `budget_start_date` = ?", "iss", [($userid == null)? $this->get_user_id():$userid, $categoryName, $budgetStartingDate]);
+                
+            return $budget_array;
+
+        }
+
+        
+        public function find_budgets_start_date_from_x_category_order_by_date($categoryName, $userid = null) {
+
+            $budget_array = self::find_by_query("SELECT `budget_start_date` FROM ". self::$table ." WHERE user_id = ? AND `category_name` = ? ORDER BY `budget_start_date`", "is", [($userid == null)? $this->get_user_id():$userid, $categoryName]);
                 
             return $budget_array;
 

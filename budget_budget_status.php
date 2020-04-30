@@ -8,7 +8,8 @@
 
         <?php
         
-            $budgets = Budget::find_user_budgets();
+            $budgets = new Budget();
+            $budgets = $budgets->find_user_budgets();
                                 
             if ($budgets != null) {
 
@@ -39,7 +40,8 @@
                 echo "Create a new budget:<br><br>";
                 echo "<p>For category: ";
 
-                $categories = Category::find_user_categories();
+                $categories = new Category();
+                $categories = $categories->find_user_categories($userid);
 
                 echo "<select id='budget-select-category'>";
                 echo "<option value=''>--Please choose a category--</option>";

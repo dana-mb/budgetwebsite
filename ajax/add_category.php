@@ -8,7 +8,7 @@
           
         $category = new Category($_POST['newCategoryName']);
         
-        if($category->create() == true) {
+        if($category->create(is) == true) {
         
             echo "ok";
 

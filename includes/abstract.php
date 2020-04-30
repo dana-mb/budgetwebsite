@@ -1,36 +1,44 @@
 <?php
 
     class Abstract_class extends Database {
-
+        public $userid;
         
         public static function create_table($sql) {
             Database::create_table($sql);
         }
 
 
-        public static function get_user_id() {
-            return $user_id = user::find_user_id();
-            
+        public function get_user_id() {
+            // if (!empty($this->userid)) {
+            //     return $this->userid;
+            // } else {
+                // session_start();
+                $user = new User();
+                $user->find_user_info();
+                return $user->userid;
+            // }
+            // return 1;
+
         }
 
-        public static function find_all() {
-            return static::find_by_query("SELECT * FROM ". static::$table . " ");
+        // public static function find_all() {
+        //     return static::find_by_query("SELECT * FROM ". static::$table . " ");
             
-            // lesson 48 - in the end he explains everything
-            /*global $database;
-            $result_set = $database->query("SELECT * FROM users");
-            return $result_set;*/
-        }
+        //     // lesson 48 - in the end he explains everything
+        //     /*global $database;
+        //     $result_set = $database->query("SELECT * FROM users");
+        //     return $result_set;*/
+        // }
 
 
-        public static function find_by_id($id) {
-            global $database;
-            $the_result_array = static::find_by_query("SELECT * FROM ". static::$table . " WHERE id= $id LIMIT 1");
-            //$database->query("SELECT * FROM users WHERE id= $id LIMIT 1");
+        // public static function find_by_id($id) {
+        //     global $database;
+        //     $the_result_array = static::find_by_query("SELECT * FROM ". static::$table . " WHERE id= $id LIMIT 1");
+        //     //$database->query("SELECT * FROM users WHERE id= $id LIMIT 1");
             
-            return !empty($the_result_array) ? array_shift($the_result_array) : false;
+        //     return !empty($the_result_array) ? array_shift($the_result_array) : false;
             
-        }
+        // }
 
 
         public static function find_by_query($sql, $param_k, $param) {
@@ -112,36 +120,34 @@
             return $properties;
         }
 
-        protected function properties_new() {
+        // protected function properties() {
 
-            // $this->user_id = Abstract_class::get_user_id();
-            // $this->amount = $amount;
-            // $this->category_name = $category_name;
-            // $this->date = $date;
-            // $this->details = $details;
+        //     // $this->user_id = Abstract_class::get_user_id();
+        //     // $this->amount = $amount;
+        //     // $this->category_name = $category_name;
+        //     // $this->date = $date;
+        //     // $this->details = $details;
 
-            $properties = array();
-            foreach (static::$table_fields as $table_field) { 
-                // check if the property (value- $db_field) from the 
-                // array exist in $this- the class. if it does exist it 
-                // will be assign to $property array
-                if(property_exists($this, $table_field)) { 
-                    // because db_field is not a property (it's just a name we gave) it gets $.
-                    $properties [$table_field] = $this->$table_field; 
-                }
-            }
+        //     $properties = array();
+        //     foreach (static::$table_fields as $table_field) { 
+        //         // check if the property (value- $db_field) from the 
+        //         // array exist in $this- the class. if it does exist it 
+        //         // will be assign to $property array
+        //         if(property_exists($this, $table_field)) { 
+        //             // because db_field is not a property (it's just a name we gave) it gets $.
+        //             $properties [$table_field] = $this->$table_field; 
+        //         }
+        //     }
 
-            return $properties;
-        }
+        //     return $properties;
+        // }
 
 
-        public function create_new($param_k) {
-
-            
+        public function create($param_k) {
 
             global $database;
 
-            $properties = $this->properties_new();
+            $properties = $this->properties();
 
             // return $param_k;
 
@@ -179,38 +185,38 @@
         }
 
 
-        public function create() {
+        // public function create() {
 
-            global $database;
+        //     global $database;
 
-            $properties = $this->properties();
+        //     $properties = $this->properties();
 
-            $sql = "INSERT INTO " .static::$table. "(" . implode( ",", array_keys($properties) ) . ")";
+        //     $sql = "INSERT INTO " .static::$table. "(" . implode( ",", array_keys($properties) ) . ")";
             
-            //apply all the values to our object: except the auto incremented id:
+        //     //apply all the values to our object: except the auto incremented id:
             
-            $sql .= " VALUES ('". implode( "','", array_values($properties) ) ."')";
+        //     $sql .= " VALUES ('". implode( "','", array_values($properties) ) ."')";
             
-            // $sql .= $database->escape_string($this->username)   . "', '";
-            // $sql .= $database->escape_string($this->password)   . "', '";
-            // $sql .= $database->escape_string($this->first_name) . "', '";
-            // $sql .= $database->escape_string($this->last_name)  . "')";
+        //     // $sql .= $database->escape_string($this->username)   . "', '";
+        //     // $sql .= $database->escape_string($this->password)   . "', '";
+        //     // $sql .= $database->escape_string($this->first_name) . "', '";
+        //     // $sql .= $database->escape_string($this->last_name)  . "')";
 
-            if($database->query($sql, $param_k, $param) == true) {
-                // pull the id and also assign it to our object by a method 
-                // from database class even though we can do it here 
-                // (mysqli_insert_id which returns the id from the last query):
+        //     if($database->query($sql, $param_k, $param) == true) {
+        //         // pull the id and also assign it to our object by a method 
+        //         // from database class even though we can do it here 
+        //         // (mysqli_insert_id which returns the id from the last query):
                 
-                // $this->expense_id = $database->the_insert_id();
+        //         // $this->expense_id = $database->the_insert_id();
                 
-                // return $database->the_insert_id();
-                return ($database->connection->affected_rows == -1) ? true : false;
+        //         // return $database->the_insert_id();
+        //         return ($database->connection->affected_rows == -1) ? true : false;
 
-                //estantiate the user class, assigned static strings for the object(username..)
-            } else {
-                return false;
-            }
-        }
+        //         //estantiate the user class, assigned static strings for the object(username..)
+        //     } else {
+        //         return false;
+        //     }
+        // }
 
 
         // public function save() {
@@ -292,6 +298,3 @@
         
 
     }
-
-
-?>

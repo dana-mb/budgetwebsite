@@ -13,7 +13,7 @@
         //                 $_POST['expenseAmount'], $_POST['categoryName'], 
         //                 date('Y-m-d', strtotime( $_POST['expenseDate'] )), 
         //                 $_POST['expenseDetails'] ]) == true) {
-        if($expense->create() == true) {
+        if($expense->create("idsss") == true) {
             echo "ok";
             exit;
         } else {

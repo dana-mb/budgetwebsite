@@ -21,13 +21,15 @@
                         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
 
 
-        // function __construct($amount, $category_name, $date, $details) {
-        //     $this->user_id = Abstract_class::get_user_id();
-        //     $this->amount = $amount;
-        //     $this->category_name = $category_name;
-        //     $this->date = $date;
-        //     $this->details = $details;
-        // } 
+        function __construct($amount = null, $category_name = null, $date = null, $details = null) {
+            if ($amount!=null && $category_name!=null && $date!=null) {
+                $this->user_id = $this->get_user_id();
+                $this->amount = $amount;
+                $this->category_name = $category_name;
+                $this->date = $date;
+                $this->details = $details;
+            }
+        }
 
 
         public static function create_table() {
@@ -35,9 +37,9 @@
         }
         
         
-        public static function find_user_expenses() {
+        public function find_user_expenses($userid = null) {
 
-            $expense_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ?", "i", [Abstract_class::get_user_id()]);
+            $expense_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ?", "i", [($userid == null)? $this->get_user_id():$userid]);
                 
             return $expense_array;
 
