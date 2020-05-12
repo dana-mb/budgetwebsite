@@ -7,7 +7,6 @@
         protected $user_db_token;
         protected $user_computer_unique_id;
         protected $user_computer_token;
-        // public $userid;
         public $user_id;
         public $email;
         public $unique_id;
@@ -27,13 +26,15 @@
                                     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
 
 
-        // function __construct($email, $unique_id, $password, $hashed_code, $verified_status, $token) {
-        //     $this->email = $email;
-        //     $this->unique_id = $unique_id;
-        //     $this->password = $password;
-        //     $this->hashed_code = $hashed_code;
-        //     $this->verified_status = $token;
-        // }
+        function __construct($email=null, $unique_id=null, $password=null, $hashed_code=null, $verified_status=null, $token=null) {
+            if($email!=null) {
+                $this->email = $email;
+                $this->unique_id = $unique_id;
+                $this->password = $password;
+                $this->hashed_code = $hashed_code;
+                $this->verified_status = $token;
+            }
+        }
 
 
         public static function create_table() {
@@ -97,7 +98,16 @@
         //     self::$user_db_token = $user_token;
 
         // }
-        
+
+
+        public function find_user_by_email($email) {
+
+            $user_results = self::find_by_query("SELECT * FROM ".self::$table." WHERE email = ?","s",[$email]);
+
+            return $user_results;
+
+        }
+
 
 
     }

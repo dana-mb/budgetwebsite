@@ -10,5 +10,6 @@
     require_once("session.php");
     require_once("expense.php");
     require_once("budget.php");
+    require_once("dashboard.php");
 
 ?>

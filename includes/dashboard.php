@@ -2,10 +2,7 @@
 
 class Dashboard extends Abstract_class {
 
-    // protected static $table = "expenses";
     protected static $table_fields = array('category_name','monthly_expenses','expenses','balance');
-    // protected static $table_param_t = "idsss";
-    public $user_id;
     public $category_name;
     public $monthly_expenses;
     public $expenses;
@@ -13,8 +10,8 @@ class Dashboard extends Abstract_class {
 
 
     public function expenses_status_dashboard() {
-            
-        $dashboard_array = self::find_by_query("SELECT s.category_name, e.monthly_expenses, s.expenses, s.budget_money-s.expenses 'balance'
+
+        $dashboard_array = self::find_by_query("SELECT s.category_name, IFNULL(e.monthly_expenses,0) 'monthly_expenses', IFNULL(s.expenses,0) 'expenses', s.budget_money-s.expenses 'balance'
                                             FROM 
             
                                                 (SELECT category_name, SUM(amount) 'monthly_expenses'
