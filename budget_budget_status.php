@@ -41,7 +41,7 @@
                 echo "<p>For category: ";
 
                 $categories = new Category();
-                $categories = $categories->find_user_categories($userid);
+                $categories = $categories->find_user_categories();
 
                 echo "<select id='budget-select-category'>";
                 echo "<option value=''>--Please choose a category--</option>";

@@ -4,6 +4,7 @@
 
         protected static $table = "expenses";
         protected static $table_fields = array('user_id','amount','category_name','date','details');
+        protected static $table_param_t = "idsss";
         public $user_id;
         public $amount;
         public $category_name;
@@ -37,15 +38,16 @@
         }
         
         
-        public function find_user_expenses($userid = null) {
+        public function find_user_expenses() {
 
-            $expense_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ?", "i", [($userid == null)? $this->get_user_id():$userid]);
+            $expense_array = self::find_by_query("SELECT * FROM ". self::$table ." WHERE user_id = ?", "i", [$this->get_user_id()]);
                 
             return $expense_array;
 
             
         }
 
+        
 
 
 

@@ -9,7 +9,7 @@
             <?php
                 
                 $expenses = new Expense();
-                $expenses = $expenses->find_user_expenses($userid);
+                $expenses = $expenses->find_user_expenses();
                 
                 if ($expenses != null) {
 

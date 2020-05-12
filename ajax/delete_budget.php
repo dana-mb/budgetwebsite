@@ -1,33 +1,27 @@
 <?php
-    session_start();
+    include("../includes/init.php");
+    Session::start();
+
     if (($_POST['categoryName'])) {
-        include("check_user_id.php");
         $budgetStartingDate = DateTime::createFromFormat('d-m-Y', "01-".$_POST['budgetStartingDate'])->format('Y-m-d');
         $output = '';
 
-        $stmt = $link->prepare("DELETE FROM `budgets` WHERE `user_id` = ? AND `category_name` = ? AND `amount` = ? AND `budget_start_date` = ?");
-        $stmt->bind_param("isis", $user_id, $_POST['categoryName'], $_POST['budgetAmount'], $budgetStartingDate);
-        
+        $budget = new Budget($_POST['categoryName'], $_POST['budgetAmount'], $budgetStartingDate);
+        if ($budget->delete() == 'true') {
 
-        if ($stmt -> execute()) {
             $output = "ok";
-            $stmt->close();
         } else {
             echo "The budget has not been deleted";
-            $stmt->close();
         }
 
             //check to see how many budgets there are already for this category
-            $stmt = $link->prepare("SELECT `budget_start_date` FROM `budgets` WHERE `user_id` = ? AND `category_name` = ? ORDER BY `budget_start_date`");
-            $stmt->bind_param("is", $user_id, $_POST['categoryName']);
-            $stmt->execute();
-            $result = $stmt -> get_result();
+            $budget1 = new Budget();
+            $results = $budget1->find_budgets_start_date_from_x_category_order_by_date($_POST['categoryName']);
             $budgetDates = array();
-            
-            while ($user = mysqli_fetch_assoc($result)) {
-                $budgetDates[] = $user['budget_start_date'];
-            }
-            $stmt->close();
+            $output = '';
+            foreach ($results as $result) {
+                $budgetDates[] = $result->budget_start_date;
+            };
             
             if (count($budgetDates) > 0) {
 
@@ -66,12 +60,9 @@
                     if ( $newerBudget != null ) {
 
                         $budgetEndingDate = date("Y-m-d",strtotime($newerBudget." -1 day"));
-                        $stmt = $link->prepare("UPDATE `budgets` SET `budget_end_date` = ? WHERE `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?");
-                        $stmt->bind_param("siss", $budgetEndingDate, $user_id, $_POST['categoryName'], $olderBudget);
-                        
-                        if ($stmt->execute()) {
+                        $budget2 = new Budget($_POST['categoryName'], null, $olderBudget);
+                    if ($budget2->update('budget_end_date',$budgetEndingDate,'ssis') == 'true') {
                             $output = "ok";
-                            $stmt->close();
                         } else {
                             echo "The budget has not been deleted";
                             exit;
@@ -79,12 +70,9 @@
 
                     } else {
                         $budgetEndingDate = NULL;
-                        $stmt = $link->prepare("UPDATE `budgets` SET `budget_end_date` = ? WHERE `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?");
-                        $stmt->bind_param("siss", $budgetEndingDate, $user_id, $_POST['categoryName'], $olderBudget);
-                        
-                        if ($stmt->execute()) {
+                        $budget3 = new Budget($_POST['categoryName'], null, $olderBudget);
+                    if ($budget3->update('budget_end_date',$budgetEndingDate,'ssis') == 'true') {
                             $output = "ok";
-                            $stmt->close();
                         } else {
                             echo "The budget has not been deleted";
                             exit;
@@ -94,5 +82,4 @@
             }
             echo $output;
     }
-    $stmt->close();
 ?>

@@ -65,6 +65,30 @@
             return $the_object_array; 
         }
 
+        public static function find_by_query2($sql, $param_k, $param) {
+            global $database;
+            $result_set = $database->query($sql, $param_k, $param);
+            //create an empty array to put our objects in there
+            $the_object_array = array(); 
+            
+            // create a loop that fetches out table from the abstract and
+            // bring back the result
+            
+            while($row = mysqli_fetch_array($result_set)) { 
+                
+                // we use the instantation method that loops through the 
+                // columns & records and assign those to our objects' 
+                // properties. we are replacing from our while loop
+                // in admin content "$row['username']": 
+                // $row to object and ['username'] to properties
+                // and now we only bring them to the object array
+                $the_object_array[] = static::instantation($row); 
+
+            }
+
+            return $the_object_array; 
+        }
+
 
         public static function instantation($the_record) {
             
@@ -103,22 +127,6 @@
 
         }
 
-        
-        // protected function properties() {
-
-        //     $properties = array();
-        //     foreach (static::$table_fields as $table_field) { 
-        //         // check if the property (value- $db_field) from the 
-        //         // array exist in $this- the class. if it does exist it 
-        //         // will be assign to $property array
-        //         if(property_exists($this, $table_field)) { 
-        //             // because db_field is not a property (it's just a name we gave) it gets $.
-        //             $properties [$table_field] = $this->$table_field; 
-        //         }
-        //     }
-
-        //     return $properties;
-        // }
 
         protected function properties() {
 
@@ -133,7 +141,8 @@
                 // check if the property (value- $db_field) from the 
                 // array exist in $this- the class. if it does exist it 
                 // will be assign to $property array
-                if(property_exists($this, $table_field)) { 
+                //  AND !empty($this->$table_field)
+                if(property_exists($this, $table_field) AND !empty($this->$table_field)) { 
                     // because db_field is not a property (it's just a name we gave) it gets $.
                     $properties [$table_field] = $this->$table_field; 
                 }
@@ -143,39 +152,27 @@
         }
 
 
-        public function create($param_k) {
+        public function create() {
 
             global $database;
 
             $properties = $this->properties();
-
-            // return $param_k;
-
-            // return print_r(array_fill(0, count($properties), '?') );
-
-            // return array_values($properties);
 
             $sql = "INSERT INTO " .static::$table. "(" . implode( ",", array_keys($properties) ) . ")";
             
             //apply all the values to our object: except the auto incremented id:
             
             $sql .= " VALUES (".implode( ",", array_fill(0, count($properties), '?') ).") ";
-            // return $sql;
-            // $sql .= $database->escape_string($this->username)   . "', '";
-            // $sql .= $database->escape_string($this->password)   . "', '";
-            // $sql .= $database->escape_string($this->first_name) . "', '";
-            // $sql .= $database->escape_string($this->last_name)  . "')";
-
-            $param = array_values($properties);
             
-            if($database->query($sql, $param_k, $param) == true) {
-                // pull the id and also assign it to our object by a method 
-                // from database class even though we can do it here 
-                // (mysqli_insert_id which returns the id from the last query):
-                
-                // $this->expense_id = $database->the_insert_id();
-                
-                // return $database->the_insert_id();
+            $param = array_values($properties);
+
+            $param_substr = static::$table_param_t;
+            $param_substr_len = strlen($param_substr);
+            $properties_count = sizeof($properties);
+
+            $param_str = ($properties_count == $param_substr_len) ? $param_substr : substr($param_substr, 0, -($param_substr_len-$properties_count));
+
+            if($database->query($sql, $param_str, $param) == true) {
                 return ($database->connection->affected_rows == -1) ? true : false;
 
                 //estantiate the user class, assigned static strings for the object(username..)
@@ -183,40 +180,6 @@
                 return false;
             }
         }
-
-
-        // public function create() {
-
-        //     global $database;
-
-        //     $properties = $this->properties();
-
-        //     $sql = "INSERT INTO " .static::$table. "(" . implode( ",", array_keys($properties) ) . ")";
-            
-        //     //apply all the values to our object: except the auto incremented id:
-            
-        //     $sql .= " VALUES ('". implode( "','", array_values($properties) ) ."')";
-            
-        //     // $sql .= $database->escape_string($this->username)   . "', '";
-        //     // $sql .= $database->escape_string($this->password)   . "', '";
-        //     // $sql .= $database->escape_string($this->first_name) . "', '";
-        //     // $sql .= $database->escape_string($this->last_name)  . "')";
-
-        //     if($database->query($sql, $param_k, $param) == true) {
-        //         // pull the id and also assign it to our object by a method 
-        //         // from database class even though we can do it here 
-        //         // (mysqli_insert_id which returns the id from the last query):
-                
-        //         // $this->expense_id = $database->the_insert_id();
-                
-        //         // return $database->the_insert_id();
-        //         return ($database->connection->affected_rows == -1) ? true : false;
-
-        //         //estantiate the user class, assigned static strings for the object(username..)
-        //     } else {
-        //         return false;
-        //     }
-        // }
 
 
         // public function save() {
@@ -228,71 +191,65 @@
         // }
 
 
-        public function update($parameters) {
+        public function update($tableField, $new_value, $param_kind) {
 
             global $database;
-            $properties = $this->properties($parameters);
-
+            $properties = $this->properties();
             $properties_pairs = array();
 
-            // UPDATE `budgets` SET `budget_end_date` = ? WHERE `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?");
-            // $stmt->bind_param("siss", $olderBudgetEndDate, $user_id, $_POST['categoryName'], $olderBudget);
-            
-            // *****update
-                // we dont need the instance we're just calling the method:
-                // $user = User::find_by_id(11);
-                // $user->password = "333";
-
-                // $user->update();
             foreach ($properties as $key => $value) {
                 // make the $key => $value look like (apply all the values to our object):
                 // "username= '" . $database->escape_string($this->username) . "', ";
                 // and assign is to properties_pairs
-                $properties_pairs[] = " {$key} = '{$value}' "; // single quotes for the strings
+                $properties_pairs[] = " `{$key}` = ? "; // single quotes for the strings
                 
             }
 
             $sql = "UPDATE " .static::$table. " SET ";
-            $sql .= implode( ",", $properties_pairs );
-            $sql .= " WHERE id= " . get_user_id(); // make sure to have a space before the where, 
-                                                                        // without a single quote- not a string, an integer
+            $sql .= " `{$tableField}` = ? ";
+            $sql .= " WHERE ";                  // make sure to have a space before the where, 
+            $sql .= implode( " AND ", $properties_pairs );
 
-            $database->query($sql);
-                
-            return ($database->connection->affected_rows == -1) ? true : false;
+            $param = array_values($properties);
+            array_unshift($param, $new_value);
+
+            if($database->query($sql, $param_kind, $param) == true) {
+                return ($database->connection->affected_rows == -1) ? true : false;
+            } else {
+                return false;
+            }
 
         }
 
 
-        public function delete($parameters) {
+        public function delete() {
 
             global $database;
-            $properties = $this->properties($parameters);
+            $properties = $this->properties();
 
             $sql = "DELETE FROM " .static::$table. " WHERE ";
-            //apply all the values to our object:
-            // $sql .= "id= " . $database->escape_string($this->id)             . "AND "; // without a single quote- not a string, an integer
             $properties_pairs = array();
 
             foreach ($properties as $key => $value) {
                 // make the $key => $value look like (apply all the values to our object):
                 // "username= '" . $database->escape_string($this->username) . "', ";
                 // and assign is to properties_pairs
-                $properties_pairs[] = " {$key} = '{$value}' AND "; // single quotes for the strings
+                $properties_pairs[] = " {$key} = ? "; // single quotes for the strings
                 
             }
-            $sql .= implode( ",", $properties_pairs );
-            // $sql .= "username= '" . $database->escape_string($this->username)     . "' AND "; // with a single quote- a string
-            // $sql .= "password= '" . $database->escape_string($this->password)     . "' AND ";
-            // $sql .= "first_name= '" . $database->escape_string($this->first_name) . "' AND ";
-            // $sql .= "last_name= '" . $database->escape_string($this->last_name)   . "'     ";
-            $sql .= "username= '" . $database->escape_string($this->user_id); // make sure to have a space before the where, 
-                                                                        // without a single quote- not a string, an integer
+            $sql .= implode( "AND", $properties_pairs );
             
-            $sql .= " LIMIT 1";
-            $database->query($sql);
+            $param_substr = static::$table_param_t;
+            $param_substr_len = strlen($param_substr);
+            $properties_count = sizeof($properties);
 
-            return ($database->connection->affected_rows == -1) ? true : false;
+            $param_str = ($properties_count == $param_substr_len) ? $param_substr : substr($param_substr, 0, -($param_substr_len-$properties_count));
+            
+            if ($database->query($sql, $param_str, array_values($properties)) == true) {
+                return ($database->connection->affected_rows == -1) ? true : false;
+            } else {
+                return false;
+            }
 
         }
         

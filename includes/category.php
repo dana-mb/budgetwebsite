@@ -5,6 +5,7 @@ class Category extends Abstract_class
 
     protected static $table = "categories";
     protected static $table_fields = array('user_id', 'category_name');
+    protected static $table_param_t = "is";
     public $user_id;
     public $category_name;
     public static $sql_categories = "CREATE TABLE IF NOT EXISTS `categories` (
@@ -18,7 +19,7 @@ class Category extends Abstract_class
 
     public function __construct($category_name = null)
     {
-        if($category_name == !null) {
+        if($category_name != null) {
             $this->user_id = $this->get_user_id();
             $this->category_name = $category_name;
         }
@@ -30,13 +31,17 @@ class Category extends Abstract_class
         Abstract_class::create_table(self::$sql_categories);
     }
 
-    public function find_user_categories($userid = null)
+    public function find_user_categories()
     {
-        $category_array = self::find_by_query("SELECT * FROM " . self::$table . " WHERE user_id = ?", "i", [($userid == null)? $this->get_user_id():$userid] );
+        $category_array = self::find_by_query("SELECT * FROM " . self::$table . " WHERE user_id = ?", "i", [$this->get_user_id()] );
 
         return $category_array;
     }
 
-    
+    public function find_last_inserted_category()
+    {
+        $category_array = self::find_by_query("SELECT `category_name` FROM " . self::$table . " WHERE `category_id`= (SELECT MAX(`category_id`) FROM ". self::$table ." WHERE user_id = ?)", "i", [$this->get_user_id()] );
 
+        return $category_array;
+    }
 }

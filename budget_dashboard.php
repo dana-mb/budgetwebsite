@@ -4,8 +4,76 @@
           <div id="container">
   
           <?php 
-                 
-                // $budget = new Budget("Vacation", 188, "2020-02-01", "2020-02-28");
+
+                // $category = new Category();
+                // echo var_dump($categoryName = $category->find_last_inserted_category());
+                // echo $categoryName[0]->category_name;
+                // `user_id` = ? AND `category_name` = ? AND `budget_start_date` = ?
+                // $category_name=null, $amount=null, $budget_start_date=null, $budget_end_date=null
+
+                // echo "update:  ";
+                // $budget = new Budget('Vacation', null, '2020-03-01');
+                // echo var_dump( $budget->update('budget_end_date','2020-03-31','ssis') );
+
+                // echo "<br>create:  ";
+                // $budget2 = new Budget('Vacation', 233, '2020-03-01', '2020-03-31');
+                // echo var_dump( $budget2->create() );
+
+
+                // $abstract_class = new Budget();
+                // echo $abstract_class->where_properties('budget_end_date','31-03-31','s');
+
+                // *****update
+                    // we dont need the instance we're just calling the method:
+                    // $user = User::find_by_id(11);
+                    // $user->password = "333";
+
+                    // $user->update();
+
+                // *****mydelete
+                    // estantiate the user class:
+                    // $user = new User();
+                    
+                    //     // assigned static strings for the object:
+                    //     $user->username = 'example_username';
+                    //     $user->password = 'example_password';
+                    //     $user->first_name = 'John';
+                    //     $user->last_name = 'Doe';
+
+                    // $user->delete();
+
+
+                // *****delete
+                    // estantiate the user class:
+                    // $user = User:: find_by_id(3);
+                    
+                    // $user->delete();
+
+                // include("link.php");
+                // $category = "Groceries";
+                // $stmt = $link->prepare("SELECT `budget_start_date` FROM `budgets` WHERE `user_id` = ? AND `category_name` = ? ORDER BY `budget_start_date`");
+                // $stmt->bind_param("is",$userid,$category);
+                // $stmt->execute();
+                //  $result = $stmt -> get_result();
+                // $budgetDates = array();
+                // $output = '';
+                // while ($user = mysqli_fetch_assoc($result)) {
+                //     $budgetDates[] = $user['budget_start_date'];
+                // }
+                // var_dump($budgetDates);
+                // $stmt->close();
+
+                // echo '<br><br><br>';
+                // $budget = new Budget();
+                // $results = $budget->find_budgets_start_date_from_x_category_order_by_date("Groceries");
+                // var_dump( $results);
+                // echo "<br><br>";
+                // $budgetDates2 = array();
+                //  foreach ($results as $result) {
+                //     $budgetDates2[] = $result->budget_start_date;
+                // };
+                // var_dump($budgetDates2);
+                 // $budget = new Budget("Vacation", 188, "2020-02-01", "2020-02-28");
                 // $budget->create("siiss");
                 
                 
@@ -143,46 +211,50 @@
   
                   <?php
   
-                      include("ajax/check_user_id.php");
+                    //   include("ajax/check_user_id.php");
                               
-                      include("link.php");
+                    //   include("link.php");
   
                       echo "The budgets for: ".date('F Y');
   
                       
   
-                      $stmt = $link->prepare("SELECT s.category_name, e.monthly_expenses, s.expenses, s.budget_money-s.expenses 'balance'
-                                              FROM 
+                    //   $stmt = $link->prepare("SELECT s.category_name, e.monthly_expenses, s.expenses, s.budget_money-s.expenses 'balance'
+                    //                           FROM 
                                                   
-                                                  (SELECT category_name, SUM(amount) 'monthly_expenses'
-                                                  FROM expenses
-                                                  WHERE `user_id` = ? AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE())
-                                                  GROUP BY category_name) e 
+                    //                               (SELECT category_name, SUM(amount) 'monthly_expenses'
+                    //                               FROM expenses
+                    //                               WHERE `user_id` = ? AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE())
+                    //                               GROUP BY category_name) e 
                                                   
-                                                  right join 
+                    //                               right join 
                       
-                                                  (SELECT c.`category_name`, SUM(e.expensesSum) AS 'expenses', SUM(e.budget_money)  AS 'budget_money'
-                                                  FROM `categories` c right JOIN 
+                    //                               (SELECT c.`category_name`, SUM(e.expensesSum) AS 'expenses', SUM(e.budget_money)  AS 'budget_money'
+                    //                               FROM `categories` c right JOIN 
   
-                                                      (SELECT b.budget_start_date, b.category_name , SUM(e.amount) 'expensesSum', 
-                                                      b.amount * (TIMESTAMPDIFF(MONTH, b.`budget_start_date`, COALESCE( DATE_ADD(b.`budget_end_date`, INTERVAL 1 DAY) ,NOW() ))+1)  'budget_money'
-                                                      FROM budgets b LEFT JOIN expenses e
-                                                      ON b.category_name = e.category_name
-                                                      AND b.`user_id` = e.`user_id`
-                                                      AND e.`date` BETWEEN b.`budget_start_date` AND COALESCE(b.`budget_end_date`,NOW())
-                                                      WHERE b.`user_id` = ? 
-                                                      GROUP BY b.budget_start_date, e.category_name) e
+                    //                                   (SELECT b.budget_start_date, b.category_name , SUM(e.amount) 'expensesSum', 
+                    //                                   b.amount * (TIMESTAMPDIFF(MONTH, b.`budget_start_date`, COALESCE( DATE_ADD(b.`budget_end_date`, INTERVAL 1 DAY) ,NOW() ))+1)  'budget_money'
+                    //                                   FROM budgets b LEFT JOIN expenses e
+                    //                                   ON b.category_name = e.category_name
+                    //                                   AND b.`user_id` = e.`user_id`
+                    //                                   AND e.`date` BETWEEN b.`budget_start_date` AND COALESCE(b.`budget_end_date`,NOW())
+                    //                                   WHERE b.`user_id` = ? 
+                    //                                   GROUP BY b.budget_start_date, e.category_name) e
   
-                                                  ON c.`category_name` = e.`category_name` 
-                                                  GROUP BY c.`category_name`) s
+                    //                               ON c.`category_name` = e.`category_name` 
+                    //                               GROUP BY c.`category_name`) s
                                                   
-                                              ON e.category_name = s.category_name
-                                              WHERE s.expenses > 0
-                                              GROUP BY s.category_name");
+                    //                           ON e.category_name = s.category_name
+                    //                           WHERE s.expenses > 0
+                    //                           GROUP BY s.category_name");
   
-                      $stmt->bind_param("ii", $user_id,$user_id);
+                    //   $stmt->bind_param("ii", $user_id,$user_id);
+
+                    $dashboard_expenses = new Dashboard();
+                    $dashboard_expenses = $dashboard_expenses->expenses_status_dashboard();
+                    echo var_dump($dashboard_expenses);
                                   
-                      if ($stmt -> execute()) {
+                      if ($dashboard_expenses != null) {
   
                           echo "<table id='budget-dashboard' border='1'>
                           <thead>
@@ -196,20 +268,24 @@
                           </thead>
                           <tbody>";
   
-                          $result = $stmt -> get_result();
+                        //   $result = $stmt -> get_result();
                           
-                          while($user = $result->fetch_assoc())
-                          {
+                        //   while($user = $result->fetch_assoc())
+                        
+                        foreach($dashboard_expenses as $dashboard_expense) :
+                        
+                        {
                               echo "<tr>";
-                              echo "<td>" . $user['category_name'] . "</td>";
-                              echo "<td>" . $user['monthly_expenses'] . "</td>";
-                              echo "<td>" . $user['expenses'] . "</td>";
-                              echo "<td>" . $user['balance'] . "</td>";
+                              echo "<td>" . $dashboard_expense->category_name . "</td>";
+                              echo "<td>" . $dashboard_expense->monthly_expenses . "</td>";
+                              echo "<td>" . $dashboard_expense->expenses . "</td>";
+                              echo "<td>" . $dashboard_expense->balance . "</td>";
                               echo "</tr>";
                               
                           
                           }
-                          $stmt->close();
+                        endforeach;
+                        //   $stmt->close();
                           echo "</tbody>";
                           
                           echo "</table><br>";
