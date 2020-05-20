@@ -24,7 +24,7 @@ if(isset($_POST['logOff']))
                 <form method="POST">
                     <button name="logOff" id="logOff"><img src="images/logout_door.png" style="width: 30px; height: 30px"></button>
                 </form>
-                <h1 id="main-headline">The Budget Website</h1>
+                <h4 id="main-headline">The Budget Website</h4>
             </div>
             <a href="javascript:void(0);" class="toggleNavMenu" onclick="toggleNavMenu()">
                 <button id="hamburger"></button>
@@ -33,7 +33,6 @@ if(isset($_POST['logOff']))
                 <a href="budget_dashboard.php" id="dashboard" class="nav-button">Dashboard</a>
                 <a href="budget_transactions.php" id="transactions" class="nav-button">Transactions</a>
                 <a href="budget_budget_status.php" id="budget_status" class="nav-button">Budget Status</a>
-                <a href="#charts" id="charts" class="nav-button">Charts</a>
             </div>  
         </div>
         

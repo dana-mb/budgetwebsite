@@ -18,131 +18,122 @@
 
    if(array_key_exists("sign-up", $_POST))
    {
-        $stmt = $link->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->bind_param("s", $_POST['email']);
-        $stmt->execute();
-        $result = $stmt -> get_result();
-        $user = $result->fetch_assoc();
-        
-        if ($result->num_rows ==  0) 
+        $userArray = new User();
+        $userArray = $userArray->find_user_by_email($_POST['email']);
+        if($userArray == null)
         {
-            // prepare and bind
-            $stmt = $link->prepare("INSERT INTO `users` (`email`,`unique_id`,`password`,`hashed_code`,`verified_status`) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", $email, $unique_id, $pass, $hashed_code, $verified_status);
-
-            // set parameters and execute
             $email=$_POST['email'];
             $unique_id=uniqid(rand(), true);
             $pass=password_hash($_POST['password'].$unique_id, PASSWORD_DEFAULT, ['cost' => 12]);
             $code=substr(md5(mt_rand()),0,15);
             $hashed_code=password_hash($code, PASSWORD_DEFAULT, ['cost' => 12]);
             $verified_status='unverified';
-            $stmt->execute();
             
-            $message = "Your Activation Code is ".$code."";
-            $to=$email;
-            $subject="Activation Code For the Budget Website";
-            $from = "danamboyko@gmail.com";
-            $body= "Your Activation Code is ".$code." Please Click On This link http://ec2-35-178-149-238.eu-west-2.compute.amazonaws.com/BudgetWebsite/verification.php?code=".$code."&email=".$email." to activate your account.";
-            $headers = "From:".$from;
-            if(mail($to,$subject,$body,$headers)) {
             
-                $index_message = "An Activation Code Is Sent To You. Check Your Last Verification Email!";
-                include("index.php");
+            $user = new User($email, $unique_id, $pass, $hashed_code, $verified_status);
+            
+            if ($user->create() == 'true')
+            {
+                
+                $message = "Your Activation Code is ".$code."";
+                $to=$email;
+                $subject="Activation Code For the Budget Website";
+                $from = "danamboyko@gmail.com";
+                $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/verification.php?code=".$code."&email=".$email." to activate your account.";
+                $headers = "From:".$from;
+                if(mail($to,$subject,$body,$headers)) {
+                
+                    $index_message = "An Activation Code Is Being Sent To You. Check Your Verification Email!";
+                    include("index.php");
 
-                $stmt->close();
-                $link->close();
-            
+                } else {
+                    $index_message = "The mail wasn't being send to you"; 
+                }
+
             } else {
-                $index_message = "The mail wasn't being send to you"; 
+                $index_message = "The user created in the database";
             }
 
-        } else if ($user['verified_status'] == 'unverified') 
+        } else if ($userArray[0]->verified_status == 'unverified') 
         { 
-            $code = $user['hashed_code'];
+            
             $email=$_POST['email'];
-
-            $message = "Your Activation Code is ".$code."";
-            $to=$email;
-            $subject="Activation Code For the Budget Website";
-            $from = "danamboyko@gmail.com";
-            $body= "Your Activation Code is ".$code." Please Click On This link http://ec2-35-178-149-238.eu-west-2.compute.amazonaws.com/BudgetWebsite/verification.php?code=".$code."&email=".$email." to activate your account.";
-            $headers = "From:".$from;
-            mail($to,$subject,$body,$headers);
             
+            $unique_id=uniqid(rand(), true);
+            $pass=password_hash($_POST['password'].$unique_id, PASSWORD_DEFAULT, ['cost' => 12]);
             
-            $index_message = "An Activation Code Is Sent To You. Check Your Last Verification Email!";
-            include("index.php");
+            $code=substr(md5(mt_rand()),0,15);
+            $hashed_code=password_hash($code, PASSWORD_DEFAULT, ['cost' => 12]);
 
-            $stmt->close();
-            $link->close();
+            $user = new User($email);
+            
+            if ($user->update('hashed_code',$hashed_code,'ss') == 'true' && $user->update('password',$pass,'ss') == 'true')
+            {
 
-        } else if ($result->num_rows != 0 && $user['verified_status'] == 'verified')
+                $message = "Your Activation Code is ".$code."";
+                $to=$email;
+                $subject="Activation Code For the Budget Website";
+                $from = "danamboyko@gmail.com";
+                $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/verification.php?code=".$code."&email=".$email." to activate your account.";
+                $headers = "From:".$from;
+                mail($to,$subject,$body,$headers);
+                
+                $index_message = "An Activation Code Has Been Sent To You Again. Check Your Last Verification Email!";
+                include("index.php");
+
+            } else {
+                $index_message = "There was a problem in sending another activation code, but it Was Already Sent To You. Check Your Last Verification Email!";
+            }
+
+        } else if ($userArray != null && $userArray[0]->verified_status == 'verified')
         {
-            $index_message = "The user already exist on this site, try to log in!";
+            $index_message = "The user is already exist on this site, try to log in!";
             include("index.php");
         }
    }
    // verifying the email
    if(isset($_GET['code']) && isset($_GET['email']))
    {
-       $email=$_GET['email'];
-       $code=$_GET['code'];
+        $email=$_GET['email'];
+        $code=$_GET['code'];
        
-       $stmt = $link->prepare("SELECT * FROM `users` WHERE email=?");
-       $stmt->bind_param("s", $email);
-       $stmt -> execute();
-       $result = $stmt -> get_result();
-       $user = $result->fetch_assoc();
-       
+        $userArray = New User();
+        $userArray = $userArray->find_user_by_email($email);
 
        //if the user is verified write that he's verified in the users table
-       if($result->num_rows == 1 && password_verify($code, $user['hashed_code']))
+       if($userArray != null && password_verify($code, $userArray[0]->hashed_code))
+       
        {
-           $stmt = $link->prepare(
-               "UPDATE `users`
-                SET `hashed_code`=?,`verified_status`=?
-                WHERE `email`=?" );
-
-            $stmt-> bind_param("sss", $new_code, $verified_status, $email);
+            $user = new User($email);
+            
             $new_code= '0';
             $verified_status= 'verified';
-
-            if($stmt -> execute()) 
+            
+            if ($user->update('hashed_code',$new_code,'ss') == 'true' && $user->update('verified_status',$verified_status,'ss') == 'true')
+            
             {
+                
                 $index_message= "<h3>Your sign up was successful, You may now log in!</h3>";
-                //include("index.php");
+                include("index.php");
                 
                 //insert new categories into the category list for the new user
-                $stmt = $link->prepare("INSERT INTO `categories` (`user_id`,`category_name`) VALUES (?,?)");
                 
-                function insertCategory($user_id, $category_name) {
-                    global $stmt;
-                
-                    // using prepared statement several times with different variables
-                    if (
-                        $stmt &&
-                        $stmt -> bind_param('ss', $user_id, $category_name) &&
-                        $stmt -> execute()
-                    ) {
-                         // new category for the user added
-                    }
-                
-                }
+                $categories = array('Groceries','Going out','Vacation','Dog care','Gifts');
+                foreach ($categories as $category) 
+                {
+                    $newCategory = new Category( $userArray[0]->user_id, $category );
+                    
+                    $newCategory->create();
 
-                // set parameters and execute
-                insertCategory($user['user_id'], 'Groceries');
-                insertCategory($user['user_id'], 'Going out');
-                insertCategory($user['user_id'], 'Vacation');
-                insertCategory($user['user_id'], 'Dog care');
-                insertCategory($user['user_id'], 'Gifts');
+                }
+                
                 
             }
             else 
             {
                 echo "unsuccessful_signup";
             }   
-       } else if ($user['verified_status'] == 'unverified')
+       } else if ($userArray->verified_status == 'unverified')
         {
             $index_message= "Your sign up was unsuccessful, please sign up again and verify your email with the last email that is sent to you.";
             include("index.php");

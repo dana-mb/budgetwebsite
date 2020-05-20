@@ -36,7 +36,7 @@
         
 
         public static function create_table() {
-            Abstract_class::create_table(self::$sql_users);
+            Abstract_class::create_table(self::$sql_budgets);
         }
         
 

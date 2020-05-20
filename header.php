@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<html>
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -16,46 +16,85 @@
     <style>
 
     body {
-      margin: 0;
+      margin: 0px;
     }
 
     #sign-up-form {
       display: none;
     }
 
+    
+
     #logOff {
       float: right;
       font-weight: bold;
-      width: 100px;
+      width: 70px;
     }
 
     #topbar {
-      background-color:rgba(128, 128, 128, 0.514);
+      background-color:rgba(255, 255, 255, 0.514);
       overflow: hidden;
     }
 
     #main-headline {
-      color: aliceblue;
-      margin-left: 10px;
+      color: grey;
     }
     
     #container {
-      max-width: 1300px;
-      margin: 30px 0px;
-      position: relative;
-      left: 0px;
+      max-width: 98%;
+      margin: 0px auto;
     }
 
     #dashboard-container {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       justify-content: space-around;
     }
 
     #container > div {
-      margin: 0 10px;
+      margin: 0 auto;
+      ;
     }
+
+    #pie-div {
+      background-color: rgba(233, 233, 233, 0.589);
+      width:vw !important;
+      text-align: center;
+      min-width: fit-content;
+    }
+
+#pie {
+      width: 400px;
+      max-height: 244px;
+      margin: 10px;
+      margin-bottom: -40px;
+    }
+
+    /* The same css for all the tables in the website */
+    table {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x:auto
+    }
+
+     td, #customers th {
+      border: 1px solid #ddd;
+      padding: 6px;
+    }
+
+     tr:nth-child(even){background-color: #f2f2f2;}
+
+     tr:hover {background-color: #ddd;}
+
+     th {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-align: left;
+      background-color: rgb(34, 168, 155);
+      color: white;
+    }
+
 
     #expense-button {
       width: 140px;
@@ -198,34 +237,9 @@
       display: none;
     }
 
-    #pie {
-      width: 400px;
-      height: 244px;
-    }
 
-    #expenses {
-      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x:auto
-    }
+    
 
-    #expenses td, #customers th {
-      border: 1px solid #ddd;
-      padding: 6px;
-    }
-
-    #expenses tr:nth-child(even){background-color: #f2f2f2;}
-
-    #expenses tr:hover {background-color: #ddd;}
-
-    #expenses th {
-      padding-top: 10px;
-      padding-bottom: 10px;
-      text-align: left;
-      background-color: rgb(34, 168, 155);
-      color: white;
-    }
 
     /* -------mostly on cellphones--------*/
     @media (max-width: 640px) {
@@ -234,6 +248,8 @@
         overflow: hidden;
         position: relative;
       }
+
+
 
       #hamburger {
         background-image: url("images/hamburger4.png") ;
@@ -249,7 +265,9 @@
       outline: 0;
       }
 
-      
+      #pie {
+      max-width: 100%;
+    }
       
 
       /*only when there is a hover option, not on touch screens, for example */
@@ -266,7 +284,6 @@
       }
 
 
-
       #nav-menu {
         margin-top: 20px;
         display: none;
@@ -276,22 +293,23 @@
       .nav-button {
         float: left;
         display: block;
-        color: white;
+        color: grey;
         text-align: center;
         padding: 14px 16px;
         text-decoration: none;
         font-size: 17px;
+        border-bottom:solid thin rgba(128, 128, 128, 0.575);
       }
       
       .nav-button:hover {
-        background-color: rgba(46, 45, 45, 0.404);
+        background-color: rgb(255, 255, 255);
         text-decoration: none;
-        font-weight: bold;
-        color: white;
+        color: rgb(55, 192, 178);
       }
 
       .active {
-        background-color: rgba(46, 45, 45, 0.404);
+        background-color: rgb(255, 255, 255);
+        color: rgb(55, 192, 178);
       }
     }
     
@@ -302,7 +320,6 @@
       .topbar-text {
         max-width: 1300px;
         margin: 0 auto;
-        left: 10px;
       }
 
       #topbar .toggleNavMenu {
@@ -318,24 +335,29 @@
       .nav-button {
         min-width: 30px;
         height: 35px;
-        margin: 50px 0% 5vh 0vw;
-        padding: 1.5vh 4.5vw 4.5vh 4.4vw;
-        border: thin grey inset;
-        background-color: gray;
-        color: white;
+        margin: 60px 0% 5vh 0vw;
+        padding: 0.5vh 4.5vw 0vh 4.4vw;
+        border-right: thin rgba(128, 128, 128, 0.527) inset;
+        background-color: rgb(255, 255, 255);
+        color: grey;
       }
 
       .nav-button:hover {
-        background-color: darkgray;
-        text-decoration: none;
-        color: white;
+        background-color: rgb(255, 255, 255);
+        color: rgb(55, 192, 178);
       }
 
-      .active{
-        padding-bottom: 4vh;
-        border-bottom: inset white thick;
-        background-color: darkgray;
+      .nav-button:link {
+        text-decoration: none;
       }
+
+      .active {
+        padding-bottom: 0vh;
+        color: rgb(55, 192, 178);
+      }
+
+
+
     }
 
 

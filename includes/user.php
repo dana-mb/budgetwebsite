@@ -4,6 +4,7 @@
 
         protected static $table = 'users';
         protected static $table_fields = array('email','unique_id','password','hashed_code','verified_status','token');
+        protected static $table_param_t = "ssssss";
         protected $user_db_token;
         protected $user_computer_unique_id;
         protected $user_computer_token;
@@ -32,7 +33,7 @@
                 $this->unique_id = $unique_id;
                 $this->password = $password;
                 $this->hashed_code = $hashed_code;
-                $this->verified_status = $token;
+                $this->verified_status = $verified_status;
             }
         }
 

@@ -22,6 +22,39 @@
         });
       })*/
 
+      // function verification() {
+      //   var categoryName = $(this).parent().text().slice(0,-1);
+      //   if (confirm("Are you sure you want to delete the category "+categoryName+"?")) 
+      //   {
+      //   $.ajax({
+      //     method: 'POST',
+      //     url: 'ajax/delete_category.php',
+      //     data: {categoryName: categoryName},
+      //     dataType: 'html', //send the datatype to the url
+          
+      //     success: function(data)
+      //     {
+      //       if (data == "ok") {
+      //         console.log(categoryName);
+      //         alert("The category "+categoryName+" has been deleted");
+      //         var categoryNameId = categoryName.split(' ').join('-');
+      //         $("#"+categoryNameId).closest("li").remove();
+      //       }
+      //       else {
+      //         alert(data);
+      //         console.log();
+      //       }
+      //     }
+      //   })
+      //   .fail( function (request, errorType, errorMessage) {
+      //     alert(errorMessage);
+      //     console.log(errorType);
+      //   })
+      //   }
+      // }
+
+      // $('#sign-up').click( verification );
+
       //toggle between the sign-up form & the log-in form
       $(".toggle-forms").click( function() {
         $("#sign-up-form").toggle();

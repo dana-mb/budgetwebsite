@@ -17,10 +17,10 @@ class Category extends Abstract_class
                                         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
 
 
-    public function __construct($category_name = null)
+    public function __construct($user_id = null, $category_name = null)
     {
         if($category_name != null) {
-            $this->user_id = $this->get_user_id();
+            ($user_id == null)? $this->user_id = $this->get_user_id() : $this->user_id = $user_id;
             $this->category_name = $category_name;
         }
     }

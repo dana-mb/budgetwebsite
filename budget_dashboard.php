@@ -5,6 +5,16 @@
   
           <?php 
 
+                $email = "dana@localhost";
+                $from = "dana@localhost";
+                $message = "Your Activation Code is ";
+                $to=$email;
+                $subject="Activation Code For the Budget Website";
+                $from = "danamboyko@gmail.com";
+                $body= "Your Activation Code is ";
+                $headers = "From:".$from;
+                mail($to,$subject,$body,$headers);
+                
                 // $category = new Category();
                 // echo var_dump($categoryName = $category->find_last_inserted_category());
                 // echo $categoryName[0]->category_name;
@@ -157,12 +167,12 @@
 
               ?>
   
-              <div>
+              <div id="expense-div">
       
-                  <img class="img-arrow-down" src="images/arrow_down.png">
-                  <button id="expense-button">New Expense</button>
-                  <br><br>
-  
+                    <img class="img-arrow-down" src="images/arrow_down.png">
+                    <button id="expense-button">New Expense</button>
+                    <br><br>
+
                   <div id="new-expense-section">
                       
                       <form  id="new-expense-form" autocomplete="off"></form>
@@ -207,8 +217,14 @@
                       </ul>
                       <button form="new-expense-form" type="submit" id="add-new-expense-button">Add the expence</button>
                       
+                      
                   </div>
   
+                  <div id="pie-div">
+                        <canvas id="pie" width="400" height="244" ></canvas>
+                    </div>
+                    <br>
+
                   <?php
   
                       echo "The budgets for: ".date('F Y');
@@ -251,9 +267,7 @@
                       }
   
                   ?>
-  
-                  <canvas id="pie" width="400" height="244" ></canvas>
-  
+                    
               </div>
               
           

@@ -65,30 +65,6 @@
             return $the_object_array; 
         }
 
-        public static function find_by_query2($sql, $param_k, $param) {
-            global $database;
-            $result_set = $database->query($sql, $param_k, $param);
-            //create an empty array to put our objects in there
-            $the_object_array = array(); 
-            
-            // create a loop that fetches out table from the abstract and
-            // bring back the result
-            
-            while($row = mysqli_fetch_array($result_set)) { 
-                
-                // we use the instantation method that loops through the 
-                // columns & records and assign those to our objects' 
-                // properties. we are replacing from our while loop
-                // in admin content "$row['username']": 
-                // $row to object and ['username'] to properties
-                // and now we only bring them to the object array
-                $the_object_array[] = static::instantation($row); 
-
-            }
-
-            return $the_object_array; 
-        }
-
 
         public static function instantation($the_record) {
             
@@ -169,7 +145,8 @@
             $param_substr = static::$table_param_t;
             $param_substr_len = strlen($param_substr);
             $properties_count = sizeof($properties);
-
+            
+            // if the param kind is more than the number of properties than remove the last letters from parameter kind 
             $param_str = ($properties_count == $param_substr_len) ? $param_substr : substr($param_substr, 0, -($param_substr_len-$properties_count));
 
             if($database->query($sql, $param_str, $param) == true) {
