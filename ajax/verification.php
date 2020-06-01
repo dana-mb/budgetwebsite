@@ -1,7 +1,8 @@
 <?php 
 
-    include("link.php");
     require_once("../includes/init.php");
+    Session::start();
+
   
     // Table Scheme for users table
     User::create_table();
@@ -16,7 +17,7 @@
     Expense::create_table();
    
 
-   if(array_key_exists("email", $_POST))
+   if(!empty($_POST["password"]))
    {
         $userArray = new User();
         $userArray = $userArray->find_user_by_email($_POST['email']);
@@ -28,7 +29,6 @@
             $code=substr(md5(mt_rand()),0,15);
             $hashed_code=password_hash($code, PASSWORD_DEFAULT, ['cost' => 12]);
             $verified_status='unverified';
-            
             
             $user = new User($email, $unique_id, $pass, $hashed_code, $verified_status);
             
@@ -44,10 +44,11 @@
                 if(mail($to,$subject,$body,$headers)) {
                 
                     echo "An Activation Code Is Being Sent To You. Check Your Verification Email!";
-                    include("index.php");
+                    exit;
 
                 } else {
                     echo "The mail wasn't being send to you"; 
+                    exit;
                 }
 
             } else {
@@ -78,8 +79,7 @@
                 $headers = "From:".$from;
                 mail($to,$subject,$body,$headers);
                 
-                $index_message = "An Activation Code Has Been Sent To You Again. Check Your Last Verification Email!";
-                include("index.php");
+                echo "An Activation Code Has Been Sent To You Again. Check Your Last Verification Email!";
 
             } else {
                 echo "There was a problem in sending another activation code, but it Was Already Sent To You. Check Your Last Verification Email!";
@@ -88,7 +88,6 @@
         } else if ($userArray != null && $userArray[0]->verified_status == 'verified')
         {
             echo "The user is already exist on this site, try to log in!";
-            include("index.php");
         }
    }
    // verifying the email
@@ -113,8 +112,7 @@
             
             {
                 
-                echo "<h3>Your sign up was successful, You may now log in!</h3>";
-                include("index.php");
+                echo "Your sign up was successful, You may now log in!";
                 
                 //insert new categories into the category list for the new user
                 
@@ -136,11 +134,7 @@
        } else if ($userArray->verified_status == 'unverified')
         {
             echo "Your sign up was unsuccessful, please sign up again and verify your email with the last email that is sent to you.";
-            include("index.php");
-        } else 
-        {
-            header ("Location: index.php");
-        }
+        } 
        
    }
 

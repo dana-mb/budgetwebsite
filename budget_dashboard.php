@@ -5,15 +5,18 @@
   
           <?php 
 
-                $email = "dana@localhost";
-                $from = "dana@localhost";
-                $message = "Your Activation Code is ";
-                $to=$email;
-                $subject="Activation Code For the Budget Website";
-                $from = "danamboyko@gmail.com";
-                $body= "Your Activation Code is ";
-                $headers = "From:".$from;
-                mail($to,$subject,$body,$headers);
+                // multidimensional associative array: (description is key & the value is the array)
+
+
+                // $email = "dana@localhost";
+                // $from = "dana@localhost";
+                // $message = "Your Activation Code is ";
+                // $to=$email;
+                // $subject="Activation Code For the Budget Website";
+                // $from = "danamboyko@gmail.com";
+                // $body= "Your Activation Code is ";
+                // $headers = "From:".$from;
+                // mail($to,$subject,$body,$headers);
                 
                 // $category = new Category();
                 // echo var_dump($categoryName = $category->find_last_inserted_category());

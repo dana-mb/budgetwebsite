@@ -1,7 +1,11 @@
 <?php
 
 
-include("check_sessions&cookies.php");
+require_once("includes/init.php");
+Session::start();
+
+$session = new Session();
+$session->session_and_cookie_check();
 
 include("header.php");
 ?>
@@ -13,21 +17,23 @@ include("header.php");
       <h1 class="display-4">Creating A Budget</h1>
       <p class="lead">Track and save your money</p>
       <hr class="my-4">
-      <div><?php echo $index_message; ?></div>
+      <h4 id="index_message"></h4>
+      <?php $index_message; ?>
+      
       <div class="container" id="signup-login-box">
       
-        <form method="post" id="sign-up-form" action="verification.php">
+        <form method="post" id="sign-up-form">
           <br>
           <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" name="email" id="inputEmail" placeholder="email@example.com">
+              <input type="email" class="form-control" name="sign-up-email" id="sign-up-inputEmail" placeholder="email@example.com">
             </div>
           </div>
           <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password">
+              <input type="password" class="form-control" name="sign-up-password" id="sign-up-inputPassword" placeholder="Password" autocomplete="on">
             </div>
           </div>
           <div class="form-group">
@@ -37,18 +43,18 @@ include("header.php");
           <input type="button" class="toggle-forms" id="showLogInForm" value="Log In Form"></input>
         </form>
 
-        <form method="POST" id="log-in-form" action="login.php">
+        <form method="POST" id="log-in-form">
           <br>
           <div class="form-group row">
-            <label for="inputEmail" class="col-sm-2 col-form-label">Emaill:</label>
+            <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" name="email" id="inputEmail" placeholder="email@example.com">
+              <input type="email" class="form-control" name="log-in-email" id="log-in-inputEmail" placeholder="email@example.com">
             </div>
           </div>
           <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password">
+              <input type="password" class="form-control" name="log-in-password" id="log-in-inputPassword" placeholder="Password" autocomplete="on">
             </div>
           </div>
           <div class="form-group">

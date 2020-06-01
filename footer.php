@@ -22,44 +22,95 @@
         });
       })*/
 
-      // function verification() {
-      //   var categoryName = $(this).parent().text().slice(0,-1);
-      //   if (confirm("Are you sure you want to delete the category "+categoryName+"?")) 
-      //   {
-      //   $.ajax({
-      //     method: 'POST',
-      //     url: 'ajax/delete_category.php',
-      //     data: {categoryName: categoryName},
-      //     dataType: 'html', //send the datatype to the url
-          
-      //     success: function(data)
-      //     {
-      //       if (data == "ok") {
-      //         console.log(categoryName);
-      //         alert("The category "+categoryName+" has been deleted");
-      //         var categoryNameId = categoryName.split(' ').join('-');
-      //         $("#"+categoryNameId).closest("li").remove();
-      //       }
-      //       else {
-      //         alert(data);
-      //         console.log();
-      //       }
-      //     }
-      //   })
-      //   .fail( function (request, errorType, errorMessage) {
-      //     alert(errorMessage);
-      //     console.log(errorType);
-      //   })
-      //   }
-      // }
-
-      // $('#sign-up').click( verification );
+      
 
       //toggle between the sign-up form & the log-in form
       $(".toggle-forms").click( function() {
         $("#sign-up-form").toggle();
         $("#log-in-form").toggle();
       })
+
+
+      function verification(e) {
+        if("<?php echo $_GET['email']; ?>" == "") {
+          if( $("#sign-up-form")[0].checkValidity() ) {
+            e.preventDefault();
+          }
+        }
+
+          var email = $('#sign-up-inputEmail').val();
+          var password = $('#sign-up-inputPassword').val();
+          var getCode = "<?php echo $_GET['code']; ?>";
+          var getEmail = "<?php echo $_GET['email']; ?>";
+          
+          $.ajax({
+            method: 'POST',
+            url: 'ajax/verification.php',
+            data: { email:email, password:password, getCode:getCode, getEmail:getEmail},
+            dataType: 'html', //send the datatype to the url
+            
+            success: function(data)
+            {
+              if (data != null) {
+                
+                $('h4#index_message').empty().text(data) ;
+                console.log(data);
+                var url= document.location.href;
+                window.history.pushState({}, "", url.split("?")[0]); //erase the variables from the url 
+              }
+              else {
+                alert(data);
+                console.log();
+              }
+            }
+          })
+          .fail( function (request, errorType, errorMessage) {
+            alert(errorMessage);
+            console.log(errorType);
+          })
+      }
+
+      $('#sign-up').click( verification );
+      if ("<?php echo $_GET['email']; ?>" != "") {
+        verification();
+      }
+
+
+      function login(e) {
+          if( $("#log-in-form")[0].checkValidity() ) {
+            e.preventDefault();
+          }
+
+          var email = $('#log-in-inputEmail').val();
+          var password = $('#log-in-inputPassword').val();
+          
+          $.ajax({
+            method: 'POST',
+            url: 'ajax/login.php',
+            data: { email:email, password:password },
+            dataType: 'html', //send the datatype to the url
+            
+            success: function(data)
+            {
+              if (data == 'ok') {
+                eval(window.location.href='../budget_dashboard.php');
+                console.log(data);
+              }
+              else {
+                alert(data);
+                $('h4#index_message').empty().text(data);
+                console.log();
+              }
+            }
+          })
+          .fail( function (request, errorType, errorMessage) {
+            alert(errorMessage);
+            console.log(errorType);
+          })
+      }
+
+      $('#log-in').click( login );
+
       
       //when the page is loaded the nav-button that matches the page name will get an active class
       document.addEventListener('DOMContentLoaded', function() 
