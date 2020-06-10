@@ -97,35 +97,14 @@
 
 
     #expense-button {
-      border-radius: 10px;
-      border: double thin rgb(34, 168, 155);
-      padding: 8px;
-      color: rgb(34, 168, 155);
-      text-decoration: none;
+      border-radius: 5px;
+      border: solid thin black;
       width: 140px;
       height: 50px;
-      /* font-size: large; */
+      font-size: large;
       font-weight: bold;
       position: relative;
       transition: all 0.3s ease-out;
-    }
-
-    #new-expense-section button {
-      /* border-radius: 10px; */
-      border: double thin rgb(34, 168, 155);
-      padding: 6px;
-      color: rgb(34, 168, 155);
-      text-decoration: none;
-      font-size: small;
-      font-weight: bold;
-      position: relative;
-      transition: all 0.3s ease-out;
-    }
-
-    #expense-button:hover ,#new-expense-section button:hover {
-      border-color: white;
-      color: white;
-      background-color: rgb(34, 168, 155);
     }
 
     .overlay {
@@ -177,7 +156,7 @@
   }
 
     #new-expense-section > ul > li {
-      margin: 30px auto;
+      margin: 20px auto;
       list-style: none;
       width: 250px;
     }
@@ -185,7 +164,7 @@
     /*only the inputs of new-expense-form*/
     #new-expense-section > ul > li > input {
       padding-left: 20px;
-      /* background: url("/images/dollar-sign.png") no-repeat; */
+      background: url("/images/dollar-sign.png") no-repeat;
     } 
 
     #new-expense-section > ul > li > input:placeholder-shown {
@@ -203,7 +182,7 @@
 
     #new-expense-section input:focus {
       outline-style: none;
-      border-color: rgb(34, 168, 155);
+      border-color: rgba(0, 0, 255, 0.596);
     }
 
     #categories {
@@ -213,8 +192,8 @@
       /*padding-inline-start: 10px;*/
       display: none;
       width: fit-content;
-      border: none;
-      /* border-style: inset; */
+      border: rgba(128, 128, 128, 0.13);
+      border-style: inset;
       margin-top: 5px !important;
       
     }
@@ -224,13 +203,12 @@
       padding: 0px;
       display: block;
       list-style: none;
-      border-bottom: inset;
+      border-bottom-style: inset;
       margin: 0px;
-
     }
 
     #categories > li:hover {
-      background-color: rgb(188, 238, 233);
+      background-color: antiquewhite;
     }
     
     #categories > li:focus-within {

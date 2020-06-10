@@ -18,7 +18,6 @@ include("header.php");
       <p class="lead">Track and save your money</p>
       <hr class="my-4">
       <h4 id="index_message"></h4>
-      <?php $index_message; ?>
       
       <div class="container" id="signup-login-box">
       

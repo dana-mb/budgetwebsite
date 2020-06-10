@@ -172,17 +172,19 @@
   
               <div id="expense-div">
       
-                    <img class="img-arrow-down" src="images/arrow_down.png">
-                    <button id="expense-button">New Expense</button>
-                    <br><br>
-
+                <br>    
+                <a id="expense-button" href="#expense-popup" onclick="expense_date_today();">New Expense</a>
+                <br><br>
+                <div id="expense-popup" class="overlay">
                   <div id="new-expense-section">
+                    <h4>Enter your new expense</h4>
+                    <a class="close" href="#">&times;</a>
                       
-                      <form  id="new-expense-form" autocomplete="off"></form>
-                      <ul >
-                          <li>Amount: <input form="new-expense-form" type="number" id="new-expense-amount" pattern='[0-9]+' 
-                          onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.keyCode == 8 || event.keyCode == 46" required min="1.00" step="0.01"  > </li>
-                          <li>Category:&emsp; <input form="new-expense-form" type="text" id="category-dropdown" onkeypress="return false;"placeholder="select" style="caret-color: 
+                    <form  id="new-expense-form" autocomplete="off"></form>
+                        <ul>
+                          <li><input form="new-expense-form" type="number" id="new-expense-amount" pattern='[0-9]+' 
+                          onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.keyCode == 8 || event.keyCode == 46" required min="1.00" step="0.01" placeholder="Amount" > </li>
+                          <li><input form="new-expense-form" type="text" id="category-dropdown" onkeypress="return false;"placeholder="Category" style="caret-color: 
                               transparent;" required> 
                           <ul id="categories">
                               <?php 
@@ -209,19 +211,20 @@
                           </ul>
                           </li>
   
-                          <li> Date: 
-                              <input form="new-expense-form" type='date' id="new_expense_date" required> <button id="todays_date_button">Today</button>
+                          <li>
+                              <input form="new-expense-form" type='date' id="new_expense_date" required> <button id="todays_date_button" onclick="expense_date_today();">Today</button>
                               
                               
                               
                               
                           </li>
-                          <li>Details: <input form="new-expense-form" id="new-expense-details" type="text"></li>
+                          <li><input form="new-expense-form" id="new-expense-details" type="text" placeholder="Details"></li>
                       </ul>
                       <button form="new-expense-form" type="submit" id="add-new-expense-button">Add the expence</button>
                       
                       
                   </div>
+                </div>
   
                   <div id="pie-div">
                         <canvas id="pie" width="400" height="244" ></canvas>

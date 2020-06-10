@@ -145,15 +145,6 @@
         }
       })
       
-      
-      //use the expense button to open a div where the user could insert all the info about the expense 
-      function toggleExpenseButton() {  
-        $('.img-arrow-down').toggleClass('img-arrow-down-transform');
-        $('#new-expense-section').toggle(500);
-        expense_date_today();
-      };
-
-      $("#expense-button").click(toggleExpenseButton);
 
       function toggleCategory() {
         $("#categories").slideToggle(200);
@@ -364,12 +355,7 @@
             }
           }
         }
-        
-      
 
-      //when the user wants todays date he clicks on the button that calls for the function
-      // I don't use parentheses for the function because I want to call the function only after the click
-      $("#todays_date_button").click( expense_date_today );
 
       $("#add-new-expense-button").click ( function(e) {
         if($('#new-expense-form')[0].checkValidity()) {
