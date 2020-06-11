@@ -259,7 +259,7 @@
         }
       });
       
-      //get the value of the select element of the day,month & a year be of today's date
+      // get the value of the select element of the day,month & a year be of today's date
       function expense_date_today() {
         var date = new Date();
         new_expense_date.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + '-' + date.getDate().toString().padStart(2, 0);
@@ -267,7 +267,41 @@
       };
 
 
+        
 
+      
+        var data = [];
+        var label='';
+        var value='';
+        
+        for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
+        {
+          data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
+                  , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
+          
+        }
+        var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
+
+        // end of creation of the pie chart
+      
+      // create the pie chart only if the dashboard table has any expenses written in the current month
+        function checkPieChart() {
+          var rows = $('#budget-dashboard tbody tr').length;
+          for (var i = 0; i < rows ; i++) {
+            if($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').html() == 0) {
+            } else {
+              drawPieChart(data, colors);
+              break;
+            }
+          }
+        }
+
+        checkPieChart();
+
+      
+        //creating the pie chart
+        function drawPieChart (data, colors) {
+          // creation of the pie chart
         var calculatePercent = function(value, total) {
           return (value / total * 100).toFixed(2);
         };
@@ -301,31 +335,6 @@
           return angle * Math.PI / 180
         }
 
-      
-        var data = [];
-        var label='';
-        var value='';
-        
-        if ( $('#budget-dashboard tbody tr:eq("0") td:eq("1")').html() != null &&
-              $('#budget-dashboard tbody tr:eq("1") td:eq("1")').html() != null ) {
-
-          for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
-          {
-            data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
-                    , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
-            
-          }
-
-        }
-
-        var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
-      
-        drawPieChart(data, colors);
-      
-
-      
-        //creating the pie chart
-        function drawPieChart (data, colors) {
           var canvas = document.getElementById('pie');
           if(document.getElementById('pie')) {
             var ctx = canvas.getContext('2d');
