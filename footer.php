@@ -136,7 +136,7 @@
         }
       }
 
-      //prevent the dissapearance of the nav-menu when resizing of the window from width smaller than 640px to larger than that when the hamburger is clicked twice
+      //prevent the disappearance of the nav-menu when resizing of the window from width smaller than 640px to larger than that when the hamburger is clicked twice
       $(window).resize(function(){ 
         if ($(window).width() > 640) {
           $("#nav-menu").css("display","flex");
@@ -267,43 +267,42 @@
       };
 
 
-        
-
+      //create the data and the colors arrays for the pie chart creation
+      var data = [];
+      var label='';
+      var value='';
       
-        var data = [];
-        var label='';
-        var value='';
+      for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
+      {
+        data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
+                , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
         
-        for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
-        {
-          data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
-                  , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
-          
-        }
-        var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
+      }
+      var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
 
-        // end of creation of the pie chart
       
       // create the pie chart only if the dashboard table has any expenses written in the current month
-        function checkPieChart() {
-          var rows = $('#budget-dashboard tbody tr').length;
-          for (var i = 0; i < rows ; i++) {
-            if($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').html() == 0) {
-            } else {
-              drawPieChart(data, colors);
-              break;
-            }
+      function checkPieChart() {
+        var rows = $('#budget-dashboard tbody tr').length;
+        for (var i = 0; i < rows ; i++) {
+          if($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').html() == 0) {
+          } else {
+            drawPieChart(data, colors);
+            break;
           }
         }
+      }
 
-        checkPieChart();
+      checkPieChart();
 
       
-        //creating the pie chart
-        function drawPieChart (data, colors) {
-          // creation of the pie chart
+      //creating the pie chart
+      function drawPieChart (data, colors) {
+
+        
+        
         var calculatePercent = function(value, total) {
-          return (value / total * 100).toFixed(2);
+          return (value / total * 100).toFixed(0);
         };
 
         var getTotal = function(data) {
@@ -334,36 +333,43 @@
         var degreeToRadians = function(angle) {
           return angle * Math.PI / 180
         }
+        
+        
 
-          var canvas = document.getElementById('pie');
-          if(document.getElementById('pie')) {
-            var ctx = canvas.getContext('2d');
-            var x = canvas.width / 1.3;
-                y = canvas.height / 1.3;
-            var color,
-                startAngle,
-                endAngle,
-                total = getTotal(data);
+        var canvas = document.getElementById('pie');
+        if(document.getElementById('pie')) {
+
+
+          var ctx = canvas.getContext('2d');
+          var x = canvas.width / 1.3;
+              y = canvas.height / 1.3;
+          var color,
+              startAngle,
+              endAngle,
+              total = getTotal(data);
+
+          // clear the canvas- in case of using the function in an update using ajax
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          for(var i=0; i<data.length; i++) {
+            color = colors[i];
+            startAngle = calculateStart(data, i, total);
+            endAngle = calculateEnd(data, i, total);
             
-            for(var i=0; i<data.length; i++) {
-              color = colors[i];
-              startAngle = calculateStart(data, i, total);
-              endAngle = calculateEnd(data, i, total);
-              
-              ctx.beginPath();
-              ctx.fillStyle = color;
-              //the center of a part of the pie
-              ctx.moveTo(x/3.4, y/2);
-              //the center of the whole pie
-              ctx.arc(x/3.4, y/2, y-100, startAngle, endAngle);
-              ctx.fill();
-              ctx.rect(canvas.width - 200, y - i * 30 - 100, 12, 12);
-              ctx.fill();
-              ctx.font = "13px sans-serif";
-              ctx.fillText(data[i].label + " - " + data[i].value + " (" + calculatePercent(data[i].value, total) + "%)", canvas.width - 200 + 20, y - i * 30 + 10 - 100);
-            }
+            ctx.beginPath();
+            ctx.fillStyle = color;
+            //the center of a part of the pie
+            ctx.moveTo(x/3.4, y/2);
+            //the center of the whole pie
+            ctx.arc(x/3.4, y/2, y-100, startAngle, endAngle);
+            ctx.fill();
+            ctx.rect(canvas.width - 200, y - i * 30 - 100, 12, 12);
+            ctx.fill();
+            ctx.font = "13px sans-serif";
+            ctx.fillText(data[i].label + " - " + data[i].value + " (" + calculatePercent(data[i].value, total) + "%)", canvas.width - 200 + 20, y - i * 30 + 10 - 100);
           }
         }
+      }
 
 
       $("#add-new-expense-button").click ( function(e) {
@@ -386,10 +392,50 @@
               console.log(expenseAmount);
               alert("The expense on the amount of "+expenseAmount+" has been added successfully");
               $("[form='new-expense-form']").val('');
-              toggleExpenseButton();
+              
+              $.ajax({
+                  method: 'POST',
+                  url: 'ajax/post_dashboard_expenses.php',
+                  data: {},
+                  dataType: 'html', //send the datatype to the url
+                  
+                  success: function(data)
+                  {
+                    $("#budget-dashboard > tbody").empty().append(data);
+                  }
+                })
+
               $("#categories [type='radio']").prop("checked", false);
-              // $("#pie").replace().add();
-              drawPieChart(data, colors);
+              
+              $(location). attr('href', '#');
+
+              $.ajax({
+                  method: 'POST',
+                  url: 'ajax/post_dashboard_expenses.php',
+                  data: {},
+                  dataType: 'html', //send the datatype to the url
+                  
+                  success: function(data)
+                  {
+                    $("#budget-dashboard > tbody").empty().append(data);
+
+                    //create the data and the colors arrays for the pie chart creation
+                    var data = [];
+                    var label='';
+                    var value='';
+                    
+                    for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
+                    {
+                      data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
+                              , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
+                      
+                    }
+                    var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
+                    
+                    drawPieChart (data, colors);
+                  }
+                })
+
             }
             else {
               alert(data);
