@@ -177,6 +177,8 @@
                 <br><br>
                 <div id="expense-popup" class="overlay">
                   <div id="new-expense-section">
+                    
+                    
                     <h4>Enter your new expense</h4>
                     <a class="close" href="#">&times;</a>
                       

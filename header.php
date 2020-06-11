@@ -104,14 +104,12 @@
       text-decoration: none;
       width: 140px;
       height: 50px;
-      /* font-size: large; */
       font-weight: bold;
       position: relative;
       transition: all 0.3s ease-out;
     }
 
     #new-expense-section button {
-      /* border-radius: 10px; */
       border: double thin rgb(34, 168, 155);
       padding: 6px;
       color: rgb(34, 168, 155);
@@ -149,19 +147,19 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%,-50%);
-      width: 400px;
+      min-width: fit-content;
       max-width: 100%;
       border-style: double;
       position: fixed;
       background-color: white;
       transition: all 5s ease-in-out;
-      padding: 25px;
+      padding: 30px;
     }
 
     #new-expense-section .close {
       position: absolute;
-      top: 10px;
-      right: 20px;
+      top: 5px;
+      right: 10px;
       transition: all 200ms;
       font-size: 30px;
       font-weight: bold;
@@ -170,8 +168,6 @@
     }
 
     #new-expense-section > ul {
-    /* margin: auto; */
-    /* width: max-content; */
     width: fit-content;
     padding-left: 0;
   }
@@ -184,8 +180,7 @@
     
     /*only the inputs of new-expense-form*/
     #new-expense-section > ul > li > input {
-      padding-left: 20px;
-      /* background: url("/images/dollar-sign.png") no-repeat; */
+      padding-left: 0px;
     } 
 
     #new-expense-section > ul > li > input:placeholder-shown {
@@ -207,14 +202,11 @@
     }
 
     #categories {
-      /*margin-top: 1rem;*/
       margin-left: 70px;
       padding: 0px;
-      /*padding-inline-start: 10px;*/
       display: none;
       width: fit-content;
       border: none;
-      /* border-style: inset; */
       margin-top: 5px !important;
       
     }
@@ -292,8 +284,6 @@
       margin: 0 auto;
       margin-bottom: 5px;
     }
-
-
 
     .block {
       display: block;
