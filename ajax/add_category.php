@@ -6,7 +6,7 @@
     
     if ($_POST['newCategoryName']) {
           
-        $category = new Category($_POST['newCategoryName']);
+        $category = new Category(null, $_POST['newCategoryName']);
         
         if($category->create() == true) {
         

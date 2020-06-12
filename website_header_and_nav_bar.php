@@ -35,6 +35,8 @@ if(isset($_POST['logOff']))
                 <a href="budget_budget_status.php" id="budget_status" class="nav-button">Budget Status</a>
             </div>  
         </div>
+
+        <div id="toastMessage"></div>
         
 
         

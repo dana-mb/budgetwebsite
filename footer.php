@@ -59,13 +59,13 @@
                 window.history.pushState({}, "", url.split("?")[0]); //erase the variables from the url 
               }
               else {
-                alert(data);
+                toastMassage(data);
                 console.log();
               }
             }
           })
           .fail( function (request, errorType, errorMessage) {
-            alert(errorMessage);
+            toastMassage(errorMessage);
             console.log(errorType);
           })
       }
@@ -97,14 +97,14 @@
                 console.log(data);
               }
               else {
-                alert(data);
+                toastMassage(data);
                 $('h4#index_message').empty().text(data);
                 console.log();
               }
             }
           })
           .fail( function (request, errorType, errorMessage) {
-            alert(errorMessage);
+            toastMassage(errorMessage);
             console.log(errorType);
           })
       }
@@ -136,7 +136,7 @@
         }
       }
 
-      //prevent the disappearance of the nav-menu when resizing of the window from width smaller than 640px to larger than that when the hamburger is clicked twice
+      // prevent the disappearance of the nav-menu when resizing of the window from width smaller than 640px to larger than that when the hamburger is clicked twice
       $(window).resize(function(){ 
         if ($(window).width() > 640) {
           $("#nav-menu").css("display","flex");
@@ -144,6 +144,15 @@
           $("#nav-menu").css("display","none");
         }
       })
+
+
+      // toast message
+      function toastMassage(message) {
+        $("#toastMessage").html(message);
+        var x = document.getElementById("toastMessage");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      }
       
 
       function toggleCategory() {
@@ -175,18 +184,18 @@
           {
             if (data == "ok") {
               console.log(categoryName);
-              alert("The category "+categoryName+" has been deleted");
+              toastMassage("The category "+categoryName+" has been deleted");
               var categoryNameId = categoryName.split(' ').join('-');
               $("#"+categoryNameId).closest("li").remove();
             }
             else {
-              alert(data);
+              toastMassage(data);
               console.log();
             }
           }
         })
         .fail( function (request, errorType, errorMessage) {
-          alert(errorMessage);
+          toastMassage(errorMessage);
           console.log(errorType);
         })
         }
@@ -208,7 +217,7 @@
           
           if($("#"+newCategoryName).length > 0) 
           { 
-            alert ("There is already a category by that name.");
+            toastMassage ("There is already a category by that name.");
           } 
           else if (confirm("Are you sure you want to add the category "+newCategoryName+"?")) 
           {        
@@ -222,7 +231,7 @@
             {
               if (data == "ok") {
                 console.log(newCategoryName);
-                alert("The category "+newCategoryName+" has been added successfully");
+                toastMassage("The category "+newCategoryName+" has been added successfully");
                 $.ajax({
                   method: 'POST',
                   url: 'ajax/get_category_list.php',
@@ -242,14 +251,14 @@
                 })
               }
               else {
-                alert(data);
+                toastMassage(data);
                 console.log();
               } 
             }
           }) 
           
           .fail( function (request, errorType, errorMessage) {
-            alert(errorMessage);
+            toastMassage(errorMessage);
             console.log(errorType);
           })
           }
@@ -390,7 +399,7 @@
           {
             if (data == "ok") {
               console.log(expenseAmount);
-              alert("The expense on the amount of "+expenseAmount+" has been added successfully");
+              toastMassage("The expense on the amount of "+expenseAmount+" has been added successfully");
               $("[form='new-expense-form']").val('');
               
               $.ajax({
@@ -438,14 +447,14 @@
 
             }
             else {
-              alert(data);
+              toastMassage(data);
               console.log(data);
             }
           }
         })
         
         .fail( function (request, errorType, errorMessage) {
-          alert(errorMessage);
+          toastMassage(errorMessage);
           console.log(errorType);
         })
       }
@@ -468,17 +477,17 @@
           {
             if (data == "ok") {
               console.log(expenseAmount, expenseDate, categoryName);
-              alert("The transaction of "+categoryName+" category has been deleted");
+              toastMassage("The transaction of "+categoryName+" category has been deleted");
               $("#expenses tr > td:contains('"+expenseDate+"') + td:contains('"+expenseAmount+"') + td:contains('"+categoryName+"')").parent().remove();
             }
             else {
-              alert(data);
+              toastMassage(data);
               console.log();
             }
           }
         })
         .fail( function (request, errorType, errorMessage) {
-          alert(errorMessage);
+          toastMassage(errorMessage);
           console.log(errorType);
         })
         }
@@ -507,7 +516,7 @@
           {
             if (data == "ok") {
               console.log(categoryName, budgetAmount, budgetStartingDate);
-              alert("The budget of "+categoryName+" category has been added successfully");
+              toastMassage("The budget of "+categoryName+" category has been added successfully");
               $("#new-budget-form input").val('');
               document.querySelector('#budget-select-category').selectedIndex = 0;
               
@@ -525,14 +534,14 @@
                 })
               }
             else {
-              alert(data);
+              toastMassage(data);
               console.log(data);
             }
           }
         })
         
         .fail( function (request, errorType, errorMessage) {
-          alert(errorMessage);
+          toastMassage(errorMessage);
           console.log(errorType);
         })
       }
@@ -562,17 +571,17 @@
           {
             if (data == "ok") {
               console.log(categoryName, budgetStartingDate);
-              alert("The budget of "+categoryName+" category has been deleted");
+              toastMassage("The budget of "+categoryName+" category has been deleted");
               $("#budget-status tr > td:contains('"+categoryName+"') + td:contains('"+budgetStartingDate+"')").parent().remove();
             }
             else {
-              alert(data);
+              toastMassage(data);
               console.log();
             }
           }
         })
         .fail( function (request, errorType, errorMessage) {
-          alert(errorMessage);
+          toastMassage(errorMessage);
           console.log(errorType);
         })
         }
