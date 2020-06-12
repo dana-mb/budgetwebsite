@@ -12,7 +12,7 @@ include("header.php");
 
   
   <body>
-
+    <div id="toastMessage"></div>
     <div class="jumbotron text-center">
       <h1 class="display-4">Creating A Budget</h1>
       <p class="lead">Track and save your money</p>

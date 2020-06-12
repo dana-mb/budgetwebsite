@@ -1,9 +1,10 @@
 <?php
     include("../includes/init.php");
     Session::start();
-    if (($_POST['categoryName'])) {
+    
+    if ($_POST['categoryName']) {
         
-        $category = new Category($_POST['categoryName']);
+        $category = new Category(null, $_POST['categoryName']);
 
         if ($category->delete() == 'true') {
             echo "ok";
