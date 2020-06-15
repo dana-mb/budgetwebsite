@@ -58,8 +58,8 @@
     
     #toastMessage.show {
       visibility: visible;
-      -webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;
-      animation: fadein 0.5s, fadeout 0.5s 4.5s;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
     }
     
     @-webkit-keyframes fadein {
