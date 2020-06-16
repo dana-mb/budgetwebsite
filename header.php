@@ -138,7 +138,7 @@
     }
 
 
-    #expense-button {
+    #pop-up-button {
       border-radius: 10px;
       border: double thin rgb(34, 168, 155);
       padding: 8px;
@@ -151,7 +151,7 @@
       transition: all 0.3s ease-out;
     }
 
-    #new-expense-section button {
+    #pop-up-section button {
       border: double thin rgb(34, 168, 155);
       padding: 6px;
       color: rgb(34, 168, 155);
@@ -162,7 +162,7 @@
       transition: all 0.3s ease-out;
     }
 
-    #expense-button:hover ,#new-expense-section button:hover {
+    #pop-up-button:hover ,#pop-up-section button:hover {
       border-color: white;
       color: white;
       background-color: rgb(34, 168, 155);
@@ -185,7 +185,7 @@
       z-index: 1;
     }
 
-    #new-expense-section {
+    #pop-up-section {
       left: 50%;
       top: 50%;
       transform: translate(-50%,-50%);
@@ -198,7 +198,7 @@
       padding: 30px;
     }
 
-    #new-expense-section .close {
+    #pop-up-section .close {
       position: absolute;
       top: 5px;
       right: 10px;
@@ -209,36 +209,36 @@
       color: #333;
     }
 
-    #new-expense-section > ul {
+    #pop-up-section > ul {
     width: fit-content;
     padding-left: 0;
   }
 
-    #new-expense-section > ul > li {
+    #pop-up-section > ul > li {
       margin: 30px auto;
       list-style: none;
       width: 250px;
     }
     
     /*only the inputs of new-expense-form*/
-    #new-expense-section > ul > li > input {
+    #pop-up-section > ul > li > input {
       padding-left: 0px;
     } 
 
-    #new-expense-section > ul > li > input:placeholder-shown {
+    #pop-up-section > ul > li > input:placeholder-shown {
       content: "placeholder";
     }
 
-    #new-expense-section > ul > li > input:placeholder-shown:focus{
+    #pop-up-section > ul > li > input:placeholder-shown:focus{
       content: "focus";
     }
     
     /*including the input of all the categories*/
-    #new-expense-section input {
+    #pop-up-section input {
       border-style: none none inset none;
     }
 
-    #new-expense-section input:focus {
+    #pop-up-section input:focus {
       outline-style: none;
       border-color: rgb(34, 168, 155);
     }

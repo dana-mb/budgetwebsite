@@ -6,6 +6,36 @@
             <h4>Insert your budget for each category:</h4>
             <br>
 
+            <a id="pop-up-button" href="#overlay">New Budget</a>    
+            <div id="overlay" class="overlay">
+                <div id="pop-up-section">
+                    <form id='new-budget-form'>
+                        <h4>Create a new budget:</h4><a class="close" href="#">&times;</a>
+                        <br>
+                        <p>For category:
+
+                        <?php $categories = new Category();
+                        $categories = $categories->find_user_categories();?>
+
+                        <select id='budget-select-category'>
+                        <option value=''>--Please choose a category--</option>
+                        
+                        <?php foreach( $categories as $category ) :
+                        {
+                            echo("<option value = '" . $category->category_name . "'>" . $category->category_name . "</option>");
+                        }
+                        endforeach; ?>
+
+                        </select></p>
+                        <p>From month: <input id='budget-insert-month' type='month' required></p> <!--type='month' gives a message about deprecation but it's not suppose to be deprecated. -->
+                        <p>on the amount of: <input id='budget-insert-amount' type='number' pattern='[0-9]' pattern='[0-9]' 
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' min='10' required></p>
+                        <button id='add-budget-button'>Add Budget</button>
+                    </form>
+                </div>
+            </div>
+            <br><br>
+            
         <?php
         
             $budgets = new Budget();
@@ -36,31 +66,10 @@
                 
                 echo "</table><br>";
             }
-                echo "<form id='new-budget-form'>";
-                echo "Create a new budget:<br><br>";
-                echo "<p>For category: ";
-
-                $categories = new Category();
-                $categories = $categories->find_user_categories();
-
-                echo "<select id='budget-select-category'>";
-                echo "<option value=''>--Please choose a category--</option>";
-                
-                foreach( $categories as $category ) :
-                {
-                    echo("<option value = '" . $category->category_name . "'>" . $category->category_name . "</option>");
-                }
-                endforeach;
-
-                echo "</select></p>";
-                echo "<p>From month: <input id='budget-insert-month' type='month' required></p>"; //type='month' gives a message about deprecation but it's not suppose to be deprecated.
-                echo "<p>on the amount of: <input id='budget-insert-amount' type='number' pattern='[0-9]' pattern='[0-9]' 
-                onkeypress='return event.charCode >= 48 && event.charCode <= 57' min='10' required></p>";
-                echo "<button id='add-budget-button'>Add Budget</button>";
-                echo "</form>";
+            ?>
             
 
-        ?>
+        
         
         </div>
     </div>

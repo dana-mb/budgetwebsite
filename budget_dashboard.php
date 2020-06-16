@@ -173,16 +173,16 @@
               <div id="expense-div">
       
                 <br>    
-                <a id="expense-button" href="#expense-popup" onclick="expense_date_today();">New Expense</a>
+                <a id="pop-up-button" href="#overlay" onclick="expense_date_today();">New Expense</a>
                 <br><br>
-                <div id="expense-popup" class="overlay">
-                  <div id="new-expense-section">
+                <div id="overlay" class="overlay">
+                  <div id="pop-up-section">
                     
                     
                     <h4>Enter your new expense</h4>
                     <a class="close" href="#">&times;</a>
                       
-                    <form  id="new-expense-form" autocomplete="off"></form>
+                    <form id="new-expense-form" autocomplete="off"></form>
                         <ul>
                           <li><input form="new-expense-form" type="number" id="new-expense-amount" pattern='[0-9]+' 
                           onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.keyCode == 8 || event.keyCode == 46" required min="1.00" step="0.01" placeholder="Amount" > </li>
