@@ -123,6 +123,15 @@
      td, #customers th {
       border: 1px solid #ddd;
       padding: 6px;
+      height: 46px;
+      vertical-align: middle;
+    }
+
+    td > div:last-child {
+      float: right;
+      height: 19px;
+      width: 25px;
+      background: url("images/trash-bin.png") no-repeat;
     }
 
      tr:nth-child(even){background-color: #f2f2f2;}
@@ -326,17 +335,7 @@
       margin: 0 auto;
       margin-bottom: 5px;
     }
-
-    /* td:last-child {
-      text-align: right !important;
-      display: inline-block;
-      background-color: turquoise;
-    } */
-
-    td > div:last-child {
-      float: right;
-    }
-
+    
     .block {
       display: block;
     }
