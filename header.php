@@ -124,7 +124,6 @@
       border: 1px solid #ddd;
       padding: 6px;
       height: 46px;
-      vertical-align: middle;
     }
 
     td > div:last-child {
