@@ -35,7 +35,7 @@
                 </div>
             </div>
             <br><br>
-            
+
         <?php
         
             $budgets = new Budget();

@@ -327,15 +327,15 @@
       margin-bottom: 5px;
     }
 
-    /* td:last-child {
-      text-align: right !important;
-      display: inline-block;
-      background-color: turquoise;
-    } */
-
-    td > div:last-child {
-      float: right;
+    td>a:last-child {
+      align-items: right;
+      color: turquoise;
     }
+
+    .deleteBudget {
+      /* width: 5px !important; */
+    }
+
 
     .block {
       display: block;
