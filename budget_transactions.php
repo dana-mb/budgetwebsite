@@ -30,7 +30,7 @@
                     echo "<td>" . $expense->date . "</td>";
                     echo "<td>" . $expense->amount . "</td>";
                     echo "<td>" . $expense->category_name . "</td>";
-                    echo "<td>" . $expense->details . "<div class='deleteTransaction'>X</div></td>";
+                    echo "<td>" . $expense->details . "<div class='deleteTransaction'></div></td>";
                     echo "</tr>";
                     }
                     endforeach;
