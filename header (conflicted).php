@@ -34,7 +34,7 @@
     }
 
     #container > div {
-      margin: auto 10px;
+      margin: auto 5px;
     }
     
     #logOff {
@@ -105,9 +105,9 @@
     
     #flex-div {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-around;
       flex-wrap: wrap;
-      align-self: center;
+      
     }
 
     #pie-div {
@@ -129,7 +129,7 @@
       border-collapse: collapse;
       width: 100%;
       table-layout: fixed;
-      max-width: 650px;
+      max-width: 700px;
       margin: auto;
     }
 
@@ -171,7 +171,7 @@
       font-weight: bold;
       position: relative;
       transition: all 0.3s ease-out;
-      z-index: 1;
+      z-index: -1;
     }
 
     #pop-up-section button {
@@ -205,7 +205,7 @@
     .overlay:target {
       visibility: visible;
       opacity: 1;
-      z-index: 3;
+      z-index: 1;
     }
 
     #pop-up-section {
@@ -375,7 +375,6 @@
         position: fixed;
         background-color: white;
         width: 100%;
-        z-index: 2;
       }
 
       #container {
@@ -469,7 +468,6 @@
         position: fixed;
         background-color: white;
         width: 100%;
-        z-index: 2;
       }
 
       #nav-menu {

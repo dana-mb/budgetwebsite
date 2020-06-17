@@ -3,7 +3,6 @@
     <div id="container">
 
         <div>
-            <h4>Insert your budget for each category:</h4>
             <br>
 
             <a id="pop-up-button" href="#overlay">New Budget</a>    

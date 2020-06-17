@@ -116,7 +116,6 @@
       document.addEventListener('DOMContentLoaded', function() 
       {
         var url = window.location.pathname;
-        //var filename = path.split('/').pop();
         var filename = url.substring(url.lastIndexOf('/')+1);
         var url_nav_name = (filename.substr(7)).replace(/\..+$/, '');
         var navbutton = document.getElementById(url_nav_name);
