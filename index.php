@@ -21,7 +21,7 @@ include("header.php");
       
       <div class="container" id="signup-login-box">
       
-        <form method="post" id="sign-up-form">
+        <form method="post" class="col-sm-5" id="sign-up-form">
           <br>
           <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>
@@ -42,7 +42,7 @@ include("header.php");
           <input type="button" class="toggle-forms" id="showLogInForm" value="Log In Form"></input>
         </form>
 
-        <form method="POST" id="log-in-form">
+        <form method="POST" class="col-sm-5" id="log-in-form">
           <br>
           <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>

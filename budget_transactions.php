@@ -4,8 +4,6 @@
     
     <div id="container">
         <div>
-            
-            <br>
             <?php
                 
                 $expenses = new Expense();
