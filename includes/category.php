@@ -1,6 +1,6 @@
 <?php
 
-class Category extends Abstract_class
+class Category extends Db_object
 {
 
     protected static $table = "categories";
@@ -28,7 +28,7 @@ class Category extends Abstract_class
 
     public static function create_table()
     {
-        Abstract_class::create_table(self::$sql_categories);
+        Db_object::create_table(self::$sql_categories);
     }
 
     public function find_user_categories()

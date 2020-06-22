@@ -1,6 +1,6 @@
 <?php
 
-    class Abstract_class extends Database {
+    class Db_object extends Database {
         public $userid;
         
         public static function create_table($sql) {
@@ -9,37 +9,11 @@
 
 
         public function get_user_id() {
-            // if (!empty($this->userid)) {
-            //     return $this->userid;
-            // } else {
-                // session_start();
                 $user = new User();
                 $user->find_user_info();
                 return $user->userid;
-            // }
-            // return 1;
-
+            
         }
-
-        // public static function find_all() {
-        //     return static::find_by_query("SELECT * FROM ". static::$table . " ");
-            
-        //     // lesson 48 - in the end he explains everything
-        //     /*global $database;
-        //     $result_set = $database->query("SELECT * FROM users");
-        //     return $result_set;*/
-        // }
-
-
-        // public static function find_by_id($id) {
-        //     global $database;
-        //     $the_result_array = static::find_by_query("SELECT * FROM ". static::$table . " WHERE id= $id LIMIT 1");
-        //     //$database->query("SELECT * FROM users WHERE id= $id LIMIT 1");
-            
-        //     return !empty($the_result_array) ? array_shift($the_result_array) : false;
-            
-        // }
-
 
         public static function find_by_query($sql, $param_k, $param) {
             global $database;
@@ -52,7 +26,7 @@
             
             while($row = mysqli_fetch_array($result_set)) { 
                 
-                // we use the instantation method that loops through the 
+                // I use the instantation method that loops through the 
                 // columns & records and assign those to our objects' 
                 // properties. we are replacing from our while loop
                 // in admin content "$row['username']": 
@@ -73,12 +47,6 @@
             // function get_called_class() instead of static
             $calling_class = get_called_class();
             $the_object = new $calling_class;
-                            
-            // $the_object->id         = $found_user['id'];
-            // $the_object->username   = $found_user['username'];
-            // $the_object->password   = $found_user['password'];
-            // $the_object->first_name = $found_user['first_name'];
-            // $the_object->last_name  = $found_user['last_name'];
 
             foreach ($the_record as $the_attribute => $value) {
 
@@ -96,22 +64,12 @@
 
 
         private function has_the_attribute($the_attribute) {
-
             $object_properties = get_object_vars($this);
-
             return array_key_exists($the_attribute, $object_properties);
-
         }
 
 
         protected function properties() {
-
-            // $this->user_id = Abstract_class::get_user_id();
-            // $this->amount = $amount;
-            // $this->category_name = $category_name;
-            // $this->date = $date;
-            // $this->details = $details;
-
             $properties = array();
             foreach (static::$table_fields as $table_field) { 
                 // check if the property (value- $db_field) from the 
@@ -123,13 +81,11 @@
                     $properties [$table_field] = $this->$table_field; 
                 }
             }
-
             return $properties;
         }
 
 
         public function create() {
-
             global $database;
 
             $properties = $this->properties();
@@ -157,15 +113,6 @@
                 return false;
             }
         }
-
-
-        // public function save() {
-
-        //     // check to see if the id is in our database. 
-        //     // if it is - it will only update it, if it's not - it will create it
-        //     return isset($this->id) ? $this->update() : $this->create();
-
-        // }
 
 
         public function update($tableField, $new_value, $param_kind) {

@@ -1,6 +1,6 @@
 <?php
 
-class Dashboard extends Abstract_class {
+class Dashboard extends Db_object {
 
     protected static $table_fields = array('category_name','monthly_expenses','expenses','balance');
     public $category_name;

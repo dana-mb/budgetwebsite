@@ -1,6 +1,6 @@
 <?php
 
-    class Budget extends Abstract_class {
+    class Budget extends Db_object {
 
         protected static $table = "budgets";
         protected static $table_fields = array('category_name','user_id','amount','budget_start_date','budget_end_date');
@@ -36,7 +36,7 @@
         
 
         public static function create_table() {
-            Abstract_class::create_table(self::$sql_budgets);
+            Db_object::create_table(self::$sql_budgets);
         }
         
 

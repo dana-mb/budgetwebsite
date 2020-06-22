@@ -1,6 +1,6 @@
 <?php
 
-    class User extends Abstract_class {
+    class User extends Db_object {
 
         protected static $table = 'users';
         protected static $table_fields = array('email','unique_id','password','hashed_code','verified_status','token');
@@ -39,7 +39,7 @@
 
 
         public static function create_table() {
-            Abstract_class::create_table(self::$sql_users);
+            Db_object::create_table(self::$sql_users);
         }
 
 
