@@ -1,5 +1,3 @@
-
-
     body {
       margin: 0px;
     }
@@ -39,6 +37,7 @@
       background-color:rgba(255, 255, 255, 0.514);
       overflow: hidden;
       align-items: baseline;
+      z-index: 1;
     }
 
     #main-headline {
@@ -114,7 +113,7 @@
       border-collapse: collapse;
       width: 100%;
       table-layout: fixed;
-      max-width: 700px;
+      max-width: 640px;
       margin: auto;
     }
 
@@ -156,7 +155,7 @@
       font-weight: bold;
       position: relative;
       transition: all 0.3s ease-out;
-      z-index: -1;
+      z-index: 0;
     }
 
     #pop-up-section button {
@@ -190,7 +189,7 @@
     .overlay:target {
       visibility: visible;
       opacity: 1;
-      z-index: 1;
+      z-index: 2;
     }
 
     #pop-up-section {

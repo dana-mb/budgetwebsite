@@ -32,9 +32,9 @@ $session->session_and_cookie_check();
       <hr class="my-4">
       <h4 id="index_message"></h4>
       
-      <div class="container" id="signup-login-box">
+      <div class="container" id="signup-login-box" style="max-width: 550px">
       
-        <form method="post" class="col-sm-5" id="sign-up-form">
+        <form method="post" class="col-md-12" id="sign-up-form">
           <br>
           <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>
@@ -55,7 +55,7 @@ $session->session_and_cookie_check();
           <input type="button" class="toggle-forms" id="showLogInForm" value="Log In Form"></input>
         </form>
 
-        <form method="POST" class="col-sm-5" id="log-in-form">
+        <form method="POST" class="col-md-12" id="log-in-form">
           <br>
           <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>
