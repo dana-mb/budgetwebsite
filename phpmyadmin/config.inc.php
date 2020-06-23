@@ -30,8 +30,8 @@ $i++;
 $cfg['Servers'][$i]['auth_type'] = 'config';
 /* Server parameters */
 $cfg['Servers'][$i]['host'] = 'budget-website-db.cfmeaa0ngg85.eu-central-1.rds.amazonaws.com:3306';
-$cfg['Servers'][$i]['user'] = 'dana';
-$cfg['Servers'][$i]['password'] = 'nhkehktc22';
+$cfg['Servers'][$i]['user'] = '{dana}';
+$cfg['Servers'][$i]['password'] = '{nhkehktc22}';
 $cfg['Servers'][$i]['extension'] = 'mysqli';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
