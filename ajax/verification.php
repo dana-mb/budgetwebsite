@@ -39,7 +39,7 @@
                 $to=$email;
                 $subject="Activation Code For the Budget Website";
                 $from = "danamboyko@gmail.com";
-                $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account.";
+                $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account."; // on localhost: http://localhost/index.php?code=" on amazon: http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code="
                 $headers = "From:".$from;
                 if(mail($to,$subject,$body,$headers)) {
                 
