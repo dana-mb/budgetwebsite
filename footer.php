@@ -111,6 +111,37 @@
 
       $('#log-in').click( login );
 
+
+      // delete user and all its data from the db
+      function deleteUserAccount() {
+        if (confirm("Are you sure you want to delete your account?")) 
+        {
+        $.ajax({
+          method: 'POST',
+          url: 'ajax/delete_user_account.php',
+          data: {},
+          dataType: 'html', //send the datatype to the url
+          
+          success: function(data)
+          {
+            if (data == "ok") {
+              toastMassage("Your account has been deleted successfully");
+            }
+            else {
+              toastMassage(data);
+              console.log();
+            }
+          }
+        })
+        .fail( function (request, errorType, errorMessage) {
+          toastMassage(errorMessage);
+          console.log(errorType);
+        })
+        }
+      }
+
+      $('#delete-user').click( deleteUserAccount );
+
       
       //when the page is loaded the nav-button that matches the page name will get an active class
       document.addEventListener('DOMContentLoaded', function() 

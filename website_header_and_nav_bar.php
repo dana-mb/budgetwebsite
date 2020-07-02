@@ -6,14 +6,13 @@ Session::start();
 $session = new Session();
 $session->session_and_cookie_check();
 
-if(isset($_POST['logOff'])) 
+if(isset($_POST['log-off'])) 
 {
-    unset($_SESSION['budget_website_session']);
-    session_destroy();
-    unset($_COOKIE['budget_website_cookie']);
-    setcookie('budget_website_cookie', '', time() - 3600, '/');
-    header("Location: index.php");
+    $session = new Session();
+    $session->logOut();
 }
+
+          
 
 ?>
 
@@ -40,7 +39,7 @@ if(isset($_POST['logOff']))
                 <form id="logOff" method="POST"></form>
                 <div class="topbar-text" id="main-headline-log-off">
                     <h4 id="main-headline">The Budget Website</h4>
-                    <button form="logOff" name="logOff" id="logOff"><img src="images/logout_door.png" style="width: 30px; height: 30px"></button>
+                    <button form="logOff" name="log-off" id="log-Off"><img src="images/logout_door.png" style="width: 30px; height: 30px"></button>
                 </div>
                 <a href="javascript:void(0);" class="toggleNavMenu" onclick="toggleNavMenu()">
                     <button id="hamburger"></button>
@@ -49,6 +48,7 @@ if(isset($_POST['logOff']))
                     <a href="budget_dashboard.php" id="dashboard" class="nav-button">Dashboard</a>
                     <a href="budget_transactions.php" id="transactions" class="nav-button">Transactions</a>
                     <a href="budget_budget_status.php" id="budget_status" class="nav-button">Budget Status</a>
+                    <a href="budget_account.php" id="account" class="nav-button">Account</a>
                 </div>  
             </div>
         <div>

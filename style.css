@@ -20,7 +20,7 @@
       margin: auto 5px;
     }
     
-    #logOff {
+    #log-off {
       font-weight: bold;
       width: 70px;
       height: 30px;
@@ -342,8 +342,31 @@
       display: none;
     }
 
+    #deleteUser {
+      text-align: center;
+    }
 
-    
+    #deleteUser > h5 {
+      width: 450px;
+      margin: auto;
+    }
+
+    #delete-user {  
+      border-radius: 10px;
+      border: double thin rgb(216, 68, 68);
+      padding: 8px;
+      color: rgb(216, 68, 68);
+      text-decoration: none;
+      width: 200px;
+      height: 50px;
+      font-weight: bold;
+    }
+
+    #delete-user:hover {
+      border-color: white;
+      color: white;
+      background-color: rgb(216, 68, 68);
+    }
 
 
     /* -------mostly on cellphones--------*/

@@ -176,6 +176,23 @@
             }
 
         }
+
+
+        public function deleteAll($user_id) {
+
+            global $database;
+
+            $sql = "DELETE FROM " .static::$table. " WHERE `user_id` = ?";
+            
+            if ($database->query($sql, i, [$user_id]) == true) {
+                $session = new Session();
+                $session->logOut();
+                return ($database->connection->affected_rows == -1) ? true : false;
+            } else {
+                return false;
+            }
+
+        }
         
 
     }

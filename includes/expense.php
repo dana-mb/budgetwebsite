@@ -17,7 +17,7 @@
                             `category_name` text NOT NULL,
                             `date` date NOT NULL,
                             `details` text,
-                            FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`),
+                            FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE,
                             PRIMARY KEY (`expense_id`)
                         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
 

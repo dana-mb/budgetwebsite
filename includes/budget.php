@@ -18,9 +18,8 @@
                                         `amount` int(11) NOT NULL,
                                         `budget_start_date` date NOT NULL,
                                         `budget_end_date` date,
-                                        FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`),
+                                        FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE,
                                         PRIMARY KEY (`budget_id`)
-                                        
                                     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1";
 
         

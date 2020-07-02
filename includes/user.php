@@ -37,6 +37,12 @@
             }
         }
 
+        public function delete_user() {
+            $this->find_user_info();
+            $user_id = $this->userid;
+            $this->deleteAll($user_id);
+        }
+
 
         public static function create_table() {
             Db_object::create_table(self::$sql_users);
@@ -55,7 +61,7 @@
                 list($user_computer_unique_id,$user_computer_token)=explode("-", $_COOKIE['budget_website_cookie']);
             }
             else {
-                echo "could'nt find user";
+                header("Location: index.php");
             }
 
             $this->user_computer_unique_id = $user_computer_unique_id;
@@ -76,31 +82,8 @@
 
             $this->user_db_token = $user_array[0]->token;
 
-            // return $user_array;
-
         }
         
-        // public function find_user_id() {
-
-        //     $user_array = self::find_user_info();
-            
-        //     $this->$user_id = $user_array[0]->user_id;
-            
-        //     // return $user_id;
-
-        // }
-
-        // protected static function find_user_token() {
-
-        //     $user_array = self::find_user_info();
-            
-        //     $user_token = $user_array[0]->token;
-            
-        //     self::$user_db_token = $user_token;
-
-        // }
-
-
         public function find_user_by_email($email) {
 
             $user_results = self::find_by_query("SELECT * FROM ".self::$table." WHERE email = ?","s",[$email]);
