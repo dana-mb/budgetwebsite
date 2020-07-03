@@ -125,7 +125,7 @@
           success: function(data)
           {
             if (data == "ok") {
-              toastMassage("Your account has been deleted successfully");
+              //nothing
             }
             else {
               toastMassage(data);
