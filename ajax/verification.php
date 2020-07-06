@@ -31,7 +31,6 @@
             $verified_status='unverified';
             
             $user = new User($email, $unique_id, $pass, $hashed_code, $verified_status);
-            
             if ($user->create() == 'true')
             {
                 
@@ -39,7 +38,7 @@
                 $to=$email;
                 $subject="Activation Code For the Budget Website";
                 $from = "danamboyko@gmail.com";
-                $body= "Your Activation Code is ".$code." Please Click On This link http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code=".$code."&email=".$email." to activate your account."; // on localhost: http://localhost/index.php?code=" on amazon: http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code="
+                $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account."; // on localhost: http://localhost/index.php?code=" on amazon: http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code="
                 $headers = "From:".$from;
                 if(mail($to,$subject,$body,$headers)) {
                 
@@ -68,21 +67,24 @@
 
             $user = new User($email);
             
-            if ($user->update('hashed_code',$hashed_code,'ss') == 'true' && $user->update('password',$pass,'ss') == 'true')
+            if ($user->update('unique_id',$unique_id,'ss') == 'true' && $user->update('hashed_code',$hashed_code,'ss') == 'true' && $user->update('password',$pass,'ss') == 'true')
             {
 
                 $message = "Your Activation Code is ".$code."";
                 $to=$email;
                 $subject="Activation Code For the Budget Website";
                 $from = "danamboyko@gmail.com";
-                $body= "Your Activation Code is ".$code." Please Click On This link http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code=".$code."&email=".$email." to activate your account.";  // on localhost: http://localhost/index.php?code=" on amazon: http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code="
+                $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account.";  // on localhost: http://localhost/index.php?code=" on amazon: http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code="
                 $headers = "From:".$from;
-                mail($to,$subject,$body,$headers);
                 
-                echo "An Activation Code Has Been Sent To You Again. Check Your Last Verification Email!";
-
-            } else {
-                echo "There was a problem in sending another activation code, but it Was Already Sent To You. Check Your Last Verification Email!";
+                if(mail($to,$subject,$body,$headers)) {
+                
+                    echo "An Activation Code Has Been Sent To You Again. Check Your Last Verification Email!";
+                    exit;
+                
+                } else {
+                    echo "There was a problem in sending another activation code, but it Was Already Sent To You. Check Your Last Verification Email!";
+                }
             }
 
         } else if ($userArray != null && $userArray[0]->verified_status == 'verified')
@@ -95,7 +97,7 @@
    {
         $email=$_POST['getEmail'];
         $code=$_POST['getCode'];
-       
+
         $userArray = New User();
         $userArray = $userArray->find_user_by_email($email);
 
@@ -107,6 +109,7 @@
             
             $new_code= '0';
             $verified_status= 'verified';
+            
             
             if ($user->update('hashed_code',$new_code,'ss') == 'true' && $user->update('verified_status',$verified_status,'ss') == 'true')
             
@@ -124,10 +127,6 @@
                     $newCategory->create();
 
                 }
-
-                
-                
-                
             }
             else 
             {
