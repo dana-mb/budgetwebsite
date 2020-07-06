@@ -2,13 +2,12 @@
     include("../includes/init.php");
     Session::start();
 
-    if (($_POST['categoryName'])) {
+    if ($_POST['categoryName']) {
         $budgetStartingDate = DateTime::createFromFormat('d-m-Y', "01-".$_POST['budgetStartingDate'])->format('Y-m-d');
         $output = '';
 
         $budget = new Budget($_POST['categoryName'], $_POST['budgetAmount'], $budgetStartingDate);
         if ($budget->delete() == 'true') {
-
             $output = "ok";
         } else {
             echo "The budget has not been deleted";
@@ -18,7 +17,6 @@
             $budget1 = new Budget();
             $results = $budget1->find_budgets_start_date_from_x_category_order_by_date($_POST['categoryName']);
             $budgetDates = array();
-            $output = '';
             foreach ($results as $result) {
                 $budgetDates[] = $result->budget_start_date;
             };

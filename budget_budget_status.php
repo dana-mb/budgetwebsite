@@ -35,13 +35,11 @@
             </div>
             <br><br>
 
-        <?php
-        
-            $budgets = new Budget();
-            $budgets = $budgets->find_user_budgets();
-                                
-            if ($budgets != null) {
-
+            <?php
+            
+                $budgets = new Budget();
+                $budgets = $budgets->find_user_budgets();
+                
                 echo "<table id='budget-status' border='1'>
                 <thead>
                 <tr>
@@ -52,23 +50,25 @@
                 </thead>
                 <tbody>";
 
-                foreach($budgets as $budget) :
-                {
-                    echo "<tr>";
-                    echo "<td>" . $budget->category_name . "</td>";
-                    echo "<td>" .  DateTime::createFromFormat('Y-m-d', $budget->budget_start_date)->format('m-Y') . "</td>";
-                    echo "<td><span>" . $budget->amount . "</span><div class='deleteBudget'></div></td>";
-                    echo "</tr>";
+                if ($budgets != null) {
+
+                    foreach($budgets as $budget) :
+                    {
+                        echo "<tr>";
+                        echo "<td>" . $budget->category_name . "</td>";
+                        echo "<td>" .  DateTime::createFromFormat('Y-m-d', $budget->budget_start_date)->format('m-Y') . "</td>";
+                        echo "<td><span>" . $budget->amount . "</span><div class='deleteBudget'></div></td>";
+                        echo "</tr>";
+                    }
+                    endforeach;
                 }
-                endforeach;
+
                 echo "</tbody>";
                 
                 echo "</table><br>";
-            }
+                
             ?>
             
-
-        
         
         </div>
     </div>

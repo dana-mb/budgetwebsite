@@ -431,18 +431,6 @@
               console.log(expenseAmount);
               toastMassage("The expense on the amount of "+expenseAmount+" has been added successfully");
               $("[form='new-expense-form']").val('');
-              
-              $.ajax({
-                  method: 'POST',
-                  url: 'ajax/post_dashboard_expenses.php',
-                  data: {},
-                  dataType: 'html', //send the datatype to the url
-                  
-                  success: function(data)
-                  {
-                    $("#budget-dashboard > tbody").empty().append(data);
-                  }
-                })
 
               $("#categories [type='radio']").prop("checked", false);
               
@@ -456,7 +444,9 @@
                   
                   success: function(data)
                   {
-                    $("#budget-dashboard > tbody").empty().append(data);
+                    if(data != "no") {
+                      $("#budget-dashboard > tbody").empty().append(data);
+                      }
 
                     //create the data and the colors arrays for the pie chart creation
                     var data = [];
@@ -489,6 +479,7 @@
         })
       }
       })
+
 
       function deleteTransaction() {
         var expenseDate = $(this).closest("tr").find("td:nth-child(1)").text();
@@ -528,6 +519,7 @@
       var date = new Date();
       $(".budget-starting-month").val(date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0)) ;
        
+
        //adding the budget through ajax
       $("#add-budget-button").click ( function(e) {
         if($('#new-budget-form')[0].checkValidity()) {
@@ -547,8 +539,11 @@
             if (data == "ok") {
               console.log(categoryName, budgetAmount, budgetStartingDate);
               toastMassage("The budget of "+categoryName+" category has been added successfully");
+              $(location). attr('href', '#');
               $("#new-budget-form input").val('');
               document.querySelector('#budget-select-category').selectedIndex = 0;
+              
+              
               
                 $.ajax({
                   method: 'POST',
@@ -587,7 +582,7 @@
       function deleteBudget() {
         var categoryName = $(this).closest("tr").find("td:nth-child(1)").text();
         var budgetStartingDate = $(this).closest("tr").find("td:nth-child(2)").text();
-        var budgetAmount = $(this).closest("tr").find("td:nth-child(3)").text().slice(0,-1);
+        var budgetAmount = $(this).closest("tr").find("td:nth-child(3)").text();
         
         if (confirm("Are you sure you want to delete the budget of "+categoryName+" on the amount of "+budgetAmount+"?")) 
         {
@@ -601,12 +596,12 @@
           {
             if (data == "ok") {
               console.log(categoryName, budgetStartingDate);
-              toastMassage("The budget of "+categoryName+" category has been deleted");
               $("#budget-status tr > td:contains('"+categoryName+"') + td:contains('"+budgetStartingDate+"')").parent().remove();
+              toastMassage("The budget of "+categoryName+" category has been deleted");
             }
             else {
               toastMassage(data);
-              console.log();
+              console.log(data);
             }
           }
         })

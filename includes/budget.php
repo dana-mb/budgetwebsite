@@ -12,8 +12,8 @@
         public $budget_end_date;
         
         public static $sql_budgets = "CREATE TABLE IF NOT EXISTS `budgets` (
-                                        `category_name` text NOT NULL,
                                         `budget_id` int(11) NOT NULL AUTO_INCREMENT,
+                                        `category_name` text NOT NULL,
                                         `user_id` int(11) NOT NULL,
                                         `amount` int(11) NOT NULL,
                                         `budget_start_date` date NOT NULL,
@@ -29,7 +29,7 @@
                 $this->user_id = $this->get_user_id();
                 $this->amount = intval($amount);
                 $this->budget_start_date = $budget_start_date;
-                $this->budget_end_date=$budget_end_date;
+                $this->budget_end_date = $budget_end_date;
             }
         }
         

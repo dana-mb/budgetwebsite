@@ -22,7 +22,7 @@
         endforeach;
 
     } else {
-        echo "The list can't be reloaded";
+        echo "no";
     }
 
 ?>

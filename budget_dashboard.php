@@ -73,19 +73,19 @@
                   $dashboard_expenses = new Dashboard();
                   $dashboard_expenses = $dashboard_expenses->expenses_status_dashboard();
                               
-                  if ($dashboard_expenses != null) {
+                  echo "<table id='budget-dashboard' border='1'>
+                  <thead>
+                  <tr>
+                  <th>Category Name</th>
+                  <th>Monthly Expenses</th>
+                  <th>Expenses</th>
+                  <th>Balance</th>
+                  
+                  </tr>
+                  </thead>
+                  <tbody>";
 
-                      echo "<table id='budget-dashboard' border='1'>
-                      <thead>
-                      <tr>
-                      <th>Category Name</th>
-                      <th>Monthly Expenses</th>
-                      <th>Expenses</th>
-                      <th>Balance</th>
-                      
-                      </tr>
-                      </thead>
-                      <tbody>";
+                  if ($dashboard_expenses != null) {
 
                     foreach($dashboard_expenses as $dashboard_expense) :
                     
@@ -100,14 +100,15 @@
                     }
 
                     endforeach;
-                    
-                      echo "</tbody>";
-                      
-                      echo "</table><br>";
 
                   }
+                    
+                  echo "</tbody>";
+                  echo "</table><br>";
 
-                  ?>
+                  
+
+                ?>
               </div>
               
             </div>

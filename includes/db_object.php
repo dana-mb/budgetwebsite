@@ -158,7 +158,7 @@
                 // make the $key => $value look like (apply all the values to our object):
                 // "username= '" . $database->escape_string($this->username) . "', ";
                 // and assign is to properties_pairs
-                $properties_pairs[] = " {$key} = ? "; // single quotes for the strings
+                $properties_pairs[] = " `{$key}` = ? "; // single quotes for the strings
                 
             }
             $sql .= implode( "AND", $properties_pairs );
@@ -166,7 +166,7 @@
             $param_substr = static::$table_param_t;
             $param_substr_len = strlen($param_substr);
             $properties_count = sizeof($properties);
-
+            
             $param_str = ($properties_count == $param_substr_len) ? $param_substr : substr($param_substr, 0, -($param_substr_len-$properties_count));
             
             if ($database->query($sql, $param_str, array_values($properties)) == true) {

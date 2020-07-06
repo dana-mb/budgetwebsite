@@ -9,18 +9,18 @@
                 $expenses = new Expense();
                 $expenses = $expenses->find_user_expenses();
                 
-                if ($expenses != null) {
+                echo "<table id='expenses' border='1'>
+                <thead>
+                <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Details</th>
+                </tr>
+                </tbody>";
+                echo "<tbody>";
 
-                    echo "<table id='expenses' border='1'>
-                    <thead>
-                    <tr>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Category</th>
-                    <th>Details</th>
-                    </tr>
-                    </tbody>";
-                    echo "<tbody>";
+                if ($expenses != null) {
                     
                     foreach($expenses as $expense) :
                     {
@@ -32,10 +32,11 @@
                     echo "</tr>";
                     }
                     endforeach;
-
-                    echo "</tbody>";
-                    echo "</table>";
                 }
+                
+                echo "</tbody>";
+                echo "</table>";
+                
                 
             ?>
             
