@@ -1,0 +1,12 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Create zip from repo",
+            "type": "shell",
+            "command": "git archive --format=zip -v --output='C:\Users\milki\Downloads\budget-website.zip' HEAD"
+        }
+    ]
+}
