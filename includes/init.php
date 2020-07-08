@@ -1,11 +1,15 @@
 <?php
-
+    
+    // Import PHPMailer classes into the global namespace
+    // These must be at the top of your script, not inside a function
     use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP; // added from the simple example script
     use PHPMailer\PHPMailer\Exception;
 
     require_once("Exception.php");
     require_once("PHPMailer.php");
     require_once("SMTP.php");
+    require_once("mailer.php");
     require_once("config.php");
     require_once("database.php");
     require_once("db_object.php");
@@ -17,4 +21,9 @@
     require_once("budget.php");
     require_once("dashboard.php");
 
+
+    
+    
+
+    
 ?>
