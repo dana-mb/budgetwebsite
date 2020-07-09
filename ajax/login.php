@@ -8,7 +8,7 @@
 
     if ($userArray != "") {
 
-        if( $userArray[0]->verified_status == 'unverified' ) {
+        if( $userArray[0]->verified_status != 'unverified' ) {
 
             if( password_verify($_POST['password'].$userArray[0]->unique_id, $userArray[0]->password) )
             {
@@ -42,7 +42,9 @@
             }
 
         } else {
-            echo nl2br("Login failed. The user is not verified in the system.\n Check for the verification email in your mail or try to sign up again in order to send another one.");
+            echo "Login failed. The user is not verified in the system.";
+            echo "<br>";
+            echo "Check for the verification email in your mail or try to sign up again in order to send another one.";
         }
     
     } else {
