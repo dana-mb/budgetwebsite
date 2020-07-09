@@ -53,7 +53,7 @@
             {
               if (data != null) {
                 
-                $('h4#index_message').empty().text(data) ;
+                $('h4#index_message').empty().html(data) ;
                 console.log(data);
                 var url= document.location.href;
                 window.history.pushState({}, "", url.split("?")[0]); //erase the variables from the url 
@@ -98,7 +98,7 @@
               }
               else {
                 toastMassage(data);
-                $('h4#index_message').empty().text(data);
+                $('h4#index_message').empty().html(data);
                 console.log();
               }
             }
