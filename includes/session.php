@@ -21,7 +21,7 @@
                         header ("Location: budget_dashboard.php");
                     }
                 } else {
-                    header ("Location: index.php");
+                    $this->logOut();
                 }   
             } 
             
