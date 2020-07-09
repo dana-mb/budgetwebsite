@@ -2,11 +2,23 @@
 
     require_once("../includes/init.php");
     Session::start();
+
+    // Table Scheme for users table
+    User::create_table();
+
+    // Table Scheme for categories table
+    Category::create_table();
+
+    // Table Scheme for budgets table
+    Budget::create_table();
+
+    // Table Scheme for expenses table
+    Expense::create_table();
     
     $userArray = new User();
     $userArray = $userArray->find_user_by_email($_POST['email']);
 
-    if ($userArray != "") {
+    if ($userArray != null) {
 
         if( $userArray[0]->verified_status != 'unverified' ) {
 
