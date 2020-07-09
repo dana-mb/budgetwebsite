@@ -411,6 +411,10 @@
       #pie {
       max-width: 100%;
     }
+
+    #deleteUser > h5 {
+      max-width: 100%;
+    }
       
 
       /*only when there is a hover option, not on touch screens, for example */
