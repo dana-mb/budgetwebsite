@@ -26,7 +26,9 @@
             $mail->Subject    = $subject;
             $mail->MsgHTML($body);
     
-            $mail->Send();
+            if($mail->Send()) {
+                return true;
+            }
         } 
         
         catch (phpmailerException $e) {

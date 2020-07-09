@@ -6,7 +6,7 @@
     $userArray = new User();
     $userArray = $userArray->find_user_by_email($_POST['email']);
 
-    if ($userArray == null) {
+    if ($userArray != "") {
 
         if( $userArray[0]->verified_status == 'unverified' ) {
 
@@ -42,7 +42,7 @@
             }
 
         } else {
-            echo "Login failed. The user is not verified in the system.<br>Check for the verification email in your mail or try to sign up again in order to send another one.";
+            echo nl2br("Login failed. The user is not verified in the system.\n Check for the verification email in your mail or try to sign up again in order to send another one.");
         }
     
     } else {
