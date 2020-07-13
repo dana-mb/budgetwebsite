@@ -34,11 +34,12 @@ class Dashboard extends Db_object {
                                                     GROUP BY b.budget_start_date, e.category_name) e
 
                                                 ON c.`category_name` = e.`category_name` 
+                                                WHERE `user_id` = ?
                                                 GROUP BY c.`category_name`) s
                                                 
                                             ON e.category_name = s.category_name
                                             WHERE s.expenses > 0
-                                            GROUP BY s.category_name", "ii", [$this->get_user_id(), $this->get_user_id()]);
+                                            GROUP BY s.category_name", "iii", [$this->get_user_id(), $this->get_user_id(), $this->get_user_id()]);
         
         return $dashboard_array;
     }
