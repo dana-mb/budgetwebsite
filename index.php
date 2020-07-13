@@ -35,6 +35,7 @@ $session->session_and_cookie_check();
       <div class="container" id="signup-login-box" style="max-width: 550px">
       
         <form method="post" class="col-md-12" id="sign-up-form">
+        <h5>Sign Up</h5>
           <br>
           <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>
@@ -48,6 +49,12 @@ $session->session_and_cookie_check();
               <input type="password" class="form-control" name="sign-up-password" id="sign-up-inputPassword" placeholder="Password" autocomplete="on">
             </div>
           </div>
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password Verify:</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" name="sign-up-password-verify" id="sign-up-inputPassword-verify" placeholder="Password" autocomplete="on">
+            </div>
+          </div>
           <div class="form-group">
             <button type="submit" form="sign-up-form" name="sign-up" id="sign-up" class="btn btn-outline-success">Sign Up</button>
           </div>
@@ -56,6 +63,7 @@ $session->session_and_cookie_check();
         </form>
 
         <form method="POST" class="col-md-12" id="log-in-form">
+        <h5>Log In</h5>
           <br>
           <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>

@@ -2,6 +2,10 @@
       margin: 0px;
     }
 
+    .jumbotron{
+      height: 100vh;
+    }
+  
     #sign-up-form {
       display: none;
     }

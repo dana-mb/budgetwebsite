@@ -34,7 +34,13 @@
       function verification(e) {
         if("<?php echo $_GET['email']; ?>" == "") {
           if( $("#sign-up-form")[0].checkValidity() ) {
-            e.preventDefault();
+            if( $("#sign-up-inputPassword").val() == $("#sign-up-inputPassword-verify").val() ) {
+              e.preventDefault();
+            } else {
+              e.preventDefault();
+              toastMassage("The passwords don't match. please try again.");
+              return;
+            }
           }
         }
 
