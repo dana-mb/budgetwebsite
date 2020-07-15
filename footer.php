@@ -425,6 +425,7 @@
         var expenseDate = $("#new_expense_date").val();
         var expenseDetails = $("#new-expense-details").val();
         
+        // add the new expense to the db, if successful - show a toast message, empty the values in the form, get out from the pop up
         $.ajax({
           method: 'POST',
           url: "ajax/add_new_expense.php",
@@ -442,6 +443,7 @@
               
               $(location). attr('href', '#');
 
+              // get all the data for the dashboard and insert it into the dashboard
               $.ajax({
                   method: 'POST',
                   url: 'ajax/post_dashboard_expenses.php',
@@ -454,20 +456,21 @@
                       $("#budget-dashboard > tbody").empty().append(data);
                       }
 
-                    //create the data and the colors arrays for the pie chart creation
-                    var data = [];
-                    var label='';
-                    var value='';
+                    // create the data and the colors arrays for the pie chart creation
+                    // change the pie chart according to the dashboard table
+                    // var data = [];
+                    // var label='';
+                    // var value='';
                     
-                    for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
-                    {
-                      data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
-                              , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
+                    // for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
+                    // {
+                    //   data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
+                    //           , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
                       
-                    }
-                    var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
+                    // }
+                    // var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
                     
-                    drawPieChart (data, colors);
+                    // drawPieChart (data, colors);
                   }
                 })
 
