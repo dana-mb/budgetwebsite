@@ -1,9 +1,13 @@
-    body {
+     body {
       margin: 0px;
     }
 
     .jumbotron{
-      height: 100vh;
+      
+      min-height: 100vh;
+      height: fit-content !important;
+      width: 100vw;
+      margin-bottom: 0;
     }
   
     #sign-up-form {
