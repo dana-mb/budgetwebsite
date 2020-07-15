@@ -444,17 +444,17 @@
               $(location). attr('href', '#');
 
               // get all the data for the dashboard and insert it into the dashboard
-              $.ajax({
-                  method: 'POST',
-                  url: 'ajax/post_dashboard_expenses.php',
-                  data: {},
-                  dataType: 'html', //send the datatype to the url
+              // $.ajax({
+              //     method: 'POST',
+              //     url: 'ajax/post_dashboard_expenses.php',
+              //     data: {},
+              //     dataType: 'html', //send the datatype to the url
                   
-                  success: function(data)
-                  {
-                    if(data != "no") {
-                      $("#budget-dashboard > tbody").empty().append(data);
-                      }
+              //     success: function(data)
+              //     {
+              //       if(data != "no") {
+              //         $("#budget-dashboard > tbody").empty().append(data);
+              //         }
 
                     // create the data and the colors arrays for the pie chart creation
                     // change the pie chart according to the dashboard table
@@ -471,8 +471,8 @@
                     // var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
                     
                     // drawPieChart (data, colors);
-                  }
-                })
+                //   }
+                // })
 
             }
             else {
