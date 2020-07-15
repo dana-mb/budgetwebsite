@@ -8,17 +8,14 @@
     if ($dashboard_expenses != null) {
 
         foreach($dashboard_expenses as $dashboard_expense) :
-        
         {
-                echo "<tr>";
-                echo "<td>" . $dashboard_expense->category_name . "</td>";
-                echo "<td>" . $dashboard_expense->monthly_expenses . "</td>";
-                echo "<td>" . $dashboard_expense->expenses . "</td>";
-                echo "<td>" . $dashboard_expense->balance . "</td>";
-                echo "</tr>";
-                
+            echo "<tr>";
+            echo "<td>" . $dashboard_expense->category_name . "</td>";
+            echo "<td>" . $dashboard_expense->monthly_expenses . "</td>";
+            echo "<td>" . $dashboard_expense->expenses . "</td>";
+            echo "<td>" . $dashboard_expense->balance . "</td>";
+            echo "</tr>";    
         }
-
         endforeach;
 
     } else {
