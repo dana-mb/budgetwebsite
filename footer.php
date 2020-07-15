@@ -452,10 +452,10 @@
                   
                   success: function(data)
                   {
-                    if(data != "no") {
+                    // if(data != "no") {
                       console.log(data);
                       $("#budget-dashboard > tbody").empty().append(data);
-                      }
+                      // }
 
                     // create the data and the colors arrays for the pie chart creation
                     // change the pie chart according to the dashboard table
