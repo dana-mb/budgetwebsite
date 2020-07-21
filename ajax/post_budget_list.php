@@ -11,7 +11,8 @@
         {
             echo "<tr>";
             echo "<td>" . $budget->category_name . "</td>";
-            echo "<td>" .  DateTime::createFromFormat('Y-m-d', $budget->budget_start_date)->format('m-Y') . "</td>";
+            echo "<td>" . $budget->budget_start_date . "</td>";
+            // echo "<td>" .  DateTime::createFromFormat('Y-m-d', $budget->budget_start_date)->format('m-Y') . "</td>";
             echo "<td><span>" . $budget->amount . "</span><div class='deleteBudget'></div></td>";
             echo "</tr>";
         }
