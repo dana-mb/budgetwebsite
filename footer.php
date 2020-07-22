@@ -453,7 +453,7 @@
                   success: function(data)
                   {
                     // if(data != "no") {
-                      console.log(data);
+                      // console.log(data);
                       $("#budget-dashboard > tbody").empty().append(data);
                       // }
 
