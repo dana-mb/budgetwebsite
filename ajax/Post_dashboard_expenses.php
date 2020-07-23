@@ -1,6 +1,6 @@
 <?php
     include("../includes/init.php");
-    Session::start(); 
+    Session::start();
 
     $dashboard_expenses = new Dashboard();
     $dashboard_expenses = $dashboard_expenses->expenses_status_dashboard();
