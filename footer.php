@@ -452,26 +452,26 @@
                   
                   success: function(data)
                   {
-                    // if(data != "no") {
-                      // console.log(data);
+                    if(data != "no") {
+                      console.log(data);
                       $("#budget-dashboard > tbody").empty().append(data);
-                      // }
+                      }
 
                     // create the data and the colors arrays for the pie chart creation
                     // change the pie chart according to the dashboard table
-                    // var data = [];
-                    // var label='';
-                    // var value='';
+                    var data = [];
+                    var label='';
+                    var value='';
                     
-                    // for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
-                    // {
-                    //   data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
-                    //           , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
+                    for (var i = 0; i < $('#budget-dashboard tbody tr').length; i++)
+                    {
+                      data.push({label: $('#budget-dashboard tbody tr:eq("'+i+'") td:eq("0")').html()
+                              , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
                       
-                    // }
-                    // var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
+                    }
+                    var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
                     
-                    // drawPieChart (data, colors);
+                    drawPieChart (data, colors);
                   }
                 })
 
