@@ -417,6 +417,13 @@
       }
 
 
+      function overdraft() {
+        $('#budget-dashboard tr:contains("-")').css('background-color','rgb(233, 107, 107)');
+      };
+
+      overdraft();
+
+
       $("#add-new-expense-button").click ( function(e) {
         if($('#new-expense-form')[0].checkValidity()) {
           e.preventDefault();
@@ -456,6 +463,7 @@
                       console.log(data);
                       $("#budget-dashboard > tbody").empty().append(data);
                       }
+                      overdraft();
 
                     // create the data and the colors arrays for the pie chart creation
                     // change the pie chart according to the dashboard table
@@ -489,6 +497,9 @@
         })
       }
       })
+
+
+      
 
 
       function deleteTransaction() {
