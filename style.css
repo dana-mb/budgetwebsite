@@ -10,8 +10,22 @@
       margin-bottom: 0;
     }
   
-    #sign-up-form {
-      display: none;
+    .container > ul > li > a {
+      height: 40px;
+      color: rgb(34, 168, 155);
+    }
+
+    .container > ul > li > a:focus{
+      height: 40px;
+      background-color: rgb(34, 168, 155) !important;
+    }
+
+    .container > ul > li > a:active{
+      background-color: rgb(34, 168, 155) !important;
+    }
+
+    .container form {
+      background-color: transparent;
     }
 
     #topbar-and-nav {
