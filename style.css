@@ -416,12 +416,12 @@
 
       #hamburger {
         display: block;
-        background: url("images/hamburger4.png") no-repeat;
+        background: url("images/hamburger1.png") no-repeat;
         margin-top: 20px;
         margin-bottom: 0px;
         margin-left: 10px;
-        width: 62px;
-        height: 60px;
+        width: 40px;
+        height: 40px;
         background-color: transparent;
         border-style: none;
       }
@@ -443,13 +443,13 @@
       @media not all and (pointer: coarse) {
       
         #hamburger:hover {
-          background-image: url("images/hamburger5.png") ;
+          background-image: url("images/hamburger2.png") ;
         }
   
       }
 
       #hamburger.active {
-        background-image: url("images/hamburger5.png") ;
+        background-image: url("images/hamburger2.png") ;
       }
 
       
