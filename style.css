@@ -43,11 +43,15 @@
     }
     
     #log-off {
-      font-weight: bold;
-      width: 70px;
+      width: 30px;
       height: 30px;
       margin-right: 20px;
+      background: url('images/logout_door1.png') ;
+      background-size: cover;
+      border: none;
+      color: transparent;
     }
+    
     
     #main-headline-log-off {
       display: flex;
@@ -120,6 +124,7 @@
       background-color: rgba(233, 233, 233, 0.589);
       text-align: center;
       min-width: fit-content;
+      margin-bottom: 20px;
     }
 
     #pie {
@@ -130,6 +135,7 @@
     }
 
     /* The same css for all the tables in the website */
+    
     table {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
@@ -137,10 +143,18 @@
       table-layout: fixed;
       max-width: 640px;
       margin: auto;
+      border: solid 1px lightgray;
+    }
+
+    tr {
+      border: transparent;
+    }
+
+    th,td {
+      border-bottom: 1px solid lightgray;
     }
 
      td {
-      border: 1px solid #ddd;
       padding: 8px;
       height: 46px;
     }
@@ -165,10 +179,10 @@
       color: white;
     }
 
-
     #pop-up-button {
       border-radius: 10px;
       border: double thin rgb(34, 168, 155);
+      margin-left: 5px;
       padding: 8px;
       color: rgb(34, 168, 155);
       text-decoration: none;
@@ -394,6 +408,10 @@
     /* -------mostly on cellphones--------*/
     @media (max-width: 640px) {
 
+      #main-headline {
+        font-size: 130%;
+      }
+
       #topbar-and-nav, #container  {
         margin:  auto 5px;
       }
@@ -407,7 +425,7 @@
       }
 
       #container {
-        padding-top: 170px;
+        padding-top: 110px;
       }
 
       #flex-div {
@@ -417,7 +435,7 @@
       #hamburger {
         display: block;
         background: url("images/hamburger1.png") no-repeat;
-        margin-top: 20px;
+        margin-top: 10px;
         margin-bottom: 0px;
         margin-left: 10px;
         width: 40px;
@@ -535,7 +553,7 @@
       }
 
       #container {
-        padding-top: 230px;
+        padding-top: 200px;
       }
 
 

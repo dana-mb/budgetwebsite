@@ -68,7 +68,7 @@
               <div id="dashboard-table">
                 <?php
 
-                  echo "<h4>The budgets for ".date('F Y').":</h4>";
+                  echo "<h5>The budgets for ".date('F Y').":</h5>";
 
                   $dashboard_expenses = new Dashboard();
                   $dashboard_expenses = $dashboard_expenses->expenses_status_dashboard();
