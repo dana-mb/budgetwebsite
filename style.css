@@ -5,7 +5,7 @@
     .jumbotron{
       
       min-height: 100vh;
-      height: fit-content !important;
+      height: fit-content;
       width: 100vw;
       margin-bottom: 0;
     }
@@ -17,11 +17,11 @@
 
     .container > ul > li > a:focus{
       height: 40px;
-      background-color: rgb(34, 168, 155) !important;
+      background-color: rgb(34, 168, 155);
     }
 
     .container > ul > li > a:active{
-      background-color: rgb(34, 168, 155) !important;
+      background-color: rgb(34, 168, 155);
     }
 
     .container form {
