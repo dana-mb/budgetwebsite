@@ -12,7 +12,6 @@ if(isset($_POST['log-off']))
     $session->logOut();
 }
 
-          
 
 ?>
 
@@ -39,7 +38,7 @@ if(isset($_POST['log-off']))
                 <form id="logOff" method="POST"></form>
                 <div class="topbar-text" id="main-headline-log-off">
                     <h4 id="main-headline">The Budget Website</h4>
-                    <input type="submit" style="" form="logOff" name="log-off" id="log-Off">
+                    <input type="submit" form="logOff" name="log-off" id="log-Off">
                 </div>
                 <a href="javascript:void(0);" class="toggleNavMenu" onclick="toggleNavMenu()">
                     <button id="hamburger"></button>
@@ -55,6 +54,4 @@ if(isset($_POST['log-off']))
 
         <div id="toastMessage"></div>
         
-
-        <!-- background:url('images/logout_door1.png'); -->
         
