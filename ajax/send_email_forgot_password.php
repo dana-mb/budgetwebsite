@@ -27,7 +27,7 @@
                 
             //in Amazon
             $mailer = new Mailer();
-            if ($mailer -> send_smtp_mail("Resetting Your Password For the Budget Website", "Please Click On This link http://localhost/index.php?code-for-new-password=".$code."&email-for-new-password=".$email."#overlay to reset your password.", "danamboyko@gmail.com", $email)) {
+            if ($mailer -> send_smtp_mail("Resetting Your Password For the Budget Website", "Please Click On This link http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code-for-new-password=".$code."&email-for-new-password=".$email."#overlay to reset your password.", "danamboyko@gmail.com", $email)) {
             
                 echo "An email with a link to reset your password has been sent to you. Check your email!";
                 exit;
