@@ -49,6 +49,7 @@
           var getCode = "<?php echo $_GET['code']; ?>";
           var getEmail = "<?php echo $_GET['email']; ?>";
           
+          
           $.ajax({
             method: 'POST',
             url: 'ajax/verification.php',
@@ -59,8 +60,7 @@
             {
               if (data != null) {
                 
-                $('h4#index_message').empty().html(data) ;
-                console.log(data);
+                $('h4#index_message').empty().html(data);
                 var url= document.location.href;
                 window.history.pushState({}, "", url.split("?")[0]); //erase the variables from the url 
               }
@@ -117,6 +117,57 @@
 
       $('#log-in').click( login );
 
+
+      function SendMailforgotPassword(e) {
+
+        if("<?php echo $_GET['email-for-new-password']; ?>" == "") {
+          if( $("#forgot-password-form")[0].checkValidity() ) {
+              e.preventDefault();
+          }
+        } else {
+          if( $("#insert-new-password-form")[0].checkValidity() ) {
+            if( $("#new-password").val() == $("#new-password-verify").val() ) {
+              e.preventDefault();
+            } else {
+              e.preventDefault();
+              toastMassage("the passwords don't match. Try again.");
+            }
+          }
+        }
+
+          var email = $('#email-for-forgot-password').val();
+          var getCode = "<?php echo $_GET['code-for-new-password']; ?>";
+          var getEmail = "<?php echo $_GET['email-for-new-password']; ?>";
+          var password = $("#new-password").val();
+          
+          $.ajax({
+            method: 'POST',
+            url: 'ajax/send_email_forgot_password.php',
+            data: { email:email, getCode:getCode, getEmail:getEmail, password:password },
+            dataType: 'html', //send the datatype to the url
+            
+            success: function(data)
+            {
+              if (data == 'ok') {
+                $(location). attr('href', '#');
+                history.pushState({}, null, window.location.href.split('?')[0] );
+                $('h4#index_message').empty().html("Your password has changed successfully, You may now log in!");
+              }
+              else {
+                $('h4#index_message').empty().html(data);
+                console.log();
+              }
+            }
+          })
+          .fail( function (request, errorType, errorMessage) {
+            toastMassage(errorMessage);
+            console.log(errorType);
+          })
+      }
+
+      $('#submit-email-for-forgot-password').click( SendMailforgotPassword );
+
+      $('#insert-new-password-button').click( SendMailforgotPassword );
 
       // delete user and all its data from the db
       function deleteUserAccount() {

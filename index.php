@@ -4,6 +4,7 @@ Session::start();
 
 $session = new Session();
 $session->session_and_cookie_check();
+
 ?>
 
 <html>
@@ -26,6 +27,29 @@ $session->session_and_cookie_check();
   
   <body>
     <div id="toastMessage"></div>
+    
+    <div id="overlay" class="overlay">
+      <div id="pop-up-section">
+        
+        <h4>Enter your new password</h4>
+        <a class="close" href="#">&times;</a>
+          <br>
+        <form class="text-center" id="insert-new-password-form" autocomplete="off">
+          <div class="form-group">
+            <input type='password' id="new-password" placeholder="password" required>
+          </div>
+          <div class="form-group">
+            <input type='password' id="new-password-verify" placeholder="password verification" required>
+          </div>
+          <br>
+          <div class="form-group">
+            <button type="submit" id="insert-new-password-button">Submit</button>
+          </div>
+        </form>
+          
+      </div>
+    </div>
+
     <div class="jumbotron text-center">
       <h1 class="display-4">Creating A Budget</h1>
       <p class="lead">Track and save your money</p>
@@ -34,7 +58,7 @@ $session->session_and_cookie_check();
       
       <div class="container" id="signup-login-box" style="max-width: 300px">
 
-        <ul class=" nav nav-pills justify-content-center">
+        <ul class="nav nav-pills justify-content-center">
           <li><a class="nav-link active" data-toggle="pill" href="#log-in-form">Log In</a></li>
           <li><a class="nav-link" data-toggle="pill" href="#sign-up-form">Sign Up</a></li>
         </ul>
@@ -72,10 +96,28 @@ $session->session_and_cookie_check();
               </div>        
             </div>
             <div class="form-group">
-              <button type="submit" form="log-in-form" name="log-in" id="log-in" class="btn btn-outline-success" >Log In</button>
+              <button type="submit" form="log-in-form" name="log-in" id="log-in" class="btn btn-outline-success">Log In</button>
             </div>
+            <a for="forgot-password-form" class="pointer" type="button" data-toggle="collapse" data-target="#div-email-for-forgot-password" aria-expanded="false" aria-controls="div-email-for-forgot-password">
+              Forgot Password?
+            </a>
           </form>
+
           
+          <div class="collapse" id="div-email-for-forgot-password">
+            <div class="card card-body">
+              <form id="forgot-password-form">
+                <div class="form-group">
+                  <p>Enter your email.<br> If it exist, we will send you an email with a link to reset your password.</p>
+                  <input type="email" class="form-control" name="email-for-forgot-password" id="email-for-forgot-password" placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                  <button type="submit" name="submit-email-for-forgot-password" id="submit-email-for-forgot-password" class="btn btn-outline-success">Submit</button>
+                </div>           
+              </form>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

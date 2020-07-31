@@ -20,7 +20,7 @@
 
     if ($userArray != null) {
 
-        if( $userArray[0]->verified_status != 'unverified' ) {
+        if( $userArray[0]->verified_status == 'verified' ) {
 
             if( password_verify($_POST['password'].$userArray[0]->unique_id, $userArray[0]->password) )
             {

@@ -38,7 +38,7 @@
                 // $to=$email;
                 // $subject="Activation Code For the Budget Website";
                 // $from = "danamboyko@gmail.com";
-                // $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account."; // on localhost: http://localhost/index.php?code=" on amazon: http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code="
+                // $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account.";
                 // $headers = "From:".$from;
                 // if(mail($to,$subject,$body,$headers)) {
                 
@@ -79,7 +79,7 @@
                 // $to=$email;
                 // $subject="Activation Code For the Budget Website";
                 // $from = "danamboyko@gmail.com";
-                // $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account.";  // on localhost: http://localhost/index.php?code=" on amazon: http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code="
+                // $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account.";
                 // $headers = "From:".$from;
                 // if(mail($to,$subject,$body,$headers)) {
                     
@@ -109,42 +109,45 @@
         $userArray = New User();
         $userArray = $userArray->find_user_by_email($email);
 
-       //if the user is verified write that he's verified in the users table
-       if($userArray != null && password_verify($code, $userArray[0]->hashed_code))
-       
-       {
-            $user = new User($email);
-            
-            $new_code= '0';
-            $verified_status= 'verified';
-            
-            
-            if ($user->update('hashed_code',$new_code,'ss') == 'true' && $user->update('verified_status',$verified_status,'ss') == 'true')
-            
-            {
-                
-                echo "Your sign up was successful, You may now log in!";
-                
-                //insert new categories into the category list for the new user
-                
-                $categories = array('Groceries','Going out','Vacation','Dog care','Gifts');
-                foreach ($categories as $category) 
-                {
-                    $newCategory = new Category( $userArray[0]->user_id, $category );
-                    
-                    $newCategory->create();
+        if($userArray[0]->verified_status == 'unverified') {
 
-                }
-            }
-            else 
+            //if the user is verified write that he's verified in the users table
+            if($userArray != null && password_verify($code, $userArray[0]->hashed_code))
+            
             {
-                echo "unsuccessful_signup";
-            }   
-       } else if ($userArray->verified_status == 'unverified')
-        {
-            echo "Your sign up was unsuccessful, please sign up again and verify your email with the last email that is sent to you.";
+                    $user = new User($email);
+                    
+                    $new_code= '0';
+                    $verified_status= 'verified';
+                    
+                    
+                    if ($user->update('hashed_code',$new_code,'ss') == 'true' && $user->update('verified_status',$verified_status,'ss') == 'true')
+                    
+                    {
+                        
+                        echo "Your sign up was successful, You may now log in!";
+                        
+                        //insert new categories into the category list for the new user
+                        
+                        $categories = array('Groceries','Going out','Vacation','Dog care','Gifts');
+                        foreach ($categories as $category) 
+                        {
+                            $newCategory = new Category( $userArray[0]->user_id, $category );
+                            
+                            $newCategory->create();
+
+                        }
+                    }
+                    else 
+                    {
+                        echo "unsuccessful_signup";
+                    }   
+            } else if ($userArray->verified_status == 'unverified')
+                {
+                    echo "Your sign up was unsuccessful, please sign up again and verify your email with the last email that is sent to you.";
+                } 
+        
         } 
-       
    }
 
    
