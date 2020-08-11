@@ -8,22 +8,6 @@
     <!-- Optional JavaScript -->
     <script type="text/javascript">
 
-     /* $(document)
-      .ajaxStart(function ()
-      { 
-        $.ajax({
-          type:"post",
-          url:"check_sessions&cookies.php",
-          datatype:"html",
-          success:function(data)
-          {
-              //do something with response data
-          }
-        });
-      })*/
-
-      
-
       //toggle between the sign-up form & the log-in form
       $(".toggle-forms").click( function() {
         $("#sign-up-form").toggle();
