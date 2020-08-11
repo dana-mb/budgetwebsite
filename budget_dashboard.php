@@ -36,7 +36,7 @@
 
                                 echo ("<img id='add_category' class='block' src='images/plus-sign.png'>
                                         
-                                            <input id='add_category_input' type='text' maxlength='32' onkeypress='return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)' placeholder='New Category' required>
+                                            <input id='add_category_input' type='text' maxlength='32' onkeypress='return (event.charCode > 64 && event.charCode < 91 && event.charCode = 32) || (event.charCode > 96 && event.charCode < 123)' placeholder='New Category' required>
                                             <div id='add-category-field-empty-message'>Please fill out this field</div>
                                             <button class='none'>Add</button>");
                                 
@@ -62,7 +62,7 @@
             </div>
             <div id="flex-div">
               <div id="pie-div">
-                <canvas id="pie" width="400" height="244" ></canvas>
+                <canvas id="pie" width="600" height="366"></canvas>
               </div>
 
               <div id="dashboard-table">

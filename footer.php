@@ -201,14 +201,16 @@
 
       
       //when the page is loaded the nav-button that matches the page name will get an active class
-      document.addEventListener('DOMContentLoaded', function() 
-      {
-        var url = window.location.pathname;
-        var filename = url.substring(url.lastIndexOf('/')+1);
-        var url_nav_name = (filename.substr(7)).replace(/\..+$/, '');
-        var navbutton = document.getElementById(url_nav_name);
-        navbutton.classList.add('active'); 
-      })
+      if(location.pathname.split(/(\\|\/)/g).pop().split('.').slice(0, -1).join('.') != 'index'){
+        document.addEventListener('DOMContentLoaded', function()
+        {
+          var url = window.location.pathname;
+          var filename = url.substring(url.lastIndexOf('/')+1);
+          var url_nav_name = (filename.substr(7)).replace(/\..+$/, '');
+          var navbutton = document.getElementById(url_nav_name);
+          navbutton.classList.add('active'); 
+        })
+      }
       
 
       /* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
@@ -374,9 +376,11 @@
                 , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
         
       }
-      var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
-
       
+      var colors = [ '#2E8B57', '#66CDAA', '#4682B4', '#BEBEB1', '#CD853F', '#3CB371', '#48D1CC', '#B0C4DE', '#8FBC8B', '#41413C' ];
+      // var colors = [ '#FF6969', '#32CD32', '#6969FF', '#F08080', '#4682B4', '#9ACD32', '#40E0D0', '#FFAFAF', '#F0E68C', '#D2B48C' ];
+      // var colors = [ '#FF8000', '#B8860B', '#C04000', '#6B8E23', '#CD853F', '#C0C000', '#228B22', '#D2691E' ];
+
       // create the pie chart only if the dashboard table has any expenses written in the current month
       function checkPieChart() {
         var rows = $('#budget-dashboard tbody tr').length;
@@ -437,8 +441,8 @@
 
 
           var ctx = canvas.getContext('2d');
-          var x = canvas.width / 1.3;
-              y = canvas.height / 1.3;
+          var x = canvas.width / 1.35;
+              y = canvas.height / 1.35;
           var color,
               startAngle,
               endAngle,
@@ -455,14 +459,18 @@
             ctx.beginPath();
             ctx.fillStyle = color;
             //the center of a part of the pie
-            ctx.moveTo(x/3.4, y/2);
+            ctx.moveTo(x/2.6, y/1.48);
             //the center of the whole pie
-            ctx.arc(x/3.4, y/2, y-100, startAngle, endAngle);
+            ctx.arc(x/2.6, y/1.48, y-100, startAngle, endAngle);
             ctx.fill();
-            ctx.rect(canvas.width - 200, y - i * 30 - 100, 12, 12);
+            //the legend
+            legendVerticalPosition = y + i * 30 - 250;
+            legendHorizonalPosition = canvas.width - 215;
+            ctx.rect(legendHorizonalPosition, legendVerticalPosition, 12, 12);
             ctx.fill();
-            ctx.font = "13px sans-serif";
-            ctx.fillText(data[i].label + " - " + data[i].value + " (" + calculatePercent(data[i].value, total) + "%)", canvas.width - 200 + 20, y - i * 30 + 10 - 100);
+            ctx.font = "18px sans-serif";
+            //the squere next to the legend text
+            ctx.fillText(data[i].label + " - " + data[i].value + " (" + calculatePercent(data[i].value, total) + "%)", legendHorizonalPosition + 20, legendVerticalPosition + 10);
           }
         }
       }
@@ -528,7 +536,7 @@
                               , value: parseInt($('#budget-dashboard tbody tr:eq("'+i+'") td:eq("1")').text(),10) });
                       
                     }
-                    var colors = [ '#39CCCC', '#3D9970', '#001F3F', '#85144B' ];
+                    var colors = [ '#2E8B57', '#66CDAA', '#4682B4', '#BEBEB1', '#CD853F', '#3CB371', '#48D1CC', '#B0C4DE', '#8FBC8B', '#41413C' ];
                     
                     drawPieChart (data, colors);
                   }
@@ -588,15 +596,18 @@
 
       $('.deleteTransaction').click( deleteTransaction );
       
-      var date = new Date();
-      $(".budget-starting-month").val(date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0)) ;
-       
+      function budget_month_today() {
+        var date = new Date();
+        $("#budget-insert-month").val(date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0)) ;
+      }
+
+      budget_month_today();
 
        //adding the budget through ajax
       $("#add-budget-button").click ( function(e) {
         if($('#new-budget-form')[0].checkValidity()) {
           e.preventDefault();
-        var categoryName = $("#budget-select-category option:selected").text(); 
+        var categoryName = $("#category-dropdown").val();
         var budgetAmount = $("#budget-insert-amount").val();
         var budgetStartingDate = $("#budget-insert-month").val();
         
@@ -612,10 +623,9 @@
               console.log(categoryName, budgetAmount, budgetStartingDate);
               toastMassage("The budget of "+categoryName+" category has been added successfully");
               $(location). attr('href', '#');
-              $("#new-budget-form input").val('');
-              document.querySelector('#budget-select-category').selectedIndex = 0;
-              
-              
+              $("#pop-up-section input").val('');
+              budget_month_today();
+              $("#categories [type='radio']").prop("checked", false);
               
                 $.ajax({
                   method: 'POST',
@@ -625,6 +635,7 @@
                   
                   success: function(data)
                   {
+                    console.log(data);
                     $("#budget-status > tbody").empty().append(data);
                     $('.deleteBudget').click( deleteBudget );
                   }

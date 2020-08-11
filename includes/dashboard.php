@@ -39,7 +39,8 @@ class Dashboard extends Db_object {
                                                 
                                             ON e.`category_name` = s.`category_name`
                                             WHERE s.expenses > 0
-                                            GROUP BY s.category_name", "iii", [$this->get_user_id(), $this->get_user_id(), $this->get_user_id()]);
+                                            GROUP BY s.category_name
+                                            ORDER BY monthly_expenses DESC", "iii", [$this->get_user_id(), $this->get_user_id(), $this->get_user_id()]);
         
         return $dashboard_array;
     }
