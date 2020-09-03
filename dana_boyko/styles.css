@@ -11,10 +11,6 @@ li {
     padding-left: 20px;
 }
 
-.carousel {
-    /* max-width: 100vw; */
-}
-
 .carousel-control.left, .carousel-control.right, .carousel-control.left:focus, .carousel-control.right:focus {
     background: none !important;
     color: black;
