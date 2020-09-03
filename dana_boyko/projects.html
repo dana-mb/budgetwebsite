@@ -14,11 +14,11 @@
   
   <link href="./assets/apple-touch-icon.png" rel="apple-touch-icon">
   <link href="./assets/favicon.ico" rel="icon">
-
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
  
 
   <title>Dana Boyko- Projects</title>  
-
+<link href="./styles.css" rel="stylesheet">
 <link href="./main.a3f694c0.css" rel="stylesheet"></head>
 
 <body>
@@ -57,70 +57,100 @@
 </header>
 
 
-
-
 <div class="section-container">
-    <div class="container">
-        <div class="row section-container-spacer">
-            <div class="col-xs-12">
-                <div class="text-center">
-                    <h1>Projects</h1>
-                </div>
-                <div class="col-md-8 col-md-offset-2">
-                  <a href="http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/"><h3>Budget website</h3></a>
-                  <p>A Responsive website where the users can keep track on their expenses by creating categories, creating budgets and add expenses.
-                  </p>
-                  <h4>Technology</h4>
-                  <p>The website uses bootstrap for the index page, JavaScript & JQuery, PHP OOP, SQL, CSS and GitHub. <br>
-                    Also, n order to keep the info in the DB safe, the passwords & the tokens (for the cookies) are kept hashed in the DB.</p>
-                </div>
-                <div class="text-center">
-                  
-                </div>
-                </div>
+  <div class="container">
+      <div class="row section-container-spacer">
+          <div class="col-xs-12">
+              <div class="text-center">
+                  <h1>Projects</h1>
+              </div>
+              <div class="col-md-8 col-md-offset-2">
+                <a href="http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/"><h3>The Budget website</h3></a>
+                <p>A Responsive website where the users can keep track on their expenses by creating categories, creating budgets and add expenses.</p>
+              </div>
             </div>
-        </div>
-
-        <div class="section-container">
-          <div class="container">
-                  <div class="row">
-                      <div class="col-xs-12">
-      
-      
-                          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                              
-                              <div class="carousel-inner" role="listbox">
-                                  <div class="item active">
-                                      <img class="img-responsive" src="./assets/images/dashboard.png" alt="First slide">
-                                  </div>
-                                  <div class="item">
-                                      <img class="img-responsive" src="./assets/images/transactions.png" alt="Second slide">
-                                  </div>
-                                  <div class="item">
-                                      <img class="img-responsive" src="./assets/images/budgets.png" alt="Third slide">
-                                  </div>
-                              </div>
-                              <ol class="carousel-indicators">
-                                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                              </ol>
-                          </div>
-      
-      
-                      </div>
-                  </div>
-          </div>
       </div>
 
-        </div>
+      <div class="row section-container-spacer">
+          <div class="col-xs-12">
+                
+              <div class="col-md-8 col-md-offset-2">
+                  
+                  <h4>The Website Content And Technology:</h4>
+                  <ul id="website-technology">
+                    <li>Allows new user signup.</li>
+                    <li>Verifies user email by sending a link with a unique code built-in while saving it hashed in the database.</li>
+                    <li>Stores the user password in the database securely by hashing the password.</li>
+                    <li>Uses PHP classes and objects to interact with the database.</li>
+                    <li>Logs the user in and allows saving user login details by implementing cookies.</li>
+                    <li>Uses session cookies to ensure user can use the website uninterrupted even if they chose not to remember their login details.</li>
+                    <li>The cookies are based on a hashed token created and saved in the database at each user login.</li>
+                    <br><li><b>The users can:</b>
+                      <ul id="website-user-abilities">
+                        <li>Add expense categories - future expenses are grouped by the categories in the dashboard.</li>
+                        <li>add expenses and assign the expenses to a category; add expense amount, date, and description.</li>
+                        <li>Create monthly expense budgets, which are then reflected on a separate page, including the full budget amount and the amount used in a given month.</li>
+                        <li>Set up multiple budgets for multiple categories.</li>
+                        <li>Create a new budget for a category that already has a budget - thus adjusting the budget amount starting at a given date.</li>
+                        <li>Delete budgets, expenses and categories.</li>
+                        <li>Choose to completely delete his or her account form the website. All user-related information is then removed.</li>
+                      </ul>
+                    </li>
+                  </ul>
 
-    </div>
+              </div>
+               
+              <div class="row">
+                  <div class="col-xs-12">
+    
+                      <div id="carouselBudgetWebsite" class="carousel slide" data-ride="none">
+                          
+                          
+
+                          <div class="carousel-inner">
+                              <div class="item active">
+                                  <img class="img-responsive center-block" src="./assets/images/website-dashboard.png" alt="dashboard">
+                              </div>
+                              <div class="item">
+                                  <img class="img-responsive center-block" src="./assets/images/website-transactions.png" alt="transactions">
+                              </div>
+                              <div class="item">
+                                  <img class="img-responsive center-block" src="./assets/images/website-budgets.png" alt="budgets">
+                              </div>
+                          </div>
+    
+                          <a class="left carousel-control" data-slide="prev" href="#carouselBudgetWebsite">
+                            <span class="glyphicon glyphicon-chevron-left icon"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                          <a class="right carousel-control" data-slide="next" href="#carouselBudgetWebsite">
+                            <span class="glyphicon glyphicon-chevron-right icon"></span>
+                            <span class="sr-only">Next</span>
+                          </a>
+
+                          <ol class="carousel-indicators">
+                            <li data-target="#carouselBudgetWebsite" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselBudgetWebsite" data-slide-to="1"></li>
+                            <li data-target="#carouselBudgetWebsite" data-slide-to="2"></li>
+                          </ol>
+                          
+                          
+                      </div>
+    
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+
+        
+
 </div>  
 
 
-<footer>
-</footer>
+
+
 
 <script>
   document.addEventListener("DOMContentLoaded", function (event) {
@@ -142,6 +172,10 @@
 </script>
 
 --> 
-<script type="text/javascript" src="./main.41beeca9.js"></script></body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"></script>
+<script type="text/javascript" src="./main.41beeca9.js"></script>
 
+</body>
 </html>
