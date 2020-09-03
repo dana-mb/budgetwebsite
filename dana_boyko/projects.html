@@ -176,6 +176,18 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"></script>
 <script type="text/javascript" src="./main.41beeca9.js"></script>
+<script type="text/javascript">
+    $(".carousel").swipe({
 
+      swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+
+          if (direction == 'left') $(this).carousel('next');
+          if (direction == 'right') $(this).carousel('prev');
+
+      },
+      allowPageScroll:"vertical"
+
+    });
+</script>
 </body>
 </html>
