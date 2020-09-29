@@ -1,0 +1,189 @@
+#toastMessage {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 99;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#toastMessage.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+#pop-up-button {
+  border-radius: 10px;
+  border: double thin rgb(34, 168, 155);
+  margin-left: 5px;
+  padding: 8px;
+  color: rgb(34, 168, 155);
+  text-decoration: none;
+  width: 140px;
+  /* height: 40px; */
+  font-weight: bold;
+  position: relative;
+  transition: all 0.3s ease-out;
+  z-index: 0;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#pop-up-section button {
+  border: double thin rgb(34, 168, 155);
+  padding: 6px;
+  color: rgb(34, 168, 155);
+  text-decoration: none;
+  font-size: small;
+  font-weight: bold;
+  position: relative;
+  transition: all 0.3s ease-out;
+}
+
+#pop-up-button:hover ,#pop-up-section button:hover {
+  border-color: white;
+  color: white;
+  background-color: rgb(34, 168, 155);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.75);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;
+}
+
+#pop-up-section {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  min-width: fit-content;
+  max-width: 100%;
+  border-style: double;
+  position: fixed;
+  background-color: white;
+  transition: all 5s ease-in-out;
+  padding: 30px;
+}
+
+#pop-up-section .close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+#pop-up-section > ul {
+width: fit-content;
+padding-left: 0;
+}
+
+#pop-up-section > ul > li {
+  margin: 30px auto;
+  list-style: none;
+  width: 250px;
+}
+
+/*only the inputs of new-expense-form*/
+#pop-up-section > ul > li > input {
+  padding-left: 0px;
+} 
+
+#pop-up-section > ul > li > input:placeholder-shown {
+  content: "placeholder";
+}
+
+#pop-up-section > ul > li > input:placeholder-shown:focus{
+  content: "focus";
+}
+
+/*including the input of all the categories*/
+#pop-up-section input {
+  border-style: none none inset none;
+}
+
+#pop-up-section input:focus {
+  outline-style: none;
+  border-color: rgb(34, 168, 155);
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  justify-content: space-around;
+}
+
+.flex-container > div {
+  margin: 15px;
+  padding: 10px;
+  width: 125px;
+  text-align: center;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+/* Time */
+#worldClocks span {
+  padding: 10px;
+  border-style: double;
+  font-size: xxx-large;
+  /* color: bla; */
+  background-color: rgb(197, 195, 195);
+}
+
+#worldClocks-comparison {
+  margin-bottom: 35px;
+  font-size: larger;
+  text-align: center;
+}
+
+#worldClocks-comparison span {
+  margin: 15 40px;
+  display: inline-block;
+  width: 80px;
+  font-weight: bold;
+}
