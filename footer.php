@@ -83,7 +83,7 @@
             success: function(data)
             {
               if (data == 'ok') {
-                eval(window.location.href='../budget_dashboard.php');
+                eval(window.location.href='budget_dashboard.php');
                 console.log(data);
               }
               else {
