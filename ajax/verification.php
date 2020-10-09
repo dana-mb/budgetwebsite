@@ -33,18 +33,29 @@
             $user = new User($email, $unique_id, $pass, $hashed_code, $verified_status);
             if ($user->create() == 'true')
             {
+                $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+
+                if ($email === FALSE) {
+                    echo 'Invalid email';
+                    exit;
+                }
+                
+                $subject = "Activation Code For the Budget Website";
+                $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $_POST['subject']);
+                $body = "Your Activation Code is ".$code." Please Click On This link http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code=".$code."&email=".$email." to activate your account.";
+                $body = str_replace("\n.", "\n..", $body);
+
+
                 // in localhost
                 // $message = "Your Activation Code is ".$code."";
-                // $to=$email;
-                // $subject="Activation Code For the Budget Website";
-                // $from = "danamboyko@gmail.com";
                 // $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account.";
-                // $headers = "From:".$from;
-                // if(mail($to,$subject,$body,$headers)) {
+                // $body = str_replace("\n.", "\n..", $body);
+                // $headers = "From:"."danamboyko@gmail.com";
+                // if(mail($email,$subject,$body,$headers)) {
                 
                 //in Amazon
                 $mailer = new Mailer();
-                if ($mailer -> send_smtp_mail("Activation Code For the Budget Website", "Your Activation Code is ".$code." Please Click On This link http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code=".$code."&email=".$email." to activate your account.", "danamboyko@gmail.com", $email)) {
+                if ($mailer -> send_smtp_mail($subject , $body , "danamboyko@gmail.com", $email)) {
 
                     echo "An Activation Code Is Being Sent To You. Check Your Verification Email!";
                     exit;
@@ -74,18 +85,28 @@
             if ($user->update('unique_id',$unique_id,'ss') == 'true' && $user->update('hashed_code',$hashed_code,'ss') == 'true' && $user->update('password',$pass,'ss') == 'true')
             {
 
+                $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+
+                if ($email === FALSE) {
+                    echo 'Invalid email';
+                    exit;
+                }
+                
+                $subject = "Activation Code For the Budget Website";
+                $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $_POST['subject']);
+                $body = "Your Activation Code is ".$code." Please Click On This link http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code=".$code."&email=".$email." to activate your account.";
+                $body = str_replace("\n.", "\n..", $body);
+
                 // in localhost
                 // $message = "Your Activation Code is ".$code."";
-                // $to=$email;
-                // $subject="Activation Code For the Budget Website";
-                // $from = "danamboyko@gmail.com";
                 // $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account.";
-                // $headers = "From:".$from;
-                // if(mail($to,$subject,$body,$headers)) {
+                // $body = str_replace("\n.", "\n..", $body);
+                // $headers = "From:"."danamboyko@gmail.com";
+                // if(mail($email,$subject,$body,$headers)) {
                     
                 //in Amazon
                 $mailer = new Mailer();
-                if ($mailer -> send_smtp_mail("Activation Code For the Budget Website", "Your Activation Code is ".$code." Please Click On This link http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code=".$code."&email=".$email." to activate your account.", "danamboyko@gmail.com", $email)) {
+                if ($mailer -> send_smtp_mail($subject , $body , "danamboyko@gmail.com", $email)) {
                 
                     echo "An Activation Code Has Been Sent To You Again. Check Your Last Verification Email!";
                     exit;
