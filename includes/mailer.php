@@ -1,5 +1,6 @@
 <?php
     use PHPMailer\PHPMailer\PHPMailer;
+    include("variables_to_ignore.php");
 
     class Mailer {
 
@@ -15,8 +16,8 @@
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host       = 'email-smtp.eu-central-1.amazonaws.com';// Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'AKIAYQJ3TIINQNSW22QI';                 // SMTP username
-            $mail->Password   = 'BJ8HFWgRD0eIFYgohEZoBaeD3ARU/QFnSTYlrSqCHd7r';  // SMTP password
+            $mail->Username   = $mailerUsername;                        // SMTP username
+            $mail->Password   = $mailerPassword;                        // SMTP password
             $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged ---'tls' for amazon service SES
             $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
