@@ -42,17 +42,7 @@ class Database {
             return $result;
         };
         
-}
-
-    public function escape_string($string) {
-        $escape_string = $this->connection->real_escape_string($string);
-        return $escape_string;
-    }
-
-    public function the_insert_id() {
-        
-        return mysqli_insert_id($this->connection);
-    }
+    }   
 
     public static function create_table($sql) {
         $db = new self();
