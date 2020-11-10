@@ -28,10 +28,9 @@
                 
                 // I use the instantation method that loops through the 
                 // columns & records and assign those to our objects' 
-                // properties. we are replacing from our while loop
-                // in admin content "$row['username']": 
-                // $row to object and ['username'] to properties
-                // and now we only bring them to the object array
+                // properties.
+                // loop through each row seperetly and instantiate the values like 
+                // $row['username']" to the properties of the class 
                 $the_object_array[] = static::instantation($row); 
 
             }
@@ -41,29 +40,24 @@
 
 
         public static function instantation($the_record) {
-            
-            //instead off new static like in the users class we estantiate the class 
-            // from outside. we are doing late static binding - use the 
-            // function get_called_class() instead of static
-            $calling_class = get_called_class();
-            $the_object = new $calling_class;
 
+            // get the key and the value from the row from the DB
             foreach ($the_record as $the_attribute => $value) {
 
+                // check if the key exist as a property(attribute) in the object 
                 if($the_object->has_the_attribute($the_attribute)) {
 
+                    // assign the value from the row to the property of the class
                     $the_object->$the_attribute = $value;
 
                 }
-
             }
-
             return $the_object;
-            
         }
 
-
+        // check if the key exist as a property(attribute) in the object 
         private function has_the_attribute($the_attribute) {
+            // get_object_vars returns all the properties from the class even if they're private
             $object_properties = get_object_vars($this);
             return array_key_exists($the_attribute, $object_properties);
         }
@@ -71,13 +65,13 @@
 
         protected function properties() {
             $properties = array();
-            foreach (static::$table_fields as $table_field) { 
-                // check if the property (value- $db_field) from the 
-                // array exist in $this- the class. if it does exist it 
-                // will be assign to $property array
+            // take each item from the variable array 'table_fields' from the class
+            foreach (static::$table_fields as $table_field) {
+                // check if the item exist as property in $this- the class. 
+                // if it does exist and has a value (not empty) 
                 //  AND !empty($this->$table_field)
                 if(property_exists($this, $table_field) AND !empty($this->$table_field)) { 
-                    // because db_field is not a property (it's just a name we gave) it gets $.
+                    // it will be assign to $property array
                     $properties [$table_field] = $this->$table_field; 
                 }
             }
@@ -88,27 +82,31 @@
         public function create() {
             global $database;
 
+            // get all the properties that has been assigned a value
             $properties = $this->properties();
 
             $sql = "INSERT INTO " .static::$table. "(" . implode( ",", array_keys($properties) ) . ")";
             
-            //apply all the values to our object: except the auto incremented id:
+            //apply all the values to our object, except the auto incremented id:
             
             $sql .= " VALUES (".implode( ",", array_fill(0, count($properties), '?') ).") ";
             
             $param = array_values($properties);
 
-            $param_substr = static::$table_param_t;
-            $param_substr_len = strlen($param_substr);
+            // get the parameters type from the variable 'table_param_t' in the class and make it a string
+            $param_type_str = static::$table_param_t;
+            $param_type_str_len = strlen($param_type_str);
+            // get the number of properties
             $properties_count = sizeof($properties);
             
-            // if the param kind is more than the number of properties than remove the last letters from parameter kind 
-            $param_str = ($properties_count == $param_substr_len) ? $param_substr : substr($param_substr, 0, -($param_substr_len-$properties_count));
+            // if the param type lenght is more than the number of properties than remove the last letters from parameter kind 
+            // that's because not all the properties are neccesary (when entering an expense the details prop' is not mendatory)
+            $param_str = ($properties_count == $param_type_str_len) ? $param_type_str : substr($param_type_str, 0, -($param_type_str_len-$properties_count));
 
             if($database->query($sql, $param_str, $param) == true) {
                 return ($database->connection->affected_rows == -1) ? true : false;
 
-                //estantiate the user class, assigned static strings for the object(username..)
+                //estantiate the class, assigned static strings for the object(username..)
             } else {
                 return false;
             }
@@ -122,9 +120,7 @@
             $properties_pairs = array();
 
             foreach ($properties as $key => $value) {
-                // make the $key => $value look like (apply all the values to our object):
-                // "username= '" . $database->escape_string($this->username) . "', ";
-                // and assign is to properties_pairs
+
                 $properties_pairs[] = " `{$key}` = ? "; // single quotes for the strings
                 
             }
@@ -134,7 +130,9 @@
             $sql .= " WHERE ";                  // make sure to have a space before the where, 
             $sql .= implode( " AND ", $properties_pairs );
 
+            // get all the values from properties
             $param = array_values($properties);
+            // insert new array value (the value to update to) to the beginning of the array
             array_unshift($param, $new_value);
 
             if($database->query($sql, $param_kind, $param) == true) {
@@ -155,19 +153,21 @@
             $properties_pairs = array();
 
             foreach ($properties as $key => $value) {
-                // make the $key => $value look like (apply all the values to our object):
-                // "username= '" . $database->escape_string($this->username) . "', ";
-                // and assign is to properties_pairs
+
                 $properties_pairs[] = " `{$key}` = ? "; // single quotes for the strings
                 
             }
             $sql .= implode( "AND", $properties_pairs );
             
-            $param_substr = static::$table_param_t;
-            $param_substr_len = strlen($param_substr);
+            // get the parameters type from the variable 'table_param_t' in the class and make it a string
+            $param_type_str = static::$table_param_t;
+            $param_type_str_len = strlen($param_type_str);
+            // get the number of properties
             $properties_count = sizeof($properties);
             
-            $param_str = ($properties_count == $param_substr_len) ? $param_substr : substr($param_substr, 0, -($param_substr_len-$properties_count));
+            // if the param type lenght is more than the number of properties than remove the last letters from parameter kind 
+            // that's because not all the properties are neccesary (when entering an expense the details prop' is not mendatory)
+            $param_str = ($properties_count == $param_type_str_len) ? $param_type_str : substr($param_type_str, 0, -($param_type_str_len-$properties_count));
             
             if ($database->query($sql, $param_str, array_values($properties)) == true) {
                 return ($database->connection->affected_rows == -1) ? true : false;
