@@ -76,10 +76,10 @@
                   echo "<table id='budget-dashboard' border='1'>
                   <thead>
                   <tr>
-                  <th>Category Name</th>
-                  <th>Monthly Expenses</th>
-                  <th>Expenses</th>
-                  <th>Balance</th>
+                  <th onclick='sortTable(this,0)'>Category Name</th>
+                  <th onclick='sortTable(this,1)'>Monthly Expenses</th>
+                  <th onclick='sortTable(this,2)'>Expenses</th>
+                  <th onclick='sortTable(this,3)'>Balance</th>
                   
                   </tr>
                   </thead>
