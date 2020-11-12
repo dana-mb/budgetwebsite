@@ -12,6 +12,8 @@
         
         try{
             //Server settings
+            $mail->SMTPDebug = SMTP::DEBUG_CONNECTION;
+            $mail->SMTPDebug = 3;
             $mail->SMTPDebug = 0;                                       // 1 to enables SMTP debug (for testing), 0 to disable debug (for production)
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host       = 'email-smtp.eu-central-1.amazonaws.com';// Set the SMTP server to send through
