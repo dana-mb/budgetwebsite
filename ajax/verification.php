@@ -33,7 +33,7 @@
             $user = new User($email, $unique_id, $pass, $hashed_code, $verified_status);
             if ($user->create() == 'true')
             {
-                $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+                $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Preventing Email Injection
 
                 if ($email === FALSE) {
                     echo 'Invalid email';
@@ -41,9 +41,9 @@
                 }
                 
                 $subject = "Activation Code For the Budget Website";
-                $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $_POST['subject']);
-                $body = "Your Activation Code is ".$code." Please Click On This link http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code=".$code."&email=".$email." to activate your account.";
-                $body = str_replace("\n.", "\n..", $body);
+                $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $subject); // Preventing Email Injection
+                $body = "Your Activation Code is ".$code." Please Click On This link http://danamb-env.eba-zvabvwvt.eu-central-1.elasticbeanstalk.com/budgetwebsite/index.php?code=".$code."&email=".$email." to activate your account.";
+                $body = str_replace("\n.", "\n..", $body); // Preventing Email Injection
 
 
                 // in localhost
@@ -85,7 +85,7 @@
             if ($user->update('unique_id',$unique_id,'ss') == 'true' && $user->update('hashed_code',$hashed_code,'ss') == 'true' && $user->update('password',$pass,'ss') == 'true')
             {
 
-                $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+                $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Preventing Email Injection
 
                 if ($email === FALSE) {
                     echo 'Invalid email';
@@ -93,9 +93,9 @@
                 }
                 
                 $subject = "Activation Code For the Budget Website";
-                $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $_POST['subject']);
-                $body = "Your Activation Code is ".$code." Please Click On This link http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code=".$code."&email=".$email." to activate your account.";
-                $body = str_replace("\n.", "\n..", $body);
+                $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $subject); // Preventing Email Injection
+                // $body = "Your Activation Code is ".$code." Please Click On This link http://danamb-env.eba-zvabvwvt.eu-central-1.elasticbeanstalk.com/budgetwebsite/index.php?code=".$code."&email=".$email." to activate your account.";
+                // $body = str_replace("\n.", "\n..", $body); // Preventing Email Injection
 
                 // in localhost
                 // $message = "Your Activation Code is ".$code."";
