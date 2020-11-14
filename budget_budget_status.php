@@ -56,9 +56,9 @@
                 echo "<table id='budget-status' border='1'>
                 <thead>
                 <tr>
-                <th>Category Name</th>
-                <th>Starting Month</th>
-                <th>Amount</th>
+                <th onclick='sortTable(this,0)'>Category Name</th>
+                <th onclick='sortTable(this,1)'>Starting Month</th>
+                <th onclick='sortTable(this,2)'>Amount</th>
                 </tr>
                 </thead>
                 <tbody>";

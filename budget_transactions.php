@@ -12,10 +12,10 @@
                 echo "<table id='expenses' border='1'>
                 <thead>
                 <tr>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Details</th>
+                <th onclick='sortTable(this,0)'>Date</th>
+                <th onclick='sortTable(this,1)'>Amount</th>
+                <th onclick='sortTable(this,2)'>Category</th>
+                <th onclick='sortTable(this,3)'>Details</th>
                 </tr>
                 </tbody>";
                 echo "<tbody>";
