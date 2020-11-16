@@ -1,6 +1,5 @@
 <?php
 
-    // include(variables_to_ignore.php);
     // The 4 rows below install PHPMailer using Composer, following PHPMailer best practices:
     // https://github.com/PHPMailer/PHPMailer#installation--loading
     use PHPMailer\PHPMailer\PHPMailer;

@@ -34,12 +34,12 @@ $session->session_and_cookie_check();
         <h4>Enter your new password</h4>
         <a class="close" href="#">&times;</a>
           <br>
-        <form class="text-center" id="insert-new-password-form" autocomplete="off">
+        <form class="text-center" id="insert-new-password-form">
           <div class="form-group">
-            <input type='password' id="new-password" placeholder="password" required>
+            <input type='password' id="new-password" placeholder="password" autocomplete="new-password" required>
           </div>
           <div class="form-group">
-            <input type='password' id="new-password-verify" placeholder="password verification" required>
+            <input type='password' id="new-password-verify" placeholder="password verification" autocomplete="new-password" required>
           </div>
           <br>
           <div class="form-group">
@@ -68,13 +68,13 @@ $session->session_and_cookie_check();
           <form method="post" class="tab-pane col-md-12" id="sign-up-form">
             <br>
             <div class="form-group row">
-              <input type="email" class="form-control" name="sign-up-email" id="sign-up-inputEmail" placeholder="email@example.com">
+              <input type="email" class="form-control" name="sign-up-email" id="sign-up-inputEmail" placeholder="email@example.com" autocomplete="username">
             </div>
             <div class="form-group row">
-              <input type="password" class="form-control" name="sign-up-password" id="sign-up-inputPassword" placeholder="password" autocomplete="on">
+              <input type="password" class="form-control" name="sign-up-password" id="sign-up-inputPassword" placeholder="password" autocomplete="new-password">
             </div>
             <div class="form-group row">
-              <input type="password" class="form-control" name="sign-up-password-verify" id="sign-up-inputPassword-verify" placeholder="password verification" autocomplete="on">
+              <input type="password" class="form-control" name="sign-up-password-verify" id="sign-up-inputPassword-verify" placeholder="password verification" autocomplete="new-password">
             </div>
             <div class="form-group">
               <button type="submit" form="sign-up-form" name="sign-up" id="sign-up" class="btn btn-outline-success">Sign Up</button>
@@ -84,10 +84,10 @@ $session->session_and_cookie_check();
           <form method="POST" class="tab-pane active col-md-12" id="log-in-form">
             <br>
             <div class="form-group row">
-              <input type="email" class="form-control" name="log-in-email" id="log-in-inputEmail" placeholder="email@example.com">
+              <input type="email" class="form-control" name="log-in-email" id="log-in-inputEmail" placeholder="email@example.com" autocomplete="username">
             </div>
             <div class="form-group row">
-              <input type="password" class="form-control" name="log-in-password" id="log-in-inputPassword" placeholder="password" autocomplete="on">
+              <input type="password" class="form-control" name="log-in-password" id="log-in-inputPassword" placeholder="password" autocomplete="current-password">
             </div>
             <div class="form-group">
               <div class="form-check">              
@@ -109,7 +109,7 @@ $session->session_and_cookie_check();
               <form id="forgot-password-form">
                 <div class="form-group">
                   <p>Enter your email.<br> If it exist, we will send you an email with a link to reset your password.</p>
-                  <input type="email" class="form-control" name="email-for-forgot-password" id="email-for-forgot-password" placeholder="email@example.com">
+                  <input type="email" class="form-control" name="email-for-forgot-password" id="email-for-forgot-password" placeholder="email@example.com" autocomplete="username">
                 </div>
                 <div class="form-group">
                   <button type="submit" name="submit-email-for-forgot-password" id="submit-email-for-forgot-password" class="btn btn-outline-success">Submit</button>

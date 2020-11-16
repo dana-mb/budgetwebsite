@@ -1,7 +1,5 @@
 <?php
-    
 
-    
     require_once("config.php");
     require_once("mailer.php");
     require_once("database.php");
@@ -14,9 +12,4 @@
     require_once("budget.php");
     require_once("dashboard.php");
 
-
-    
-    
-
-    
 ?>
