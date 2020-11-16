@@ -41,6 +41,11 @@
 
         public static function instantation($the_record) {
 
+            // get the class name where the static method is called
+            $calling_class = get_called_class();
+            // create a new object of this class
+            $the_object = new $calling_class;
+
             // get the key and the value from the row from the DB
             foreach ($the_record as $the_attribute => $value) {
 

@@ -94,8 +94,8 @@
                 
                 $subject = "Activation Code For the Budget Website";
                 $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $subject); // Preventing Email Injection
-                // $body = "Your Activation Code is ".$code." Please Click On This link http://danamb-env.eba-zvabvwvt.eu-central-1.elasticbeanstalk.com/budgetwebsite/index.php?code=".$code."&email=".$email." to activate your account.";
-                // $body = str_replace("\n.", "\n..", $body); // Preventing Email Injection
+                $body = "Your Activation Code is ".$code." Please Click On This link http://danamb-env.eba-zvabvwvt.eu-central-1.elasticbeanstalk.com/budgetwebsite/index.php?code=".$code."&email=".$email." to activate your account.";
+                $body = str_replace("\n.", "\n..", $body); // Preventing Email Injection
 
                 // in localhost
                 // $message = "Your Activation Code is ".$code."";
