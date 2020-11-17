@@ -41,21 +41,14 @@
                 }
                 
                 $subject = "Activation Code For the Budget Website";
-                $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $subject); // Preventing Email Injection
-                $body = "Your Activation Code is ".$code." Please Click On This link http://danamb-env.eba-zvabvwvt.eu-central-1.elasticbeanstalk.com/budgetwebsite/index.php?code=".$code."&email=".$email." to activate your account.";
-                $body = str_replace("\n.", "\n..", $body); // Preventing Email Injection
+                // $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $subject); // Preventing Email Injection
+                $local= "Your Activation Code is ".$code." Please Click On This link http://localhost/budgetwebsite/index.php?code=".$code."&email=".$email." to activate your account.";
+                $web_server = "Your Activation Code is ".$code." Please Click On This link  ".WEB_SERVER_LINK."/index.php?code=".$code."&email=".$email." to activate your account.";
+                $body = $_SERVER['HTTP_HOST'] == 'localhost' ? $local : $web_server;
+                // $body = str_replace("\n.", "\n..", $body); // Preventing Email Injection
 
-
-                // in localhost
-                // $message = "Your Activation Code is ".$code."";
-                // $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account.";
-                // $body = str_replace("\n.", "\n..", $body);
-                // $headers = "From:"."danamboyko@gmail.com";
-                // if(mail($email,$subject,$body,$headers)) {
-                
-                //in Amazon
                 $mailer = new Mailer();
-                if ($mailer -> send_smtp_mail($subject , $body , "danamboyko@gmail.com", $email)) {
+                if ($mailer -> send_smtp_mail($subject , $body , EMAIL_FROM, $email)) {
 
                     echo "An Activation Code Is Being Sent To You. Check Your Verification Email!";
                     exit;
@@ -84,29 +77,22 @@
             
             if ($user->update('unique_id',$unique_id,'ss') == 'true' && $user->update('hashed_code',$hashed_code,'ss') == 'true' && $user->update('password',$pass,'ss') == 'true')
             {
-
                 $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Preventing Email Injection
 
                 if ($email === FALSE) {
                     echo 'Invalid email';
                     exit;
                 }
-                
+
                 $subject = "Activation Code For the Budget Website";
                 $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $subject); // Preventing Email Injection
-                $body = "Your Activation Code is ".$code." Please Click On This link http://danamb-env.eba-zvabvwvt.eu-central-1.elasticbeanstalk.com/budgetwebsite/index.php?code=".$code."&email=".$email." to activate your account.";
+                $local= "Your Activation Code is ".$code." Please Click On This link http://localhost/budgetwebsite/index.php?code=".$code."&email=".$email." to activate your account.";
+                $web_server = "Your Activation Code is ".$code." Please Click On This link  ".WEB_SERVER_LINK."/index.php?code=".$code."&email=".$email." to activate your account.";
+                $body = $_SERVER['HTTP_HOST'] == 'localhost' ? $local : $web_server;
                 $body = str_replace("\n.", "\n..", $body); // Preventing Email Injection
-
-                // in localhost
-                // $message = "Your Activation Code is ".$code."";
-                // $body= "Your Activation Code is ".$code." Please Click On This link http://localhost/index.php?code=".$code."&email=".$email." to activate your account.";
-                // $body = str_replace("\n.", "\n..", $body);
-                // $headers = "From:"."danamboyko@gmail.com";
-                // if(mail($email,$subject,$body,$headers)) {
-                    
-                //in Amazon
+                
                 $mailer = new Mailer();
-                if ($mailer -> send_smtp_mail($subject , $body , "danamboyko@gmail.com", $email)) {
+                if ($mailer -> send_smtp_mail($subject , $body , EMAIL_FROM, $email)) {
                 
                     echo "An Activation Code Has Been Sent To You Again. Check Your Last Verification Email!";
                     exit;

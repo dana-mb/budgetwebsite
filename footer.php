@@ -131,10 +131,17 @@
             
             success: function(data)
             {
+              $(location). attr('href', '#');
+              history.pushState({}, null, window.location.href.split('?')[0] );
+              
               if (data == 'ok') {
-                $(location). attr('href', '#');
-                history.pushState({}, null, window.location.href.split('?')[0] );
                 $('h4#index_message').empty().html("Your password has changed successfully, You may now log in!");
+              }
+              else if (data == 'verified') {
+                $('h4#index_message').empty().html("It looks like you have entered the website after you sent the password reset email from here. <br>Please press on the forgot password button again to reset you password");
+              }
+              else if (data == 'wrong code') {
+                $('h4#index_message').empty().html("It looks like you opened an outdated email. <br>Please open the last email you've got and press on the link to reset your password <br>or press on forgot password again to send a new email to reset your password");
               }
               else {
                 $('h4#index_message').empty().html(data);

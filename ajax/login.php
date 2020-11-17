@@ -20,10 +20,15 @@
 
     if ($userArray != null) {
 
-        if( $userArray[0]->verified_status == 'verified' ) {
+        if( $userArray[0]->verified_status == 'verified' || $userArray[0]->verified_status == 'forgot password' ) {
 
             if( password_verify($_POST['password'].$userArray[0]->unique_id, $userArray[0]->password) )
             {
+                if ($userArray[0]->verified_status == 'forgot password') {
+                    $user1 = new User($_POST['email']);
+                    $user1->update('verified_status','verified','ss');
+                }
+
                 $token= bin2hex(random_bytes(16));
                 $hashed_token= password_hash( $token, PASSWORD_DEFAULT, ['cost' => 12] );
                 $email= $_POST['email'];
@@ -52,7 +57,7 @@
             {
                 echo "Login failed. Check the email-password combination and try again!";
             }
-
+        
         } else {
             echo "Login failed. The user is not verified in the system.<br>Check for the verification email in your mail or try to sign up again in order to send another one.";
         }

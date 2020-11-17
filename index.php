@@ -35,6 +35,7 @@ $session->session_and_cookie_check();
         <a class="close" href="#">&times;</a>
           <br>
         <form class="text-center" id="insert-new-password-form">
+          <input type='text' style="display: none;" autocomplete="username">
           <div class="form-group">
             <input type='password' id="new-password" placeholder="password" autocomplete="new-password" required>
           </div>

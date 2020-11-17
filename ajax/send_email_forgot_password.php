@@ -16,18 +16,22 @@
         
         if ($user->update('hashed_code',$hashed_code,'ss') == 'true' && $user->update('verified_status','forgot password','ss') == 'true') {
             
-            // in localhost
-            // $message = "Resetting your password by clicking on the link";
-            // $to=$email;
-            // $subject="Resetting Your Password For the Budget Website";
-            // $from = "danamboyko@gmail.com";
-            // $body= "Please Click On This link http://localhost/index.php?code-for-new-password=".$code."&email-for-new-password=".$email."#overlay to reset your password.";
-            // $headers = "From:".$from;
-            // if(mail($to,$subject,$body,$headers)) {
-                
-            //in Amazon
+            $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Preventing Email Injection
+
+            if ($email === FALSE) {
+                echo 'Invalid email';
+                exit;
+            }
+
+            $subject="Resetting Your Password For the Budget Website";
+            $subject = str_ireplace(array("\r", "\n", '%0A', '%0D'), '', $subject); // Preventing Email Injection
+            $local = "Please Click On This link http://localhost/budgetwebsite/index.php?code-for-new-password=".$code."&email-for-new-password=".$email."#overlay to reset your password.";
+            $web_server = "Please Click On This link ".WEB_SERVER_LINK."index.php?code-for-new-password=".$code."&email-for-new-password=".$email."#overlay to reset your password.";
+            $body = $_SERVER['HTTP_HOST'] == 'localhost' ? $local : $web_server;
+            $body = str_replace("\n.", "\n..", $body); // Preventing Email Injection
+            
             $mailer = new Mailer();
-            if ($mailer -> send_smtp_mail("Resetting Your Password For the Budget Website", "Please Click On This link http://budgetwebsite-env-1.eba-wvkeagmw.eu-central-1.elasticbeanstalk.com/index.php?code-for-new-password=".$code."&email-for-new-password=".$email."#overlay to reset your password.", "danamboyko@gmail.com", $email)) {
+            if ($mailer -> send_smtp_mail($subject, $body, "danamboyko@gmail.com", $email)) {
             
                 echo "An email with a link to reset your password has been sent to you. Check your email!";
                 exit;
@@ -61,7 +65,13 @@
         
                     echo "ok";
                 }
+
+            } else {
+                echo 'wrong code';
             }
+
+        } else if ($userArray[0]->verified_status == 'verified') {
+            echo 'verified';
         }
     }
 
