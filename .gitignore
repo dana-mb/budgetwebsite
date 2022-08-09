@@ -1,2 +1,9 @@
 /includes/variables_to_ignore.php
 /includes/config.php
+sftp.json
+.vscode
+.git
+.DS_Store
+.gitignore
+.github
+.vs
