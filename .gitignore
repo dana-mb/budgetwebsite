@@ -1,8 +1,8 @@
 /includes/variables_to_ignore.php
 /includes/config.php
-sftp.json
-.vscode
 .git
 .DS_Store
 .github
 .vs
+.vscode
+sftp.json
